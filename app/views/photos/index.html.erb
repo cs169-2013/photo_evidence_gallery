@@ -1,0 +1,40 @@
+<h1>Listing photos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Caption</th>
+      <th>Tags</th>
+      <th>Incidentname</th>
+      <th>Operationalperiod</th>
+      <th>Teamnumber</th>
+      <th>Contenttype</th>
+      <th>Filename</th>
+      <th>Photo</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @photos.each do |photo| %>
+      <tr>
+        <td><%= photo.caption %></td>
+        <td><%= photo.tags %></td>
+        <td><%= photo.incidentName %></td>
+        <td><%= photo.operationalPeriod %></td>
+        <td><%= photo.teamNumber %></td>
+        <td><%= photo.contentType %></td>
+        <td><%= photo.filename %></td>
+        <td><%= image_tag("/photos/code_image/#{photo.id}", :alt => "Image") %></td>
+        <td><%= link_to 'Show', photo %></td>
+        <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+        <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Photo', new_photo_path %>

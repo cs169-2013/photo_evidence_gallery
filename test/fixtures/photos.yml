@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  caption: MyString
+  tags: MyString
+  incidentName: MyString
+  operationalPeriod: MyString
+  teamNumber: MyString
+  contentType: MyString
+  filename: MyString
+  binaryData: 
+
+two:
+  caption: MyString
+  tags: MyString
+  incidentName: MyString
+  operationalPeriod: MyString
+  teamNumber: MyString
+  contentType: MyString
+  filename: MyString
+  binaryData: 
