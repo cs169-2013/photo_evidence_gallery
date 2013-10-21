@@ -35,7 +35,7 @@
   <%= @photo.filename %>
 </p>
 
-<%= image_tag  @photo.image_url(:thumb)%>
+<%= image_tag  @photo.image_url(:thumb) if @photo.image? %>
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>
