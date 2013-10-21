@@ -11,11 +11,21 @@ Background: I am on the homepage
 	
 Scenario: search finds one photo
 	When I search for "Sunglasses"
-	Then I should see the image Sunglasses
+	Then I should see "Sunglasses"
+	And I should not see "Tree"
+	And I should not see "Fish"
+	And I should not see "Shoe"
 Scenario: search finds multiple photos
 	When I search for "team 2"
-	Then I should see the image Tree
-	And I should see the image Fish
+	Then I should see "Tree"
+	And I should see "Fish"
+	And I should not see "Shoe"
+	And I should not see "Sunglasses"
 Scenario: search can't find anything
 	When I search for "May"
 	Then I should see "No images match"
+	And I should not see "Tree"
+	And I should not see "Fish"
+	And I should not see "Shoe"
+	And I should not see "Sunglasses"
+
