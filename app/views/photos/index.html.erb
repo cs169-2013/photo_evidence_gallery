@@ -22,7 +22,7 @@ a:active {color:#000000;}  /* selected link */
 		<tr>
 			<% photo_pack.each do |photo| %>
         <td  align="center" valign="center">
-        	<%= image_tag("/photos/code_image/#{photo.id}", :alt => "Image", :width => 250, :height => 250) %></br>
+        	<%= link_to image_tag("/photos/code_image/#{photo.id}", :alt => "Image", :width => 250, :height => 250), photo %></br>
         	<%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
 			</td>
     <% end %>
