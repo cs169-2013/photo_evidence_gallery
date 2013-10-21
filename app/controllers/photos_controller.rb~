@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
 		pack_number = 0
 		@bin_size = 3
 		@photos.each do |photo|
-			if counter == @bin_size
+			if counter == bin_size
 				counter = 0
 				pack_number += 1
 				@photo_pack[pack_number]=[]
