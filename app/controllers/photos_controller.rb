@@ -81,6 +81,27 @@ class PhotosController < ApplicationController
                       :disposition => 'inline'
   end
 
+	def multiple_uploads
+		#@photos = Photo.new
+		#if params[:photos]
+			#params[:photos][:images].each do |photo|
+				#Photo.new({:image_file => photo})
+			#end
+		#end
+		#flash[:notice] = "multiple images uploaded"
+	end
+	
+	def make_multiple
+		if params[:photos]
+			params[:photos][:images].each do |photo|
+				@photo = Photo.new({:image_file => photo})
+				@photo.save
+			end
+		end
+		redirect_to photos_multiple_uploads_path, notice: "multiple images uploaded"
+		#flash[:notice] = "multiple images uploaded"
+	end
+	
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
@@ -89,6 +110,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image_file)
+      params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image_file, :images)
     end
 end

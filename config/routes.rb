@@ -1,4 +1,6 @@
 PhotoApp::Application.routes.draw do
+  get 'photos/multiple_uploads' => 'photos#multiple_uploads'
+  post 'photos/multiple_uploads' => 'photos#make_multiple'
   resources :photos
 
   get 'photos/code_image/:id' => 'photos#code_image'
@@ -10,6 +12,7 @@ PhotoApp::Application.routes.draw do
   # root 'welcome#index'
 
   root 'photos#index'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
