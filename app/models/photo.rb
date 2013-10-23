@@ -1,4 +1,6 @@
 class Photo < ActiveRecord::Base
+	attr_accessor :edited
+	
 	def image_file=(input_data)
 		self.filename = input_data.original_filename
 		self.contentType = input_data.content_type.chomp
@@ -7,6 +9,7 @@ class Photo < ActiveRecord::Base
 
 	def create
 		Photo.create(params[:photo])
+		@edited = true
 	end
 
 end
