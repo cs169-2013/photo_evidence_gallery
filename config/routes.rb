@@ -1,4 +1,6 @@
 PhotoApp::Application.routes.draw do
+  resources :users
+
   resources :photos
 
   get 'photos/code_image/:id' => 'photos#code_image'
