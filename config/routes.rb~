@@ -1,9 +1,10 @@
 PhotoApp::Application.routes.draw do
   get 'photos/multiple_uploads' => 'photos#multiple_uploads'
+  post 'photos/multiple_uploads' => 'photos#make_multiple'
   resources :photos
 
   get 'photos/code_image/:id' => 'photos#code_image'
-  post 'photos/multiple_uploads' => 'photos#make_multiple'
+  get 'photos/edit_queue' => 'photos#edit_queue', as: 'edit_queue'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
