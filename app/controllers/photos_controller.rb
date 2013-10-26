@@ -38,6 +38,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
+    @photo.edited = true
 
     respond_to do |format|
       if @photo.save
@@ -80,26 +81,33 @@ class PhotosController < ApplicationController
                       :filename => @photo.filename, 
                       :disposition => 'inline'
   end
-
+	
+	# GET
 	def multiple_uploads
-		#@photos = Photo.new
-		#if params[:photos]
-			#params[:photos][:images].each do |photo|
-				#Photo.new({:image_file => photo})
-			#end
-		#end
-		#flash[:notice] = "multiple images uploaded"
 	end
 	
+	#POST
 	def make_multiple
-		if params[:photos]
+		if params[:photos] and params[:photos][:images]
 			params[:photos][:images].each do |photo|
 				@photo = Photo.new({:image_file => photo})
+				@photo.edited = false
 				@photo.save
+#				respond_to do |format|
+#				  if @photo.save
+#				  
+#			  	else
+#            format.html { render action: 'make_multiple' }
+#            format.json { render :error => 'Image #{@photo} failed to upload' }		  
+#				  end
+#				end
 			end
+			flash[:notice] = "multiple images uploaded"
+			redirect_to photos_multiple_uploads_path
+		else
+		  flash[:notice] = "No files chosen!"
+		  redirect_to photos_multiple_uploads_path
 		end
-		redirect_to photos_multiple_uploads_path, notice: "multiple images uploaded"
-		#flash[:notice] = "multiple images uploaded"
 	end
 	
   private
