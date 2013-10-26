@@ -15,8 +15,10 @@ class PhotosController < ApplicationController
 				pack_number += 1
 				@photo_pack[pack_number]=[]
 			end
-			@photo_pack[pack_number] << photo
-			counter += 1
+			if photo.edited
+				@photo_pack[pack_number] << photo
+				counter += 1
+			end
 		end
   end
 
@@ -54,6 +56,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    @photo.edited = true
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
@@ -107,6 +110,26 @@ class PhotosController < ApplicationController
 		else
 		  flash[:notice] = "No files chosen!"
 		  redirect_to photos_multiple_uploads_path
+		end
+	end
+	
+	#GET
+	def edit_queue
+    @photos = Photo.all
+		@photo_pack = [[]]
+		counter = 0
+		pack_number = 0
+		@bin_size = 3
+		@photos.each do |photo|
+			if counter == @bin_size
+				counter = 0
+				pack_number += 1
+				@photo_pack[pack_number]=[]
+			end
+			if !photo.edited
+				@photo_pack[pack_number] << photo
+				counter += 1
+		  end
 		end
 	end
 	
