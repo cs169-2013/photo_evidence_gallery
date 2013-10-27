@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:photos, :html => {:multipart => true}, :url=>{:action=>'make_multiple'}) do |f| %>
+  
+  <%= f.file_field :images, :multiple => 'true' %>
+   
+  <div class="actions">
+  	<%= f.submit %>
+  </div>
+	
+	<%= link_to 'Back', photos_path %>
+<% end %>

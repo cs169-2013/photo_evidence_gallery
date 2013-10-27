@@ -6,7 +6,7 @@ Feature: Upload a single image to the app
 	
 Background: I am on the homepage
 
-	Given I am on the Photo/Evidence Gallery homepage
+	Given I am on the PhotoApp homepage
 	
 Scenario: uploading a single photo
 	When I follow "New Photo"
@@ -16,6 +16,7 @@ Scenario: uploading a single photo
 	And I fill in "Incidentname" with "test"
 	And I fill in "Operationalperiod" with "today"
 	And I fill in "Teamnumber" with "2"
+	And I upload the image "Water.jpg"
 	And I press "Create Photo"
 	And I follow "Back"
 	Then I should see "Tree"
