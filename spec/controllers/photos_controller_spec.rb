@@ -100,4 +100,40 @@ describe PhotosController do
     end
   end
   
+  describe "code_image" do
+    it "sends data to controller" do
+    
+    end
+    
+  end
+      
+  describe "GET #edit_queue" do
+    before(:each) do
+      photo1 = Photo.create!()
+      get :edit_queue
+    end
+    
+    it "populates an array of photos" do
+      assigns(:photos).should_not be_nil
+      assigns(:photos).length.should == 1
+      assigns(:photo_pack).length.should == 1
+    end
+    
+    it "leaves @binsize number of photos in each row" do
+      @counter = 0
+      while @counter < assigns(:bin_size)
+        @counter+=1
+        Photo.create!(:filename => "name_#{@counter}")
+      end
+      get :edit_queue
+      
+      assigns(:photos).length.should == assigns(:bin_size) + 1
+      assigns(:photo_pack).length.should == 2
+    end
+    
+    it "renders the :index view" do
+      get :edit_queue 
+      response.should render_template :edit_queue
+    end 
+  end
 end
