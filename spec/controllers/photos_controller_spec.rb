@@ -66,7 +66,6 @@ describe PhotosController do
   describe "PATCH/PUT #update" do    
     before(:each) do
       @photo1 = Photo.create!()
-      get :index
     end
     
     context "with valid attributes" do
@@ -90,6 +89,14 @@ describe PhotosController do
     end
     
     context "update failed" do
+    end
+  end
+  
+  describe "DELETE #destroy" do
+    it "redirects to the root" do
+      @photo1 = Photo.create!()
+      post :destroy, id: @photo1.id
+      response.should redirect_to photos_url
     end
   end
   
