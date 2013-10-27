@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
 		pack_number = 0
 		@bin_size = 3
 		@photos.each do |photo|
-			if counter == bin_size
+			if counter == @bin_size
 				counter = 0
 				pack_number += 1
 				@photo_pack[pack_number]=[]
@@ -38,6 +38,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
+    @photo.edited = true
 
     respond_to do |format|
       if @photo.save
@@ -53,6 +54,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    @photo.edited = true
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
@@ -80,7 +82,55 @@ class PhotosController < ApplicationController
                       :filename => @photo.filename, 
                       :disposition => 'inline'
   end
-
+	
+	# GET
+	def multiple_uploads
+	end
+	
+	#POST
+	def make_multiple
+		if params[:photos] and params[:photos][:images]
+			params[:photos][:images].each do |photo|
+				@photo = Photo.new({:image_file => photo})
+				@photo.edited = false
+				@photo.save
+#				respond_to do |format|
+#				  if @photo.save
+#				  
+#			  	else
+#            format.html { render action: 'make_multiple' }
+#            format.json { render :error => 'Image #{@photo} failed to upload' }		  
+#				  end
+#				end
+			end
+			flash[:notice] = "multiple images uploaded"
+			redirect_to photos_multiple_uploads_path
+		else
+		  flash[:notice] = "No files chosen!"
+		  redirect_to photos_multiple_uploads_path
+		end
+	end
+	
+	#GET
+	def edit_queue
+    @photos = Photo.all
+		@photo_pack = [[]]
+		counter = 0
+		pack_number = 0
+		@bin_size = 3
+		@photos.each do |photo|
+			if counter == @bin_size
+				counter = 0
+				pack_number += 1
+				@photo_pack[pack_number]=[]
+			end
+			if !photo.edited
+				@photo_pack[pack_number] << photo
+				counter += 1
+		  end
+		end
+	end
+	
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
@@ -89,6 +139,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image_file)
+      params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image_file, :images)
     end
 end

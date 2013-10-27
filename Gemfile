@@ -7,13 +7,15 @@ group :development,:test do
   gem 'sqlite3'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'simplecov'
 end
 group :production do
   gem 'pg'
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
 end
 # Use SCSS for stylesheets

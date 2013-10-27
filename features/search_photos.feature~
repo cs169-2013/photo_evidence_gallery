@@ -4,10 +4,10 @@ Background: I am on the homepage
 	
 	Given the following images exist:
   | Caption        | Tags | Incident name | Operational period| Team number | content type	| file name   |
-  | Tree           | a    | Kevin		  | January			  | team 2		| what		 	| tree.jpg    |
-  | Fish           | b    | Craig 		  | February		  | team 2		| does			| fish.jpg    |
-  | Shoe           | c    | Will	 	  | March			  | team 4		| this			| shoe.jpg    |
-  | Sunglasses     | d    | Chris	 	  | Never			  | team 6		| do			| glasses.jpg |  
+  | Tree           | a    | Kevin				  | January			  		| team 2			| what		 			| tree.jpg    |
+  | Fish           | b    | Craig 		  	| February		  		| team 2			| does					| fish.jpg    |
+  | Shoe           | c    | Will	 		 		| March			  			| team 4			| this					| shoe.jpg    |
+  | Sunglasses     | d    | Chris	 		  	| Never			  			| team 6			| do						| glasses.jpg |  
 	
 Scenario: search finds one photo
 	When I search for "Sunglasses"
