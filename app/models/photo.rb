@@ -6,8 +6,4 @@ class Photo < ActiveRecord::Base
 		self.binaryData = input_data.read
 	end
 
-	def create
-		Photo.create(params[:photo])
-	end
-
 end
