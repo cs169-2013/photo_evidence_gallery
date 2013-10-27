@@ -16,7 +16,7 @@ Scenario: uploading a single photo
 	And I fill in "Incidentname" with "test"
 	And I fill in "Operationalperiod" with "today"
 	And I fill in "Teamnumber" with "2"
-	And I upload a the "Water.jpg" image
+	And I upload the image "Water.jpg"
 	And I press "Create Photo"
 	And I follow "Back"
 	Then I should see "Tree"

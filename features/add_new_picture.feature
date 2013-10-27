@@ -19,7 +19,7 @@ Scenario: uploading a single photo
 	And I upload the image "Water.jpg"
 	And I press "Create Photo"
 	And I follow "Back"
-	Then I should see "Tree"
+	Then I should see 1 image
 
 Scenario: uploading a photo with no information
 	When I follow "New Photo"
