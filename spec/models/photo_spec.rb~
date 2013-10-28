@@ -28,7 +28,7 @@ describe Photo do
     mockphoto.stub(:content_type).and_return(".png")
     mockphoto.stub(:read).and_return("binaryData")
     @photo.image_file = mockphoto
-    @photo.filename.should eq(mockphoto.original_filename)
+    @photo.filename.should == 1
     @photo.contentType.should eq(mockphoto.content_type)
     @photo.binaryData.should eq(mockphoto.read)
   end
