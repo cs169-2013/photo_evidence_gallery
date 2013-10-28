@@ -1,4 +1,3 @@
-@wip
 Feature: crop photos with different masks
 
 Background: I am on a page of a photo. 

@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Caption:</strong>
+  <%= @photo.caption %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @photo.tags %>
+</p>
+
+<p>
+  <strong>Incidentname:</strong>
+  <%= @photo.incidentName %>
+</p>
+
+<p>
+  <strong>Operationalperiod:</strong>
+  <%= @photo.operationalPeriod %>
+</p>
+
+<p>
+  <strong>Teamnumber:</strong>
+  <%= @photo.teamNumber %>
+</p>
+
+<p>
+  <strong>Contenttype:</strong>
+  <%= @photo.contentType %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @photo.filename %>
+</p>
+
+<%= image_tag("/photos/code_image/#{@photo.id}", :alt => "Image") %>
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Editing Queue', edit_queue_path %> |
+<%= link_to 'Back', photos_path %>
