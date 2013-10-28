@@ -32,6 +32,8 @@ Scenario: I try to upload multiple images one by one
 	And I press "Save Photos"
 	And I use multiple upload to upload the image "Water.jpg"
 	And I press "Save Photos"
+	And I use multiple upload to upload the image "Water.jpg"
+	And I press "Save Photos"
 	When I follow "Back"
 	Then I should be on the PhotoApp homepage
 	When I follow "Editing Queue"

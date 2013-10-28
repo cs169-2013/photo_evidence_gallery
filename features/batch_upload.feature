@@ -37,7 +37,7 @@ Scenario: I try to upload multiple images one by one
 	When I follow "Back"
 	Then I should be on the PhotoApp homepage
 	When I follow "Editing Queue"
-	Then I should see 3 images
+	Then I should see 4 images
 
 Scenario: I upload no images
   When I follow "Multiple Uploads"
