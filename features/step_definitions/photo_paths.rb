@@ -21,9 +21,13 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
 end
 
 When /I upload the image "(.*)"/ do |image|
-  attach_file(:filename, File.join(RAILS_ROOT, 'public', 'uploads', image))
+  attach_file("photo[image_file]", File.join(Rails.root, 'public', 'uploads', image))
 end
 
-Then /I should see ([0-9]) images?/ do |count|
-  assert Photo.all.length == count
+When /I use multiple upload to upload the image "(.*)"/ do |image|
+  attach_file("photos[images][]", File.join(Rails.root, 'public', 'uploads', image))
+end
+
+Then /I should see (\d) images?/ do |count|
+  assert Photo.all.length == count.to_i
 end
