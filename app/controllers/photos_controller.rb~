@@ -15,8 +15,10 @@ class PhotosController < ApplicationController
 				pack_number += 1
 				@photo_pack[pack_number]=[]
 			end
-			@photo_pack[pack_number] << photo
-			counter += 1
+			if photo.edited
+				@photo_pack[pack_number] << photo
+				counter += 1
+			end
 		end
   end
 
@@ -91,7 +93,7 @@ class PhotosController < ApplicationController
 	def make_multiple
 		if params[:photos] and params[:photos][:images]
 			params[:photos][:images].each do |photo|
-				@photo = Photo.new({:image_file => photo})
+				@photo = Photo.new(photo_params)
 				@photo.edited = false
 				@photo.save
 #				respond_to do |format|

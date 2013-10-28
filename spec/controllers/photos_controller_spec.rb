@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PhotosController do
-  let(:factphoto) { FactoryGirl.create(:photo) }
     
   describe "GET #index" do
     before(:each) do
@@ -99,14 +98,40 @@ describe PhotosController do
       response.should redirect_to photos_url
     end
   end
-  
-  describe "code_image" do
-    it "sends data to controller" do
+      
+  describe "GET #make_multiple" do
+    before(:each){
+      @image = FactoryGirl.create(:photo)
+      Photo.stub(:new).and_return(@image)
+    }
     
+    context "multiple photos are in params" do
+      before(:each){
+        post :make_multiple, :photos => {:images => [@image]}
+      }
+      it "redirects to the multiple uploads page" do
+        response.should redirect_to photos_multiple_uploads_path
+      end
+      
+      it "notifies that photos have been uploaded" do
+        flash[:notice].should_not be_nil
+      end
     end
     
-  end
+    context "no photos passed in" do
+      before(:each){
+        post :make_multiple, :photos => nil
+      }
+      it "redirects to the multiple uploads page" do
+        response.should redirect_to photos_multiple_uploads_path
+      end
       
+      it "notifies that photos have been uploaded" do
+        flash[:notice].should_not be_nil
+      end
+    end
+  end
+  
   describe "GET #edit_queue" do
     before(:each) do
       photo1 = Photo.create!()
