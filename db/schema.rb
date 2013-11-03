@@ -27,14 +27,4 @@ ActiveRecord::Schema.define(version: 20131026220128) do
     t.boolean  "edited"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_Email", unique: true
-
 end
