@@ -4,6 +4,7 @@ class Photo < ActiveRecord::Base
 		self.filename = input_data.original_filename
 		self.contentType = input_data.content_type.chomp
 		self.binaryData = input_data.read
+		# extract metadata plz
 	end
 
 end
