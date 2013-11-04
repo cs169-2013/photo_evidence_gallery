@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131026220128) do
-=======
-ActiveRecord::Schema.define(version: 20131021034527) do
->>>>>>> CropBranch
 
   create_table "photos", force: true do |t|
     t.string   "caption"
@@ -27,11 +23,8 @@ ActiveRecord::Schema.define(version: 20131021034527) do
     t.string   "filename"
     t.datetime "created_at"
     t.datetime "updated_at"
-<<<<<<< HEAD
     t.boolean  "edited"
-=======
     t.string   "image"
->>>>>>> CropBranch
   end
 
 end

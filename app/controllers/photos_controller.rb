@@ -3,7 +3,6 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.all
-<<<<<<< HEAD
 		@photo_pack = [[]]
 		counter = 0
 		pack_number = 0
@@ -19,21 +18,6 @@ class PhotosController < ApplicationController
 				counter += 1
 			end
 		end
-=======
-    @photo_pack = [[]]
-    counter = 0
-    pack_number = 0
-    @bin_size = 3
-    @photos.each do |photo|
-      if counter == @bin_size
-        counter = 0
-        pack_number += 1
-        @photo_pack[pack_number]=[]
-      end
-      @photo_pack[pack_number] << photo
-      counter += 1
-    end
->>>>>>> CropBranch
   end
 
   def show
@@ -64,19 +48,16 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
-<<<<<<< HEAD
     @photo.edited = true
-    respond_to do |format|
-      if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { head :no_content }
-=======
+    #respond_to do |format|
+    #  if @photo.update(photo_params)
+    #    format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+    #    format.json { head :no_content }
     @photo = Photo.find(params[:id])
 
     if @photo.update_attributes(photo_params)
       if params[:photo][:image].present?
         render :crop
->>>>>>> CropBranch
       else
         redirect_to @photo, notice: "Successfully update user."
       end
@@ -95,7 +76,6 @@ class PhotosController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
   def code_image 
     @image = @photo.binaryData
     send_data @image, :type     => @photo.contentType, 
@@ -151,23 +131,14 @@ class PhotosController < ApplicationController
 		end
 	end
 	
-=======
->>>>>>> CropBranch
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_photo
     @photo = Photo.find(params[:id])
   end
 
-<<<<<<< HEAD
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def photo_params
-      params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image_file, :images)
-    end
-=======
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
-    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h)
+    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h)
   end
->>>>>>> CropBranch
 end
