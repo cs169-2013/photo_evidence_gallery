@@ -12,6 +12,7 @@ group :development,:test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'factory_girl_rails', "~> 4.0", :require => false
+  gem 'debugger'
 end
 group :production do
   gem 'pg'

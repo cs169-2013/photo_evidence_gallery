@@ -12,16 +12,21 @@ a:active {color:#000000;}  /* selected link */
 
 <div align='center';> 
 <%= image_tag("/BAMRU.gif", :align => 'middle') %>
+</br> <h1>
+<%= link_to 'Upload', new_photo_path %> </h1>
+<h2><%= link_to 'Multiple Uploads', photos_multiple_uploads_path %></h2>
+<h3><%= link_to 'Editing Queue', edit_queue_path %></h3>
+ </div>
 
 <table border = "1" align = "center">
   <tbody>
     <% @photo_pack.each do |photo_pack| %>
-		<tr>
-			<% photo_pack.each do |photo| %>
+    <tr>
+      <% photo_pack.each do |photo| %>
         <td  align="center" valign="center">
-        	<%= link_to image_tag("/photos/code_image/#{photo.id}", :alt => "Image", :width => 250, :height => 250), photo %></br>
-        	<%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-			</td>
+          <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
+          <%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
     <% end %>
 </tr>
 <% end %>

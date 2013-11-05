@@ -18,6 +18,7 @@ Scenario: uploading a single photo
 	And I fill in "Teamnumber" with "2"
 	And I upload the image "Water.jpg"
 	And I press "Create Photo"
+	And I press "Crop"
 	And I follow "Back"
 	Then I should see 1 image
 
@@ -25,4 +26,5 @@ Scenario: uploading a photo with no information
 	When I follow "Upload"
 	Then I should be on the New Photo page
 	And I press "Create Photo"
-	Then I should see "Photo was successfully created."
+	And I press "Crop"
+	Then I should see "Successfully updated photo."

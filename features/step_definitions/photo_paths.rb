@@ -21,7 +21,7 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
 end
 
 When /I upload the image "(.*)"/ do |image|
-  attach_file("photo[image_file]", File.join(Rails.root, 'public', 'uploads', image))
+  attach_file("photo[image]", File.join(Rails.root, 'public', 'uploads', image))
 end
 
 When /I use multiple upload to upload the image "(.*)"/ do |image|
