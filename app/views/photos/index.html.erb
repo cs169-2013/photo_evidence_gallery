@@ -16,6 +16,7 @@ a:active {color:#000000;}  /* selected link */
 <%= link_to 'Upload', new_photo_path %> </h1>
 <h2><%= link_to 'Multiple Uploads', photos_multiple_uploads_path %></h2>
 <h3><%= link_to 'Editing Queue', edit_queue_path %></h3>
+<h3><%= link_to_if(@editing, 'Homepage', "/"){} %></h3>
  </div>
 
 <table border = "1" align = "center">
@@ -24,7 +25,7 @@ a:active {color:#000000;}  /* selected link */
 		<tr>
 			<% photo_pack.each do |photo| %>
         <td  align="center" valign="center">
-        	<%= link_to image_tag photo.image_url(:thumb) %></br>
+        	<%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
         	<%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
 			</td>
     <% end %>
