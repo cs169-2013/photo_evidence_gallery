@@ -2,8 +2,21 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
 
   def index
-    @editing = false
-    @photos = Photo.find_all_by_edited([true])
+    @sort = params[:sort_e] || session[:sort_e]
+    if !@sort
+      @sort = [true]
+    end
+    if @sort == ["false"]
+      @sort = [false]
+    end
+    if @sort == ["true"]
+      @sort = [true]
+    end
+    if params[:sort_e] != session[:sort_e]
+      session[:sort_e] = params[:sort_e]
+      redirect_to :sort_e => @sort and return
+    end
+    @photos = Photo.where("photos.edited IN (?)", @sort)
 		index_logic
   end
 

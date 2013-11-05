@@ -15,8 +15,8 @@ a:active {color:#000000;}  /* selected link */
 </br> <h1>
 <%= link_to 'Upload', new_photo_path %> </h1>
 <h2><%= link_to 'Multiple Uploads', photos_multiple_uploads_path %></h2>
-<h3><%= link_to 'Editing Queue', edit_queue_path %></h3>
-<h3><%= link_to_if(@editing, 'Homepage', "/"){} %></h3>
+<h3><%= link_to_if(@sort == [true], 'Editing Queue', photos_path(:sort_e => [false])){} %></h3>
+<h3><%= link_to_if(@sort == [false], 'Homepage', photos_path(:sort_e => [true])){} %></h3>
  </div>
 
 <table border = "1" align = "center">

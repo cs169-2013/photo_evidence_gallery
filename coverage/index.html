@@ -14,27 +14,27 @@
       <img src="./assets/0.7.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2013-11-04T19:19:05-08:00">2013-11-04T19:19:05-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2013-11-05T10:58:52-08:00">2013-11-05T10:58:52-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.46%</span></span>
+    (<span class="covered_percent"><span class="yellow">86.67%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.18
+         3.28
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>6</b> files in total.
-    <b>96</b> relevant lines. 
-    <span class="green"><b>83</b> lines covered</span> and
-    <span class="red"><b>13</b> lines missed </span>
+    <b>105</b> relevant lines. 
+    <span class="green"><b>91</b> lines covered</span> and
+    <span class="red"><b>14</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -62,12 +62,12 @@
       
       <tr>
         <td class="strong"><a href="#fc41977315f4af504804c85e99eccb1bd851d1cd" class="src_link" title="app/controllers/photos_controller.rb">app/controllers/photos_controller.rb</a></td>
-        <td class="green strong">91.94 %</td>
-        <td>117</td>
-        <td>62</td>
-        <td>57</td>
-        <td>5</td>
-        <td>7.2</td>
+        <td class="green strong">91.55 %</td>
+        <td>130</td>
+        <td>71</td>
+        <td>65</td>
+        <td>6</td>
+        <td>7.8</td>
       </tr>
       
       <tr>
@@ -119,20 +119,20 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="green">92.19%</span></span>
+    (<span class="covered_percent"><span class="green">91.78%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.6
+         4.9
        </span>
     </span> hits/line)
   </h2>
   <a name="Controllers"></a>
   <div>
     <b>2</b> files in total.
-    <b>64</b> relevant lines. 
-    <span class="green"><b>59</b> lines covered</span> and
-    <span class="red"><b>5</b> lines missed </span>
+    <b>73</b> relevant lines. 
+    <span class="green"><b>67</b> lines covered</span> and
+    <span class="red"><b>6</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -160,12 +160,12 @@
       
       <tr>
         <td class="strong"><a href="#fc41977315f4af504804c85e99eccb1bd851d1cd" class="src_link" title="app/controllers/photos_controller.rb">app/controllers/photos_controller.rb</a></td>
-        <td class="green strong">91.94 %</td>
-        <td>117</td>
-        <td>62</td>
-        <td>57</td>
-        <td>5</td>
-        <td>7.2</td>
+        <td class="green strong">91.55 %</td>
+        <td>130</td>
+        <td>71</td>
+        <td>65</td>
+        <td>6</td>
+        <td>7.8</td>
       </tr>
       
     </tbody>
@@ -496,11 +496,11 @@
         <div class="source_table" id="fc41977315f4af504804c85e99eccb1bd851d1cd">
   <div class="header">
     <h3>app/controllers/photos_controller.rb</h3>
-    <h4><span class="green">91.94 %</span> covered</h4>
+    <h4><span class="green">91.55 %</span> covered</h4>
     <div>
-      <b>62</b> relevant lines. 
-      <span class="green"><b>57</b> lines covered</span> and
-      <span class="red"><b>5</b> lines missed.</span>
+      <b>71</b> relevant lines. 
+      <span class="green"><b>65</b> lines covered</span> and
+      <span class="red"><b>6</b> lines missed.</span>
     </div>
   </div>
   
@@ -531,679 +531,757 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="5">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="21" data-linenumber="5">
+          <span class="hits">21</span>
           
-          <code class="ruby">    @editing = false</code>
+          <code class="ruby">    @sort = params[:sort_e] || session[:sort_e]</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="6">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="21" data-linenumber="6">
+          <span class="hits">21</span>
           
-          <code class="ruby">    @photos = Photo.find_all_by_edited([true])</code>
+          <code class="ruby">    if !@sort</code>
         </li>
       
         <li class="covered" data-hits="17" data-linenumber="7">
           <span class="hits">17</span>
           
-          <code class="ruby">		index_logic</code>
+          <code class="ruby">      @sort = [true]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="8">
           
           
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="9">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    if @sort == [&quot;false&quot;]</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="10">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      @sort = [false]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="12">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    if @sort == [&quot;true&quot;]</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="13">
+          
+          
+          <code class="ruby">      @sort = [true]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="15">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    if params[:sort_e] != session[:sort_e]</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="16">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      session[:sort_e] = params[:sort_e]</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="17">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      redirect_to :sort_e =&gt; @sort and return</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="19" data-linenumber="19">
+          <span class="hits">19</span>
+          
+          <code class="ruby">    @photos = Photo.where(&quot;photos.edited IN (?)&quot;, @sort)</code>
+        </li>
+      
+        <li class="covered" data-hits="19" data-linenumber="20">
+          <span class="hits">19</span>
+          
+          <code class="ruby">		index_logic</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="never" data-hits="" data-linenumber="22">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">  #GET</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="11">
+        <li class="covered" data-hits="2" data-linenumber="24">
           <span class="hits">2</span>
           
           <code class="ruby">  def edit_queue</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="12">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="5" data-linenumber="25">
+          <span class="hits">5</span>
           
           <code class="ruby">    @editing = true</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="13">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="5" data-linenumber="26">
+          <span class="hits">5</span>
           
           <code class="ruby">    @photos = Photo.find_all_by_edited([false, nil])</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="14">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="5" data-linenumber="27">
+          <span class="hits">5</span>
           
           <code class="ruby">    index_logic</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="15">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="5" data-linenumber="28">
+          <span class="hits">5</span>
           
           <code class="ruby">    render &#39;index&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="16">
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="17">
+        <li class="never" data-hits="" data-linenumber="30">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="18">
+        <li class="covered" data-hits="2" data-linenumber="31">
           <span class="hits">2</span>
           
           <code class="ruby">  def index_logic</code>
         </li>
       
-        <li class="covered" data-hits="24" data-linenumber="19">
+        <li class="covered" data-hits="24" data-linenumber="32">
           <span class="hits">24</span>
           
           <code class="ruby">    @photo_pack = [[]]</code>
         </li>
       
-        <li class="covered" data-hits="24" data-linenumber="20">
+        <li class="covered" data-hits="24" data-linenumber="33">
           <span class="hits">24</span>
           
           <code class="ruby">    counter = 0</code>
         </li>
       
-        <li class="covered" data-hits="24" data-linenumber="21">
+        <li class="covered" data-hits="24" data-linenumber="34">
           <span class="hits">24</span>
           
           <code class="ruby">    pack_number = 0</code>
         </li>
       
-        <li class="covered" data-hits="24" data-linenumber="22">
+        <li class="covered" data-hits="24" data-linenumber="35">
           <span class="hits">24</span>
           
           <code class="ruby">    @bin_size = 3</code>
         </li>
       
-        <li class="covered" data-hits="24" data-linenumber="23">
+        <li class="covered" data-hits="24" data-linenumber="36">
           <span class="hits">24</span>
           
           <code class="ruby">    @photos.each do |photo|</code>
         </li>
       
-        <li class="covered" data-hits="25" data-linenumber="24">
+        <li class="covered" data-hits="25" data-linenumber="37">
           <span class="hits">25</span>
           
           <code class="ruby">      if counter == @bin_size</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="25">
+        <li class="covered" data-hits="3" data-linenumber="38">
           <span class="hits">3</span>
           
           <code class="ruby">        counter = 0</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="26">
+        <li class="covered" data-hits="3" data-linenumber="39">
           <span class="hits">3</span>
           
           <code class="ruby">        pack_number += 1</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="27">
+        <li class="covered" data-hits="3" data-linenumber="40">
           <span class="hits">3</span>
           
           <code class="ruby">        @photo_pack[pack_number]=[]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="25" data-linenumber="29">
+        <li class="covered" data-hits="25" data-linenumber="42">
           <span class="hits">25</span>
           
           <code class="ruby">      @photo_pack[pack_number] &lt;&lt; photo</code>
         </li>
       
-        <li class="covered" data-hits="25" data-linenumber="30">
+        <li class="covered" data-hits="25" data-linenumber="43">
           <span class="hits">25</span>
           
           <code class="ruby">      counter += 1</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="never" data-hits="" data-linenumber="44">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="32">
+        <li class="never" data-hits="" data-linenumber="45">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="33">
+        <li class="never" data-hits="" data-linenumber="46">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="34">
+        <li class="covered" data-hits="2" data-linenumber="47">
           <span class="hits">2</span>
           
           <code class="ruby">  def show</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="35">
+        <li class="never" data-hits="" data-linenumber="48">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="36">
+        <li class="never" data-hits="" data-linenumber="49">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="37">
+        <li class="covered" data-hits="2" data-linenumber="50">
           <span class="hits">2</span>
           
           <code class="ruby">  def new</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="38">
+        <li class="covered" data-hits="3" data-linenumber="51">
           <span class="hits">3</span>
           
           <code class="ruby">    @photo = Photo.new</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="40">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="41">
-          <span class="hits">2</span>
-          
-          <code class="ruby">  def edit</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="42">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="43">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="44">
-          <span class="hits">2</span>
-          
-          <code class="ruby">  def create</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="45">
-          <span class="hits">5</span>
-          
-          <code class="ruby">    @photo = Photo.new(photo_params)</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="46">
-          <span class="hits">5</span>
-          
-          <code class="ruby">    @photo.edited = true</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="47">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="48">
-          <span class="hits">5</span>
-          
-          <code class="ruby">    if @photo.save</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="49">
-          <span class="hits">5</span>
-          
-          <code class="ruby">      render :crop</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="50">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="51">
-          
-          
-          <code class="ruby">      flash[:notice] = &quot;Couldn&#39;t save to database!&quot;</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="52">
-          
-          
-          <code class="ruby">      render :new</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="54">
+        <li class="covered" data-hits="2" data-linenumber="54">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">  def edit</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="56">
           
           
-          <code class="ruby">  # PATCH/PUT /photos/1</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="57">
-          
-          
-          <code class="ruby">  # PATCH/PUT /photos/1.json</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="58">
+        <li class="covered" data-hits="2" data-linenumber="57">
           <span class="hits">2</span>
           
-          <code class="ruby">  def update</code>
+          <code class="ruby">  def create</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="59">
+        <li class="covered" data-hits="5" data-linenumber="58">
+          <span class="hits">5</span>
           
+          <code class="ruby">    @photo = Photo.new(photo_params)</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="59">
+          <span class="hits">5</span>
           
-          <code class="ruby">    #respond_to do |format|</code>
+          <code class="ruby">    @photo.edited = true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">    #  if @photo.update(photo_params)</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="61">
+        <li class="covered" data-hits="5" data-linenumber="61">
+          <span class="hits">5</span>
           
-          
-          <code class="ruby">    #    format.html { redirect_to @photo, notice: &#39;Photo was successfully updated.&#39; }</code>
+          <code class="ruby">    if @photo.save</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="62">
+        <li class="covered" data-hits="5" data-linenumber="62">
+          <span class="hits">5</span>
           
-          
-          <code class="ruby">    #    format.json { head :no_content }</code>
+          <code class="ruby">      render :crop</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="63">
           
           
-          <code class="ruby">    #if @photo.edited?</code>
-        </li>
-      
-        <li class="covered" data-hits="6" data-linenumber="64">
-          <span class="hits">6</span>
-          
-          <code class="ruby">    @photo.edited = true</code>
-        </li>
-      
-        <li class="covered" data-hits="6" data-linenumber="65">
-          <span class="hits">6</span>
-          
-          <code class="ruby">    if @photo.update_attributes(photo_params)</code>
-        </li>
-      
-        <li class="covered" data-hits="6" data-linenumber="66">
-          <span class="hits">6</span>
-          
-          <code class="ruby">      redirect_to @photo, notice: &quot;Successfully updated photo.&quot;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="67">
-          
-          
           <code class="ruby">    else</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="68">
+        <li class="missed" data-hits="0" data-linenumber="64">
+          
+          
+          <code class="ruby">      flash[:notice] = &quot;Couldn&#39;t save to database!&quot;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="65">
           
           
           <code class="ruby">      render :new</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="69">
+        <li class="never" data-hits="" data-linenumber="66">
           
           
           <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="67">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="68">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="69">
+          
+          
+          <code class="ruby">  # PATCH/PUT /photos/1</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="70">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  # PATCH/PUT /photos/1.json</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="71">
+        <li class="covered" data-hits="2" data-linenumber="71">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">  def update</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="72">
           
           
-          <code class="ruby">  # DELETE /photos/1</code>
+          <code class="ruby">    #respond_to do |format|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="73">
           
           
-          <code class="ruby">  # DELETE /photos/1.json</code>
+          <code class="ruby">    #  if @photo.update(photo_params)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="74">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="74">
           
-          <code class="ruby">  def destroy</code>
+          
+          <code class="ruby">    #    format.html { redirect_to @photo, notice: &#39;Photo was successfully updated.&#39; }</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="75">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="75">
           
-          <code class="ruby">    @photo.destroy</code>
+          
+          <code class="ruby">    #    format.json { head :no_content }</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="76">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="76">
           
-          <code class="ruby">    respond_to do |format|</code>
+          
+          <code class="ruby">    #if @photo.edited?</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="77">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="6" data-linenumber="77">
+          <span class="hits">6</span>
           
-          <code class="ruby">      format.html { redirect_to photos_url }</code>
+          <code class="ruby">    @photo.edited = true</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="78">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="6" data-linenumber="78">
+          <span class="hits">6</span>
           
-          <code class="ruby">      format.json { head :no_content }</code>
+          <code class="ruby">    if @photo.update_attributes(photo_params)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="79">
+        <li class="covered" data-hits="6" data-linenumber="79">
+          <span class="hits">6</span>
           
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">      redirect_to @photo, notice: &quot;Successfully updated photo.&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="80">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    else</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="missed" data-hits="0" data-linenumber="81">
           
           
-          <code class="ruby">	</code>
+          <code class="ruby">      render :new</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="82">
           
           
-          <code class="ruby">	# GET</code>
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="83">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="83">
           
-          <code class="ruby">	def multiple_uploads</code>
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="84">
           
           
-          <code class="ruby">	end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="85">
           
           
-          <code class="ruby">	</code>
+          <code class="ruby">  # DELETE /photos/1</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="86">
           
           
-          <code class="ruby">	#POST</code>
+          <code class="ruby">  # DELETE /photos/1.json</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="87">
           <span class="hits">2</span>
           
-          <code class="ruby">	def make_multiple</code>
+          <code class="ruby">  def destroy</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="88">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="2" data-linenumber="88">
+          <span class="hits">2</span>
           
-          <code class="ruby">		if params[:photos] and params[:photos][:images]</code>
+          <code class="ruby">    @photo.destroy</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="89">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="2" data-linenumber="89">
+          <span class="hits">2</span>
           
-          <code class="ruby">			params[:photos][:images].each do |photo|</code>
+          <code class="ruby">    respond_to do |format|</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="90">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="4" data-linenumber="90">
+          <span class="hits">4</span>
           
-          <code class="ruby">				@photo = Photo.new({:image =&gt; photo})</code>
+          <code class="ruby">      format.html { redirect_to photos_url }</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="91">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="2" data-linenumber="91">
+          <span class="hits">2</span>
           
-          <code class="ruby">				@photo.edited = false</code>
+          <code class="ruby">      format.json { head :no_content }</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="92">
-          <span class="hits">7</span>
+        <li class="never" data-hits="" data-linenumber="92">
           
-          <code class="ruby">				if @photo.save</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="93">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="94">
           
           
-          <code class="ruby">        else </code>
+          <code class="ruby">	</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="95">
+        <li class="never" data-hits="" data-linenumber="95">
           
           
-          <code class="ruby">          flash[:notice] = &quot;Couldn&#39;t save photo!&quot;</code>
+          <code class="ruby">	# GET</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="96">
+        <li class="covered" data-hits="2" data-linenumber="96">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">          redirect_to photos_multiple_uploads_path</code>
+          <code class="ruby">	def multiple_uploads</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="97">
           
           
-          <code class="ruby">        end</code>
+          <code class="ruby">	end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="98">
           
           
-          <code class="ruby">			end</code>
+          <code class="ruby">	</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="99">
+        <li class="never" data-hits="" data-linenumber="99">
+          
+          
+          <code class="ruby">	#POST</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="100">
+          <span class="hits">2</span>
+          
+          <code class="ruby">	def make_multiple</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="101">
+          <span class="hits">10</span>
+          
+          <code class="ruby">		if params[:photos] and params[:photos][:images]</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="102">
           <span class="hits">7</span>
           
-          <code class="ruby">			flash[:notice] = &quot;multiple images uploaded&quot;</code>
+          <code class="ruby">			params[:photos][:images].each do |photo|</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="100">
+        <li class="covered" data-hits="7" data-linenumber="103">
           <span class="hits">7</span>
           
-          <code class="ruby">			redirect_to photos_multiple_uploads_path</code>
+          <code class="ruby">				@photo = Photo.new({:image =&gt; photo})</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="101">
+        <li class="covered" data-hits="7" data-linenumber="104">
+          <span class="hits">7</span>
           
-          
-          <code class="ruby">		else</code>
+          <code class="ruby">				@photo.edited = false</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="102">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="7" data-linenumber="105">
+          <span class="hits">7</span>
           
-          <code class="ruby">		  flash[:notice] = &quot;No files chosen!&quot;</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="103">
-          <span class="hits">3</span>
-          
-          <code class="ruby">		  redirect_to photos_multiple_uploads_path</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="104">
-          
-          
-          <code class="ruby">		end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="105">
-          
-          
-          <code class="ruby">	end</code>
+          <code class="ruby">				if @photo.save</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="106">
           
           
-          <code class="ruby">	</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="107">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="107">
           
-          <code class="ruby">  private</code>
+          
+          <code class="ruby">        else </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="108">
+        <li class="missed" data-hits="0" data-linenumber="108">
           
           
-          <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+          <code class="ruby">          flash[:notice] = &quot;Couldn&#39;t save photo!&quot;</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="109">
-          <span class="hits">2</span>
+        <li class="missed" data-hits="0" data-linenumber="109">
           
-          <code class="ruby">  def set_photo</code>
+          
+          <code class="ruby">          redirect_to photos_multiple_uploads_path</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="110">
-          <span class="hits">12</span>
+        <li class="never" data-hits="" data-linenumber="110">
           
-          <code class="ruby">    @photo = Photo.find(params[:id])</code>
+          
+          <code class="ruby">        end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="111">
           
           
+          <code class="ruby">			end</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="112">
+          <span class="hits">7</span>
+          
+          <code class="ruby">			flash[:notice] = &quot;multiple images uploaded&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="113">
+          <span class="hits">7</span>
+          
+          <code class="ruby">			redirect_to photos_multiple_uploads_path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="114">
+          
+          
+          <code class="ruby">		else</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="115">
+          <span class="hits">3</span>
+          
+          <code class="ruby">		  flash[:notice] = &quot;No files chosen!&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="116">
+          <span class="hits">3</span>
+          
+          <code class="ruby">		  redirect_to photos_multiple_uploads_path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="117">
+          
+          
+          <code class="ruby">		end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="118">
+          
+          
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="119">
+          
+          
+          <code class="ruby">	</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="120">
+          <span class="hits">2</span>
+          
+          <code class="ruby">  private</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="121">
+          
+          
+          <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="122">
+          <span class="hits">2</span>
+          
+          <code class="ruby">  def set_photo</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="123">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @photo = Photo.find(params[:id])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="112">
+        <li class="never" data-hits="" data-linenumber="125">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="113">
+        <li class="never" data-hits="" data-linenumber="126">
           
           
           <code class="ruby">  # Never trust parameters from the scary internet, only allow the white list through.</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="114">
+        <li class="covered" data-hits="2" data-linenumber="127">
           <span class="hits">2</span>
           
           <code class="ruby">  def photo_params</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="115">
+        <li class="covered" data-hits="11" data-linenumber="128">
           <span class="hits">11</span>
           
           <code class="ruby">    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="116">
+        <li class="never" data-hits="" data-linenumber="129">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="117">
+        <li class="never" data-hits="" data-linenumber="130">
           
           
           <code class="ruby">end</code>
