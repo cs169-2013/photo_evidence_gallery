@@ -9,6 +9,9 @@ class Photo < ActiveRecord::Base
     end
 
     def extract_geolocation
+    	if image.model.image? == false
+    		return
+    	end
 	    img = Magick::Image.read(image)[0] rescue nil
 	    
 	    return unless img
