@@ -1,4 +1,5 @@
 PhotoApp::Application.routes.draw do
+  devise_for :members
   get 'photos/multiple_uploads' => 'photos#multiple_uploads'
   post 'photos/multiple_uploads' => 'photos#make_multiple'
   get 'photos/edit_queue' => 'photos#edit_queue', as: 'edit_queue'
