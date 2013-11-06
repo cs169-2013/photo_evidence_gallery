@@ -27,11 +27,11 @@ class Photo < ActiveRecord::Base
 	    latitude = latitude * -1 if lat_ref == 'S'  # (N is +, S is -)
 	    longitude = longitude * -1 if lng_ref == 'W'   # (W is -, E is +)
 	    
-	    debugger
 	    self.lat = latitude
 	    self.lng = longitude
 
 	    #if geo = Geocoder.search("#{latitude},#{longitude}").first
+	    #	debugger
 	    #  self.city = geo.city
 	    #  self.state = geo.state
 	    #  self.zipcode = geo.postal_code

@@ -35,6 +35,20 @@
   <%= @photo.filename %>
 </p>
 
+<p>
+  <strong>Latitude: </strong>
+  <%= @photo.lat %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @photo.lng %>
+</p>
+
+<p>
+  <%= link_to_if(@photo.lat && @photo.lng, 'Google Map of picture location', "http://maps.google.com/maps?q=#{@photo.lat},#{@photo.lng}") %>
+</p>
+
 <%= image_tag  @photo.image_url(:thumb) if @photo.image? %>
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
