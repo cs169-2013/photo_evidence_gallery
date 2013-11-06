@@ -1,31 +1,23 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
 
+  #GET
   def index
-    @sort = params[:sort_e] || session[:sort_e]
+    @sort = params[:sort_e] || params["sort_e"] || session[:sort_e]
     if !@sort
-      @sort = [true]
-    end
-    if @sort == ["false"]
-      @sort = [false]
-    end
-    if @sort == ["true"]
-      @sort = [true]
+      @sort = 'true'
     end
     if params[:sort_e] != session[:sort_e]
       session[:sort_e] = params[:sort_e]
       redirect_to :sort_e => @sort and return
     end
-    @photos = Photo.where("photos.edited IN (?)", @sort)
+    @photos = Photo.where("photos.edited = ?", @sort == 'true')
 		index_logic
   end
 
   #GET
   def edit_queue
-    @editing = true
-    @photos = Photo.find_all_by_edited([false, nil])
-    index_logic
-    render 'index'
+    redirect_to photos_path(:sort_e => 'false') and return
   end
 
   def index_logic
@@ -56,7 +48,6 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
-    @photo.edited = true
 
     if @photo.save
       render :crop

@@ -29,6 +29,16 @@ describe PhotosController do
       get :index 
       response.should render_template :index
     end 
+
+    it "should render the edited_queue" do
+      photo2 = Photo.create!(:edited => false)
+      photo3 = Photo.create!(:edited => false)
+      get :index, { sort_e: 'false' } #this is the same as edit_queue_path
+      get :index, { sort_e: 'false' } # session needs to get saved, forcing redirect
+      assigns(:photos).should_not be_nil
+      assigns(:photos).length.should == 2
+      assigns(:photo_pack).length.should == 1
+    end
   end
   
   describe "GET #new" do
@@ -130,35 +140,5 @@ describe PhotosController do
         flash[:notice].should_not be_nil
       end
     end
-  end
-  
-  describe "GET #edit_queue" do
-    before(:each) do
-      photo1 = Photo.create!()
-      get :edit_queue
-    end
-    
-    it "populates an array of photos" do
-      assigns(:photos).should_not be_nil
-      assigns(:photos).length.should == 1
-      assigns(:photo_pack).length.should == 1
-    end
-    
-    it "leaves @binsize number of photos in each row" do
-      @counter = 0
-      while @counter < assigns(:bin_size)
-        @counter+=1
-        Photo.create!(:filename => "name_#{@counter}")
-      end
-      get :edit_queue
-      
-      assigns(:photos).length.should == assigns(:bin_size) + 1
-      assigns(:photo_pack).length.should == 2
-    end
-    
-    it "renders the :index view" do
-      get :edit_queue 
-      response.should render_template :index
-    end 
   end
 end
