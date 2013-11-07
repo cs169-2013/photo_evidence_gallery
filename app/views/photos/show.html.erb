@@ -35,7 +35,7 @@
   <%= @photo.filename %>
 </p>
 
-<%= image_tag  @photo.image_url(:thumb) if @photo.image? %>
+<%= image_tag  @photo.image_url(:cropped_large) if @photo.image? %>
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Editing Queue', edit_queue_path %> |
