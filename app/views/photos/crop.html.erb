@@ -7,6 +7,15 @@
   <%= image_tag @photo.image.url(:large), :id => "preview" %>
 </div>
 
+<form name="myform" method="POST">
+  <div align="center"><br>
+    <input type="radio" name="cropselect" id="square" checked> Square<br>
+    <input type="radio" name="cropselect" id="portrait"> Portrait<br>
+    <input type="radio" name="cropselect" id="landscape"> Landscape<br>
+    <input type="radio" name="cropselect" id="freecrop"> Free Crop
+  </div>
+</form>
+
 <%= form_for @photo do |f| %>
   <div class="actions">
     <% %w[x y w h].each do |attribute| %>

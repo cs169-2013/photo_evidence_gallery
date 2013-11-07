@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20131026220128) do
     t.string   "filename"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "edited"
     t.string   "image"
+    t.boolean  "edited"
   end
 
 end
