@@ -18,10 +18,15 @@ describe Photo do
   it { should respond_to(:created_at) }  
   it { should respond_to(:updated_at) }  
   it { should respond_to(:edited) }
+  it { should respond_to(:lat) }
+  it { should respond_to(:lng) }
   
   it { should be_valid }
 
-  
+  it "has a to_frac method that works" do
+    @photo.to_frac("1/2").should be == 0.5
+    @photo.to_frac("6/2").should_not be == 2.9
+  end
 =begin
   it "sets its own fields with information" do
     mockphoto = mock_model(Photo)
