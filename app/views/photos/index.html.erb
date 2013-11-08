@@ -1,46 +1,56 @@
-<style>
-body
-{ 
-background: #909090 
-}
-a:link {color:#000000;}    /* unvisited link */
-a:visited {color:#000000;} /* visited link */
-a:hover {color:#0000FF;}   /* mouse over link */
-a:active {color:#000000;}  /* selected link */
-
-</style>
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-    <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path %> |
-          <%= link_to "Login", new_user_session_path %>
-          <% end %>
-<div align='center';> 
-<%= image_tag("/BAMRU.gif", :align => 'middle') %>
-</br> <h1>
-<%= link_to 'Upload', new_photo_path %> </h1>
-<h2><%= link_to 'Multiple Uploads', photos_multiple_uploads_path %></h2> 
-<h2><%= link_to_if(@sort == 'true', 'Editing Queue', edit_queue_path){} %></h2>
-<h3><%= link_to_if(@sort == 'false', 'Homepage', photos_path(:sort_e => 'true')){} %></h3>
- </div>
-
-<table border = "1" align = "center">
+<%- model_class = Photo -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:caption) %></th>
+      <th><%= model_class.human_attribute_name(:tags) %></th>
+      <th><%= model_class.human_attribute_name(:incidentName) %></th>
+      <th><%= model_class.human_attribute_name(:operationalPeriod) %></th>
+      <th><%= model_class.human_attribute_name(:teamNumber) %></th>
+      <th><%= model_class.human_attribute_name(:contentType) %></th>
+      <th><%= model_class.human_attribute_name(:filename) %></th>
+      <th><%= model_class.human_attribute_name(:image) %></th>
+      <th><%= model_class.human_attribute_name(:edited) %></th>
+      <th><%= model_class.human_attribute_name(:lat) %></th>
+      <th><%= model_class.human_attribute_name(:lng) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
   <tbody>
-    <% @photo_pack.each do |photo_pack| %>
-		<tr>
-			<% photo_pack.each do |photo| %>
-        <td  align="center" valign="center">
-        	<%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
-        	<%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-			</td>
+    <% @photos.each do |photo| %>
+      <tr>
+        <td><%= link_to photo.id, photo_path(photo) %></td>
+        <td><%= photo.caption %></td>
+        <td><%= photo.tags %></td>
+        <td><%= photo.incidentName %></td>
+        <td><%= photo.operationalPeriod %></td>
+        <td><%= photo.teamNumber %></td>
+        <td><%= photo.contentType %></td>
+        <td><%= photo.filename %></td>
+        <td><%= photo.image %></td>
+        <td><%= photo.edited %></td>
+        <td><%= photo.lat %></td>
+        <td><%= photo.lng %></td>
+        <td><%=l photo.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_photo_path(photo), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      photo_path(photo),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
     <% end %>
-</tr>
-<% end %>
   </tbody>
 </table>
 
-<br>
-
-
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_photo_path,
+            :class => 'btn btn-primary' %>

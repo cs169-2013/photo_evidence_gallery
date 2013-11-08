@@ -1,57 +1,41 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Photo -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Caption:</strong>
-  <%= @photo.caption %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:caption) %>:</strong></dt>
+  <dd><%= @photo.caption %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
+  <dd><%= @photo.tags %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:incidentName) %>:</strong></dt>
+  <dd><%= @photo.incidentName %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:operationalPeriod) %>:</strong></dt>
+  <dd><%= @photo.operationalPeriod %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:teamNumber) %>:</strong></dt>
+  <dd><%= @photo.teamNumber %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:contentType) %>:</strong></dt>
+  <dd><%= @photo.contentType %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:filename) %>:</strong></dt>
+  <dd><%= @photo.filename %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
+  <dd><%= @photo.image %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:edited) %>:</strong></dt>
+  <dd><%= @photo.edited %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lat) %>:</strong></dt>
+  <dd><%= @photo.lat %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lng) %>:</strong></dt>
+  <dd><%= @photo.lng %></dd>
+</dl>
 
-<p>
-  <strong>Tags:</strong>
-  <%= @photo.tags %>
-</p>
-
-<p>
-  <strong>Incidentname:</strong>
-  <%= @photo.incidentName %>
-</p>
-
-<p>
-  <strong>Operationalperiod:</strong>
-  <%= @photo.operationalPeriod %>
-</p>
-
-<p>
-  <strong>Teamnumber:</strong>
-  <%= @photo.teamNumber %>
-</p>
-
-<p>
-  <strong>Contenttype:</strong>
-  <%= @photo.contentType %>
-</p>
-
-<p>
-  <strong>Filename:</strong>
-  <%= @photo.filename %>
-</p>
-
-<p>
-  <strong>Latitude: </strong>
-  <%= @photo.lat %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @photo.lng %>
-</p>
-
-<p>
-  <%= link_to_if(@photo.lat && @photo.lng, 'Google Map of picture location', "http://maps.google.com/maps?q=#{@photo.lat},#{@photo.lng}") %>
-</p>
-
-<%= image_tag  @photo.image_url(:thumb) if @photo.image? %>
-
-
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Editing Queue', edit_queue_path %> |
-<%= link_to 'Back', photos_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              photos_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_photo_path(@photo), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              photo_path(@photo),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
