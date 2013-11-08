@@ -3,6 +3,8 @@ PhotoApp::Application.routes.draw do
   get 'photos/multiple_uploads' => 'photos#multiple_uploads'
   post 'photos/multiple_uploads' => 'photos#make_multiple'
   get 'photos/edit_queue' => 'photos#edit_queue', as: 'edit_queue'
+  get 'photos/index' => 'photos#index', :defaults => {:sort_e => 'true'}
+  get '/' => 'photos#index', :defaults => {:sort_e => 'true'}
   resources :photos
 
   get 'photos/code_image/:id' => 'photos#code_image'
