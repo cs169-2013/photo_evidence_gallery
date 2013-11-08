@@ -18,9 +18,6 @@ git config --global core.excludesfile '~/.gitignore_global'
 # Ignore application configuration
 /config/application.yml
 #/config/initializers/devise.rb
-    *~
-*.swp
-*/*~
-*/*/*~
-*/*/*/*~
+**.swp
+**~
 coverage/*
