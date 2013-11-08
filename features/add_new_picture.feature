@@ -25,6 +25,7 @@ Scenario: uploading a single photo
 Scenario: uploading a photo with no information
 	When I follow "Upload"
 	Then I should be on the New Photo page
+	And I upload the image "Water.jpg"
 	And I press "Create Photo"
 	And I press "Crop"
 	Then I should see "Successfully updated photo."
