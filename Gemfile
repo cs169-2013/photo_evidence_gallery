@@ -48,6 +48,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'devise'
+
 gem 'rmagick'
 gem 'carrierwave'
 gem 'fog'
