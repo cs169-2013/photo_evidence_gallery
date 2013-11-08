@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131026220128) do
+ActiveRecord::Schema.define(version: 20131106031735) do
 
   create_table "photos", force: true do |t|
     t.string   "caption"
@@ -24,7 +24,12 @@ ActiveRecord::Schema.define(version: 20131026220128) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+<<<<<<< HEAD
     t.boolean  "edited"
+=======
+    t.decimal  "lat"
+    t.decimal  "lng"
+>>>>>>> 8f93b289d11c99f44155fb528221e328ae36194f
   end
 
 end
