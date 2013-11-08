@@ -32,14 +32,16 @@
     <%= f.text_field :teamNumber %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.file_field :image %>
-  </div>
-
+  <% if !@photo.id %>
+    <div class="field">
+      <%= f.label :image %><br />
+      <%= f.file_field :image %>
+    </div>  
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
+
 
 
 <% end %>
