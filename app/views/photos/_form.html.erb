@@ -29,17 +29,19 @@
       <%= f.text_field :teamNumber, :class => 'text_field' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :image, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :image, :class => 'file_field' %>
+  <% if !@photo.id %>
+    <div class="control-group">
+      <%= f.label :image, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :image, :class => 'file_field' %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                photos_path, :class => 'btn' %>
-  </div>
-<% end %>
+      photos_path, :class => 'btn' %>
+    </div>
+  <% end %>
