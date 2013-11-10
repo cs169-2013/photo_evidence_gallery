@@ -9,11 +9,29 @@ class PhotosController < ApplicationController
       @sort = 'true'
     end
     
-    if params[:sort_e] != session[:sort_e]
-      session[:sort_e] = params[:sort_e]
-      redirect_to photos_path(:sort_e => @sort) and return
+    
+    if @sort == 'false'
+      if params[:sort_e] != session[:sort_e]
+        session[:sort_e] = params[:sort_e]
+        redirect_to photos_path(:sort_e => @sort) and return
+      end
+    	@photos = Photo.where("photos.edited = ?", @sort == 'true')
+    else
+      @incidents = params[:incident] || session[:incident]    
+      if params[:sort_e] != session[:sort_e]
+        session[:sort_e] = params[:sort_e]
+        redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return
+      end
+      if params[:incident] != session[:incident]
+        session[:incident] = params[:incident]
+        redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return 
+      end
+      if @incidents == "All"
+      	@photos = Photo.where("photos.edited = ?", @sort == 'true')
+    	else
+    	  @photos = Photo.where("photos.edited = ? AND photos.incidentName = ?", @sort == 'true', @incidents)
+    	end
     end
-    @photos = Photo.where("photos.edited = ?", @sort == 'true')
 		index_logic
   end
 
