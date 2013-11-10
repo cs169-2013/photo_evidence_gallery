@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <%= form_for(:photos, :html => {:multipart => true}, :url=>{:action=>'make_multiple'}) do |f| %>
   
   <%= f.file_field :images, :multiple => 'true' %>
