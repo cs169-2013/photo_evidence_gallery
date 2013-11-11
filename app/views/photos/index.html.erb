@@ -39,7 +39,17 @@ a:active {color:#000000;}  /* selected link */
   <%= link_to "Sign Out", destroy_member_session_path, :method => :delete %>
   <br>
 <% else %>
-  <%= link_to "Sign In", new_member_session_path, :method => :get %>
+  <%= form_for("member", :url => member_session_path) do |f| %>
+  <div><%= f.label :login %><br />
+  <%= f.text_field :login, :autofocus => true %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+
+  <div><%= f.submit "Sign in" %></div>
+  <% end %>
 <% end %>
 
 
