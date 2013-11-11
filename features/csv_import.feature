@@ -3,7 +3,7 @@ Feature: CSV_Import
 	So I can add other users
 	I want to be able to import user data via a csv file
 
-Given the user exist:
+Given the member exist:
 	| profile_id	| username	| password	|
 	| 1				| admin 	| password	|	
 	

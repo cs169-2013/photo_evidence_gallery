@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
-	before_filter :authenticate_user!
+	before_filter :authenticate_member!, :except => [:index]
 
   #GET
   def index

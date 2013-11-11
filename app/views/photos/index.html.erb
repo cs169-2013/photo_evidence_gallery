@@ -2,19 +2,43 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
 
-  <tbody>
-       <% @photo_pack.each do |photo_pack| %>
-                <tr>
-                        <% photo_pack.each do |photo| %>
-        <td  align="center" valign="center">
-                <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
-                <%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-                        </td>
+<% if member_signed_in? %>
+  <h3>you have succesfully signed in</h3>
+    </br> <h1>
+  <%= link_to 'Upload', new_photo_path %> </h1>
+  <h2><%= link_to 'Multiple Uploads', photos_multiple_uploads_path %></h2> 
+  <h2><%= link_to_if(@sort == 'true', 'Editing Queue', edit_queue_path){} %></h2>
+  <h3><%= link_to_if(@sort == 'false', 'Homepage', photos_path(:sort_e => 'true')){} %></h3>
+   </div>
+    <table class="table table-striped">
+
+      <tbody>
+           <% @photo_pack.each do |photo_pack| %>
+                    <tr>
+                            <% photo_pack.each do |photo| %>
+            <td  align="center" valign="center">
+                    <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
+                    <%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+                            </td>
+        <% end %>
+    </tr>
     <% end %>
-</tr>
-<% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
 
+  <%= link_to "Sign Out", destroy_member_session_path, :method => :delete %>
+  <br>
+<% else %>
+  <%= form_for("member", :url => member_session_path) do |f| %>
+  <div><%= f.label :login %><br />
+  <%= f.text_field :login, :autofocus => true %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+
+  <div><%= f.submit "Sign in" %></div>
+  <% end %>
+<% end %>

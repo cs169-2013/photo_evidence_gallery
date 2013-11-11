@@ -48,8 +48,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'devise'
-
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
@@ -60,3 +58,5 @@ gem 'fog'
 gem 'carrierwave_direct'
 gem 'sidekiq'
 gem 'figaro'
+gem 'devise', '3.0.0'
+gem 'protected_attributes'

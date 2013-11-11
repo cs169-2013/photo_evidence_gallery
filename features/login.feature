@@ -3,7 +3,7 @@ Feature: Log-in
 	So I can access other features
 	I want to be able to log-in
 
-Given the user exist:
+Given the member exist:
 	| profile_id	| username	| password	|
 	| 1				| admin 	| password	|	
 

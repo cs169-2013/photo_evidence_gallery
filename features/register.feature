@@ -3,7 +3,7 @@ Feature: Register
 	So I can have an account
 	I want to be able to register
 Given
- the user exist:
+ the member exist:
 	| profile_id	| username	| password	|
 	| 1				| admin 	| password	|	
 
