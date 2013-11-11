@@ -9,6 +9,7 @@ Background: I am on the homepage
 	Given I am on the PhotoApp homepage
 	
 Scenario: uploading a single photo
+	Given I am a new, authenticated user
 	When I follow "Upload"
 	Then I should be on the New Photo page
 	When I fill in "Caption" with "Tree"
@@ -23,6 +24,7 @@ Scenario: uploading a single photo
 	Then I should see 1 image
 
 Scenario: uploading a photo with no information
+	Given I am a new, authenticated user
 	When I follow "Upload"
 	Then I should be on the New Photo page
 	And I upload the image "Water.jpg"

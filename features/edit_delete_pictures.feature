@@ -12,14 +12,16 @@ Background: I am on the homepage
 	And I am on the PhotoApp homepage
 	
 Scenario: Editing a photo
+	Given I am a new, authenticated user
 	When I follow "Edit"
-	When I fill in "Incidentname" with "Craig"
+	When I fill in "incidentName" with "Craig"
 	And I press "Update Photo"
 	Then I should see "Craig"
 	When I follow "Back"
 	Then I should be on the PhotoApp homepage
 
 Scenario: Deleting a photo
+	Given I am a new, authenticated user
 	When I follow "Destroy"
 	Then I should be on the PhotoApp homepage
 	And I should see 0 images
