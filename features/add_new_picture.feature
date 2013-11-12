@@ -22,6 +22,8 @@ Scenario: uploading a single photo
 	And I follow "Back"
 	Then I should see 1 image
 
+Scenario: uploading a picture from a phone with geodata
+
 Scenario: uploading a photo with no information
 	When I follow "Upload"
 	Then I should be on the New Photo page

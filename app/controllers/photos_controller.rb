@@ -18,9 +18,12 @@ class PhotosController < ApplicationController
     	@photos = Photo.where("photos.edited = ?", @sort == 'true')
     else
       @incidents = params[:incident] || session[:incident]
+<<<<<<< HEAD
       if !@incidents
         @incidents = 'All'
       end   
+=======
+>>>>>>> master
       if params[:sort_e] != session[:sort_e]
         session[:sort_e] = params[:sort_e]
         redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return
@@ -74,12 +77,17 @@ class PhotosController < ApplicationController
   	  params[:photo][:incidentName] = "no incident name"
   	end
     @photo = Photo.new(photo_params)
-
-    if @photo.save
-      render :crop
+    if params[:photo] and params[:photo][:image]
+      @photo = Photo.new(photo_params)
+      if @photo.save
+        render :crop
+      else
+        flash[:error] = "Couldn't save to database!"
+        render :new
+      end
     else
-      flash[:notice] = "Couldn't save to database!"
-      render :new
+      flash[:error] = "No files chosen!"
+      redirect_to action: 'new'
     end
   end
 
@@ -122,14 +130,14 @@ class PhotosController < ApplicationController
 				if @photo.save
 
         else 
-          flash[:notice] = "Couldn't save photo!"
+          flash[:error] = "Couldn't save photo!"
           redirect_to photos_multiple_uploads_path
         end
 			end
 			flash[:notice] = "multiple images uploaded"
 			redirect_to photos_multiple_uploads_path
 		else
-		  flash[:notice] = "No files chosen!"
+		  flash[:error] = "No files chosen!"
 		  redirect_to photos_multiple_uploads_path
 		end
 	end
@@ -142,6 +150,6 @@ class PhotosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
-    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation)
+    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)
   end
 end
