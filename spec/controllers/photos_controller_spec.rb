@@ -1,8 +1,16 @@
 require 'spec_helper'
+include ValidUserRequestHelper
+include ValidUserHelper
 
 describe PhotosController do
+
+  before(:each) do
+    sign_in_as_a_valid_user
+  end
+
   describe "GET #index" do
     before(:each) do
+      sign_in_as_a_valid_user
       photo1 = Photo.create!(:edited => true)
       get :index
     end
@@ -33,8 +41,8 @@ describe PhotosController do
     it "should render the edited_queue" do
       photo2 = Photo.create!(:edited => false)
       photo3 = Photo.create!(:edited => false)
-      get :index, { sort_e: 'false' } #this is the same as edit_queue_path
-      get :index, { sort_e: 'false' } # session needs to get saved, forcing redirect
+      get :index, { edited: 'false' } #this is the same as edit_queue_path
+      get :index, { edited: 'false' } # session needs to get saved, forcing redirect
       assigns(:photos).should_not be_nil
       assigns(:photos).length.should == 2
       assigns(:photo_pack).length.should == 1
@@ -62,7 +70,7 @@ describe PhotosController do
         #response.should redirect_to photo_path(Photo.last)
       end
       
-      it "notifies that photo has been created" do
+      it "does not notify that photo has been created" do
         post :create, photo: FactoryGirl.attributes_for(:photo)
         flash[:notice].should be_nil
       end

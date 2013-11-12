@@ -10,4 +10,11 @@ FactoryGirl.define do
     #image { fixture_file_upload("files/example.jpg", "image/jpeg") }
   end
 
+  factory :user do
+
+    email "example@example.com"
+    password "example12"
+    password_confirmation "example12"
+  end
+
 end
