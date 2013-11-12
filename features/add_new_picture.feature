@@ -5,7 +5,8 @@ Feature: Upload a single image to the app
 	I want to have the database updated
 	
 Background: I am on the homepage
-
+	
+	Given a logged in user
 	Given I am on the PhotoApp homepage
 	
 Scenario: uploading a single photo
@@ -23,6 +24,13 @@ Scenario: uploading a single photo
 	Then I should see 1 image
 
 Scenario: uploading a picture from a phone with geodata
+	When I follow "Upload"
+	Then I should be on the New Photo page
+	And I upload the image "Berkeley.jpg"
+	And I press "Create Photo"
+	And I press "Crop"
+	Then I should see "-122.2581666666667"
+	Then I should see "37.87116666666667"
 
 Scenario: uploading a photo with no information
 	When I follow "Upload"

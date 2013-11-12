@@ -2,7 +2,8 @@
 Feature: crop photos with different masks
 
 Background: I am on a page of a photo. 
-
+	
+	Given a logged in user
 	Given I am on the New photo page
 	
 @wip
