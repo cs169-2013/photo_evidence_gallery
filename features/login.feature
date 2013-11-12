@@ -27,3 +27,11 @@ Scenario: I try to access features while not logged-in
 	Then I should be on the PhotoApp homepage
 	And I should see "Please Log-in"
 
+Scenario: Login
+  Given a valid user
+  When I go to the login page
+  And I fill in the following:
+    |Email|minikermit@hotmail.com|
+    |Password|12345678|
+  And I press "Sign in"
+  Then I should see "Signed in successfully."

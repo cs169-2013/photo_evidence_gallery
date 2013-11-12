@@ -27,7 +27,8 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
-  config.include ValidUserHelper, :type => :controller
+  config.include Devise::TestHelpers, :type => :controller
+
   config.include ValidUserRequestHelper, :type => :request
 
   # FactoryGirl for factories

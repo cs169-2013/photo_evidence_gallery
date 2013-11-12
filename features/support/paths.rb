@@ -16,6 +16,7 @@ module NavigationHelpers
     when /^the (PhotoApp )?home\s?page$/ then '/photos'
     when /^the photos page$/ then '/photos'
     when /^the New Photo page$/ then '/photos/new'
+    when /the login page/ then user_session_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -2,6 +2,7 @@ Feature: upload multiple movies
 
 Background: I am on the homepage
 
+  Given a logged in user
   Given I am on the PhotoApp homepage
 
 Scenario: I upload one image
