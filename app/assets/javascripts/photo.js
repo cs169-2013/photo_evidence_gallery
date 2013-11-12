@@ -30,6 +30,27 @@ $(document).ready(function () {
   $("#rotate270").click(function(e) {
     $('#photo_rotation').val(270);
   });
+  $("#coorbutton").click(function(e) {
+    var x=document.getElementById("Locator");
+    function getLocation()
+    {
+      x.innerHTML="Locating....";
+    if (navigator.geolocation)
+      {
+      navigator.geolocation.getCurrentPosition(showPosition);
+      }
+    else{x.innerHTML="Geolocation is not supported by this browser.";}
+    }
+    function showPosition(position)
+    {
+      x.innerHTML="Success";
+      $('#photo_lat').val(position.coords.latitude);
+      $('#photo_lng').val(position.coords.longitude);
+    }
+    getLocation();
+      
+      
+  });
 
   $('#square').change(function(e) {
     jcrop_api.setOptions(this.checked? { aspectRatio: 1 }: { aspectRatio: 0 });
