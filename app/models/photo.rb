@@ -51,5 +51,9 @@ class Photo < ActiveRecord::Base
     def crop_image
       image.recreate_versions! if crop_x.present?
     end
+    
+    def self.incidents
+    	Photo.uniq.pluck
+    end
 
 end
