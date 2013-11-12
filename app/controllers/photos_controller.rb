@@ -17,12 +17,15 @@ class PhotosController < ApplicationController
       end
     	@photos = Photo.where("photos.edited = ?", @sort == 'true')
     else
-      @incidents = params[:incident] || session[:incident]    
+      @incidents = params[:incident] || session[:incident]
+      if !@incidents
+        @incidents = 'All'
+      end   
       if params[:sort_e] != session[:sort_e]
         session[:sort_e] = params[:sort_e]
         redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return
       end
-      if params[:incident] != session[:incident]
+      if params[:incident] != session[:incident] or session[:incident] == nil
         session[:incident] = params[:incident]
         redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return 
       end

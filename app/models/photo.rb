@@ -53,7 +53,7 @@ class Photo < ActiveRecord::Base
     end
     
     def self.incidents
-    	Photo.uniq.pluck
+    	Photo.uniq.pluck(:incidentName).compact.sort
     end
 
 end
