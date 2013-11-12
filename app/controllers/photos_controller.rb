@@ -67,6 +67,9 @@ class PhotosController < ApplicationController
   end
 
   def create
+  	if params[:photo][:incidentName] == ""
+  	  params[:photo][:incidentName] = "no incident name"
+  	end
     @photo = Photo.new(photo_params)
 
     if @photo.save
