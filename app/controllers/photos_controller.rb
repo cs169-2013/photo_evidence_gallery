@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
-	before_filter :authenticate_user!
+	#before_filter :authenticate_user!
 
   #GET
   def index
@@ -136,6 +136,6 @@ class PhotosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
-    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h)
+    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :binaryData, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation)
   end
 end

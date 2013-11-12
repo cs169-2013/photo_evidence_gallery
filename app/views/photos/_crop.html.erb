@@ -1,7 +1,7 @@
 <h1>Crop Image</h1>
 
 <%= image_tag @photo.image_url(:large), id: "cropbox" %>
-
+<%= javascript_include_tag "photo" %>
 <h4>Preview</h4>
 <div style="width:100px; height:100px; overflow:hidden">
   <%= image_tag @photo.image.url(:large), :id => "preview" %>
@@ -16,11 +16,17 @@
   </div>
 </form>
 
+<%= image_tag @photo.image_url(:thumb), id: "rotate0" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate90" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate180" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate270" %>
+
 <%= form_for @photo do |f| %>
   <div class="actions">
     <% %w[x y w h].each do |attribute| %>
       <%= f.text_field "crop_#{attribute}"%>
     <% end %>
+    <%= f.text_field "rotation" %>
     <%= f.submit "Crop", :id => "cropper" %>
   </div>
 <% end %>
