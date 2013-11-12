@@ -5,32 +5,32 @@
 <div class="span-3">
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:caption) %>:</strong></dt>
-  <dd><%= @photo.caption %></dd>
+  <dd><%= @photo.caption %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
-  <dd><%= @photo.tags %></dd>
+  <dd><%= @photo.tags %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:incidentName) %>:</strong></dt>
-  <dd><%= @photo.incidentName %></dd>
+  <dd><%= @photo.incidentName %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:operationalPeriod) %>:</strong></dt>
-  <dd><%= @photo.operationalPeriod %></dd>
+  <dd><%= @photo.operationalPeriod %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:teamNumber) %>:</strong></dt>
-  <dd><%= @photo.teamNumber %></dd>
+  <dd><%= @photo.teamNumber %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:contentType) %>:</strong></dt>
-  <dd><%= @photo.contentType %></dd>
+  <dd><%= @photo.contentType %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:filename) %>:</strong></dt>
-  <dd><%= @photo.filename %></dd>
+  <dd><%= @photo.filename %>&nbsp;</dd>
 
   <dt><strong><%= model_class.human_attribute_name(:edited) %>:</strong></dt>
-  <dd><%= @photo.edited %></dd>
+  <dd><%= @photo.edited %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:lat) %>:</strong></dt>
-  <dd><%= @photo.lat %></dd>
+  <dd><%= link_to_if(@photo.lat && @photo.lng, @photo.lat, "http://maps.google.com/maps?q=#{@photo.lat},#{@photo.lng}") %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:lng) %>:</strong></dt>
-  <dd><%= @photo.lng %></dd>
-</dl></div>
-<div class="span-9">
-<dl class="dl-horizontal">
+  <dd><%= link_to_if(@photo.lat && @photo.lng, @photo.lng, "http://maps.google.com/maps?q=#{@photo.lat},#{@photo.lng}") %>&nbsp;</dd>
+
+  <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
-  <dd><%= image_tag @photo.image_url(:thumb) if @photo.image? %></dd>
-</dl>
+  <dd><%= image_tag @photo.image_url(:cropped_large) if @photo.image? %></dd>
+  </dl>
+</dl></div>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

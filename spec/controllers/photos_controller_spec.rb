@@ -137,7 +137,7 @@ describe PhotosController do
       end
       
       it "notifies that photos have been uploaded" do
-        flash[:notice].should_not be_nil
+        flash[:error].should_not be_nil
       end
     end
   end
