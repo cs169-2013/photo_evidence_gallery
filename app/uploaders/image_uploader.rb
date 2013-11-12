@@ -36,6 +36,7 @@ class ImageUploader < CarrierWave::Uploader::Base
         w = model.crop_w.to_i
         h = model.crop_h.to_i
         img.crop!(x, y, w, h)
+        img.rotate!(model.rotation.to_i)
       end
     end
   end

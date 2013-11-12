@@ -1,15 +1,34 @@
-jQuery(function($){
- 
-  var jcrop_api;
-  var golden = 1.618
+$(document).ready(function () {
 
-  $('#cropbox').Jcrop({
-    aspectRatio: 1,
-    setSelect: [0, 0, 600, 600],
-    onChange: update,
-		onSelect: update
-  },function(){
-    jcrop_api = this;
+  jQuery(function($){
+
+    var jcrop_api;
+    var golden = 1.618
+    $('#cropbox').Jcrop({
+      aspectRatio: 1,
+      setSelect: [0, 0, 600, 600],
+      onChange: update,
+      onSelect: update
+    },function(){
+      jcrop_api = this;
+    });
+
+  $("#rotate90").rotate(90);
+  $("#rotate180").rotate(180);
+  $("#rotate270").rotate(270);
+  
+  
+  $("#rotate0").click(function(e) {
+    $('#photo_rotation').val(0);
+  });
+  $("#rotate90").click(function(e) {
+    $('#photo_rotation').val(90);
+  });
+  $("#rotate180").click(function(e) {
+    $('#photo_rotation').val(180);
+  });
+  $("#rotate270").click(function(e) {
+    $('#photo_rotation').val(270);
   });
 
   $('#square').change(function(e) {
@@ -28,15 +47,15 @@ jQuery(function($){
     jcrop_api.setOptions(this.checked? { aspectRatio: 0 }: { aspectRatio: 0 });
     jcrop_api.focus();
   });
+  });
+
+  function update(c){
+    $('#photo_crop_x').val(c.x)
+    $('#photo_crop_y').val(c.y)
+    $('#photo_crop_w').val(c.w)
+    $('#photo_crop_h').val(c.h) 
+  }
 });
-
-function update(c){
-  $('#photo_crop_x').val(c.x)
-  $('#photo_crop_y').val(c.y)
-  $('#photo_crop_w').val(c.w)
-  $('#photo_crop_h').val(c.h) 
-}
-
 
 
 
