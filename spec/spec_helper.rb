@@ -27,6 +27,9 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
+  config.include ValidUserHelper, :type => :controller
+  config.include ValidUserRequestHelper, :type => :request
+
   # FactoryGirl for factories
   config.include FactoryGirl::Syntax::Methods
 
@@ -47,5 +50,6 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  #config.order = "random"
+
 end

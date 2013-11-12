@@ -1,46 +1,35 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
-	#before_filter :authenticate_user!
+	before_filter :authenticate_user!
 
   #GET
   def index
-    @sort = params[:sort_e] || params["sort_e"] || session[:sort_e]
+    @sort = params[:edited] || params["edited"] || session[:edited]
     if !@sort
       @sort = 'true'
+    end 
+    @incidents = params[:incident] || session[:incident]
+    if !@incidents
+      @incidents = 'All'
+    end   
+    if params[:edited] != session[:edited] || params[:incident] != session[:incident]
+      session[:edited] = params[:edited]
+      session[:incident] = params[:incident]
+      redirect_to photos_path(:edited => @sort, :incident => @incidents) and return
     end
     
-    
-    if @sort == 'false'
-      if params[:sort_e] != session[:sort_e]
-        session[:sort_e] = params[:sort_e]
-        redirect_to photos_path(:sort_e => @sort) and return
-      end
+    if @incidents == 'All'
     	@photos = Photo.where("photos.edited = ?", @sort == 'true')
-    else
-      @incidents = params[:incident] || session[:incident]
-      if !@incidents
-        @incidents = 'All'
-      end   
-      if params[:sort_e] != session[:sort_e]
-        session[:sort_e] = params[:sort_e]
-        redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return
-      end
-      if params[:incident] != session[:incident] or session[:incident] == nil
-        session[:incident] = params[:incident]
-        redirect_to photos_path(:sort_e => @sort, :incident => @incidents) and return 
-      end
-      if @incidents == "All"
-      	@photos = Photo.where("photos.edited = ?", @sort == 'true')
-    	else
-    	  @photos = Photo.where("photos.edited = ? AND photos.incidentName = ?", @sort == 'true', @incidents)
-    	end
-    end
+  	else
+  	  @photos = Photo.where("photos.edited = ? AND photos.incidentName = ?", @sort == 'true', @incidents)
+  	end
+
 		index_logic
   end
 
   #GET
   def edit_queue
-    redirect_to photos_path(:sort_e => 'false') and return
+    redirect_to photos_path(:edited => 'false') and return
   end
 
   def index_logic
@@ -91,11 +80,6 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
-    #respond_to do |format|
-    #  if @photo.update(photo_params)
-    #    format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-    #    format.json { head :no_content }
-    #if @photo.edited?
     @photo.edited = true
     if @photo.update_attributes(photo_params)
       redirect_to @photo, notice: "Successfully updated photo."
