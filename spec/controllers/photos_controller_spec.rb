@@ -3,22 +3,26 @@ include ValidUserRequestHelper
 
 describe PhotosController do
 
-  before(:each) do
+  before do
     sign_in_as_a_valid_user
+    get :index, { edited: 'true', :incident => 'All'} # this is the default params
+    get :index, { edited: 'true', :incident => 'All'} # session needs to get saved, forcing redirect
   end
 
   describe "GET #index" do
     before(:each) do
-      photo1 = Photo.create!(:edited => true)
-      get :index
+      photo1 = Photo.create!(:edited => true, :incidentName => 'Kevin')
+      get :index, { edited: 'true', :incident => 'All'} # this is the default params
+      get :index, { edited: 'true', :incident => 'All'} # session needs to get saved, forcing redirect
     end
 
     it "hi" do
       #pending "so i wrote a dead test to make the other tests pass...this is pretty awk"
+      #get :index
+      #response.should render_template :index
     end
     
     it "populates an array of photos" do
-       get :index
        response.should render_template :index
        assigns(:photos).should_not be_nil
        assigns(:photos).length.should == 1
@@ -31,22 +35,31 @@ describe PhotosController do
         @counter+=1
         Photo.create!(:filename => "name_#{@counter}", :edited => true)
       end
-      get :index
+      get :index, { edited: 'true', :incident => 'All'}
       
       assigns(:photos).length.should == assigns(:bin_size) + 1
       assigns(:photo_pack).length.should == 2
     end
     
     it "renders the :index view" do
-      get :index 
       response.should render_template :index
     end 
+
+    it "can sort by incident" do
+      get :index, { edited: 'true', :incident => 'Kevin'}
+      get :index, { edited: 'true', :incident => 'Kevin'}
+      assigns(:photos).length.should == 1
+
+      get :index, { edited: 'true', :incident => 'Eddy'}
+      get :index, { edited: 'true', :incident => 'Eddy'}
+      assigns(:photos).length.should == 0
+    end
 
     it "should render the edited_queue" do
       photo2 = Photo.create!(:edited => false)
       photo3 = Photo.create!(:edited => false)
-      get :index, { edited: 'false' } #this is the same as edit_queue_path
-      get :index, { edited: 'false' } # session needs to get saved, forcing redirect
+      get :index, { edited: 'false', :incident => 'All' } #this is the same as edit_queue_path
+      get :index, { edited: 'false', :incident => 'All' } # session needs to get saved, forcing redirect
       assigns(:photos).should_not be_nil
       assigns(:photos).length.should == 2
       assigns(:photo_pack).length.should == 1
@@ -148,7 +161,7 @@ describe PhotosController do
         response.should redirect_to photos_multiple_uploads_path
       end
       
-      it "notifies that photos have been uploaded" do
+      it "notifies an error" do
         flash[:error].should_not be_nil
       end
     end

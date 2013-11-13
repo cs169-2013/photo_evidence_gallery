@@ -4,9 +4,7 @@ class Photo < ActiveRecord::Base
     before_save :extract_geolocation
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation
     after_update :crop_image
-    def create
-      Photo.create(params[:photo])
-    end
+    
 
     def extract_geolocation
     	return unless image_exists?
