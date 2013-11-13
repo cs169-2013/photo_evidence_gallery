@@ -1,7 +1,7 @@
 <h1>Crop Image</h1>
 
 <%= image_tag @photo.image_url(:large), id: "cropbox" %>
-<%= javascript_include_tag "photo" %>
+
 <h4>Preview</h4>
 <div style="width:100px; height:100px; overflow:hidden">
   <%= image_tag @photo.image.url(:large), :id => "preview" %>
