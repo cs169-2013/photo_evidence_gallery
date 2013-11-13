@@ -5,13 +5,7 @@ class PhotosController < ApplicationController
   #GET
   def index
     @sort = params[:edited] || params["edited"] || session[:edited]
-    if !@sort
-      @sort = 'true'
-    end 
-    @incidents = params[:incident] || session[:incident]
-    if !@incidents
-      @incidents = 'All'
-    end   
+    @incidents = params[:incident] || session[:incident] 
     if params[:edited] != session[:edited] || params[:incident] != session[:incident]
       session[:edited] = params[:edited]
       session[:incident] = params[:incident]
@@ -68,12 +62,10 @@ class PhotosController < ApplicationController
       if @photo.save
         render :crop
       else
-        flash[:error] = "Couldn't save to database!"
-        render :new
+        redirect_to action: 'new', error: "Couldn't save to database!"
       end
     else
-      flash[:error] = "No files chosen!"
-      redirect_to action: 'new'
+      redirect_to action: 'new', error: "No files chosen!"
     end
   end
 
@@ -84,7 +76,7 @@ class PhotosController < ApplicationController
     if @photo.update_attributes(photo_params)
       redirect_to @photo, notice: "Successfully updated photo."
     else
-      render :new
+      redirect_to action: 'new', error: "Couldn't update the photo."
     end
   end
 
@@ -108,9 +100,7 @@ class PhotosController < ApplicationController
 			params[:photos][:images].each do |photo|
 				@photo = Photo.new({:image => photo})
 				@photo.edited = false
-				if @photo.save
-
-        else 
+				if !@photo.save
           flash[:error] = "Couldn't save photo!"
           redirect_to photos_multiple_uploads_path
         end
