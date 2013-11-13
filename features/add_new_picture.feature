@@ -18,7 +18,8 @@ Scenario: uploading a single photo
 	And I fill in "Operationalperiod" with "today"
 	And I fill in "Teamnumber" with "2"
 	And I upload the image "Water.jpg"
-	And I press "Create Photo"
+  And I press "Create Photo"
+  And I fill in "photo[crop_x]" with "100"
 	And I press "Crop"
 	And I follow "Back"
 	Then I should see 1 image
