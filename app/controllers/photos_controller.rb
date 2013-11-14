@@ -15,7 +15,8 @@ class PhotosController < ApplicationController
     if @incidents == 'All'
     	@photos = Photo.where("photos.edited = ?", @sort == 'true')
   	else
-  	  @photos = Photo.where("photos.edited = ? AND photos.incidentName = ?", @sort == 'true', @incidents)
+  		temp = @sort == 'true'
+  	  @photos = Photo.where(edited: temp, incidentName: @incidents)
   	end
 
 		index_logic

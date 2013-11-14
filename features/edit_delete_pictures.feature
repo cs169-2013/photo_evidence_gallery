@@ -9,7 +9,7 @@ Background: I am on the homepage
 	Given the following images exist:
   |caption    |tags |incidentName 	|operationalPeriod|teamNumber |contentType	|filename   |edited |
   |Tree       |a    |Kevin					|January			  	|team 2			|what			 		|tree.jpg   |true		|
-	Given a logged in user
+	Given I am logged in as a valid user
 	And I am on the PhotoApp homepage
 	
 Scenario: Editing a photo

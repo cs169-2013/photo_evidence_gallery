@@ -3,9 +3,8 @@ Feature: crop photos with different masks
 
 Background: I am on a page of a photo. 
 	
-	Given a valid user exists
-	Given I am logged in
-	Given I am on the New photo page
+	Given I am logged in as a valid user
+	And I am on the New photo page
 	
 @wip
 Scenario: use a custom crop
