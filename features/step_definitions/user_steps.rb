@@ -1,4 +1,4 @@
-Given /^a valid user$/ do
+Given /^a valid user exists$/ do
   @user = User.create!({
              :email => "minikermit@hotmail.com",
              :password => "12345678",
@@ -6,7 +6,7 @@ Given /^a valid user$/ do
            })
 end
 
-Given /^a logged in user$/ do
+Given /^I am logged in$/ do
   step "a valid user"
   visit "/"
   fill_in "Email", :with => "minikermit@hotmail.com"

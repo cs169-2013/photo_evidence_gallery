@@ -98,7 +98,7 @@ class PhotosController < ApplicationController
 	def make_multiple
 		if params[:photos] and params[:photos][:images]
 			params[:photos][:images].each do |photo|
-				@photo = Photo.new({:image => photo})
+				@photo = Photo.new({:incidentName => "no incident name", :image => photo})
 				@photo.edited = false
 				if !@photo.save
           flash[:error] = "Couldn't save photo!"
