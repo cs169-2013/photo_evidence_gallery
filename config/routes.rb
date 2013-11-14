@@ -8,6 +8,9 @@ PhotoApp::Application.routes.draw do
   resources :photos
 
   get 'photos/code_image/:id' => 'photos#code_image'
+  
+  #route for offline application files
+  get "/application.manifest" => Rails::Offline
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
