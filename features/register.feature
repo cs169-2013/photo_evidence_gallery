@@ -2,7 +2,7 @@ Feature: Register
 	As a Bamru Member
 	So I can have an account
 	I want to be able to register
-Given
+Background: Given
  the user exist:
 	| profile_id	| username	| password	|
 	| 1				| admin 	| password	|	
