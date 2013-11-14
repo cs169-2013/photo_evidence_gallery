@@ -10,7 +10,18 @@ PhotoApp::Application.routes.draw do
   get 'photos/code_image/:id' => 'photos#code_image'
   
   #route for offline application files
-  get "/application.manifest" => Rails::Offline
+  
+  offline = Rack::Offline.configure do
+    public_path = Rails.root.join("public")
+
+    Dir[public_path.join("assets/*.js*"), public_path.join("*.html"), public_path.join("assets/*.css*")].each do |file|
+      p = Pathname.new(file)
+      cache p.relative_path_from(public_path)
+    end
+    network "*"
+  end
+  
+  get '/application.manifest' => offline
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
