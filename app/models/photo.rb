@@ -59,7 +59,7 @@ class Photo < ActiveRecord::Base
     end
     
     def self.incidents
-    	Photo.uniq.pluck(:incidentName).compact.sort.delete_if{|x| x == ""}
+    	Photo.uniq.pluck(:incident_name).compact.sort.delete_if{|x| x == ""}
     end
 
 end
