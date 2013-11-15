@@ -14,18 +14,18 @@ Scenario: use a custom crop
 	Then I press "Crop"
 	Then I should see "Photoname"
 	And the picture's size should be 400 by 200
-
+@wip
 Scenario: use a square mask
 	When I press "Crop"
 	Then I should see "Photoname"
 	And the picture should have the aspect ratio of 1.000
-
+@wip
 Scenario: use a portrait mask
 	When I choose "portrait"
 	And I press "Crop"
 	Then I should see "Photoname"
 	And the picture should have the aspect ratio of 0.618
-
+@wip
 Scenario: use a landscape mask
 	When I choose "landscape"
 	And I press "Crop"
