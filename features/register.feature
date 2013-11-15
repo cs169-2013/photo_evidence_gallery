@@ -2,6 +2,7 @@ Feature: Register
 	As a Bamru Member
 	So I can have an account
 	I want to be able to register
+	
 Background: A valid user exists
 	Given a valid user exists
 	And I am on the login page
@@ -35,7 +36,6 @@ Scenario: I signup with an invalid username
 	And I fill in "user_password" with "kevincasey"
 	And I fill in "user_password_confirmation" with "kevincasey"
 	And I press "Sign up"
-	Then I should not be on the PhotoApp hompage
 	And I should see "Email"
 	And I should see "Password"
 	And I should see "Password confirmation"
