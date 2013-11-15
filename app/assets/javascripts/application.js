@@ -16,4 +16,5 @@
 //= require twitter/bootstrap
 //= require jquery.Jcrop
 //= require turbolinks
+//= require offline
 //= require_tree .

@@ -54,8 +54,8 @@
 
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit nil, :class => 'btn btn-primary', :id => 'submit_btn' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-      photos_path, :class => 'btn' %>
+      photos_path, :class => 'btn'%>
     </div>
   <% end %>

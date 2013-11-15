@@ -14,7 +14,7 @@ PhotoApp::Application.routes.draw do
   offline = Rack::Offline.configure do
     public_path = Rails.root.join("public")
 
-    Dir[public_path.join("assets/*.js*"), public_path.join("*.html"), public_path.join("assets/*.css*")].each do |file|
+    Dir[public_path.join("assets/*.js*"), public_path.join("*.html"), public_path.join("assets/*.css*"), public_path.join("*/*")].each do |file|
       p = Pathname.new(file)
       cache p.relative_path_from(public_path)
     end
