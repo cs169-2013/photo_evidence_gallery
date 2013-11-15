@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108040601) do
+ActiveRecord::Schema.define(version: 20131115192452) do
 
   create_table "photos", force: true do |t|
     t.string   "caption"
     t.string   "tags"
-    t.string   "incidentName"
-    t.string   "operationalPeriod"
-    t.string   "teamNumber"
-    t.string   "contentType"
-    t.string   "filename"
+    t.string   "incident_name"
+    t.string   "operational_period"
+    t.string   "team_number"
+    t.string   "content_type"
+    t.string   "file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
