@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     if @incidents == 'All'
     	@photos = Photo.where("photos.edited = ?", @sort == 'true')
   	else
-  	  @photos = Photo.where("photos.edited = ? AND photos.incidentName = ?", @sort == 'true', @incidents)
+  	  @photos = Photo.where("photos.edited = ? AND photos.incident_name = ?", @sort == 'true', @incidents)
   	end
 
 		index_logic
@@ -53,8 +53,8 @@ class PhotosController < ApplicationController
   end
 
   def create
-  	if params[:photo][:incidentName] == ""
-  	  params[:photo][:incidentName] = "no incident name"
+  	if params[:photo][:incident_name] == ""
+  	  params[:photo][:incident_name] = "no incident name"
   	end
     @photo = Photo.new(photo_params)
     if params[:photo] and params[:photo][:image]
@@ -121,6 +121,6 @@ class PhotosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
-    params.require(:photo).permit(:caption, :tags, :incidentName, :operationalPeriod, :teamNumber, :contentType, :filename, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)
+    params.require(:photo).permit(:caption, :tags, :incident_name, :operational_period, :team_number, :content_type, :file_name, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)
   end
 end
