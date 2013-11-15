@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe Photo do
   before(:all) do
-    @photo = Photo.new(caption: 'Default Caption', tags: 'Multiple tags', incidentName: 'Incident', operationalPeriod: 'Period', teamNumber: '12345', contentType: 'jpg', edited: true)
+    @photo = Photo.new(caption: 'Default Caption', tags: 'Multiple tags', incident_name: 'Incident', operational_period: 'Period', team_number: '12345', content_type: 'jpg', edited: true)
   end
   
   subject { @photo }
 
   it { should respond_to(:caption) }  
   it { should respond_to(:tags) }  
-  it { should respond_to(:incidentName) }  
-  it { should respond_to(:operationalPeriod) }  
-  it { should respond_to(:teamNumber) }  
-  it { should respond_to(:contentType) }  
-  it { should respond_to(:filename) }  
+  it { should respond_to(:incident_name) }  
+  it { should respond_to(:operational_period) }  
+  it { should respond_to(:team_number) }  
+  it { should respond_to(:content_type) }  
+  it { should respond_to(:file_name) }  
   it { should respond_to(:image) }  
   it { should respond_to(:created_at) }  
   it { should respond_to(:updated_at) }  
