@@ -14,12 +14,12 @@ Scenario: uploading a single photo
 	Then I should be on the New Photo page
 	When I fill in "Caption" with "Tree"
 	And I fill in "Tags" with "Eddy"
-	And I fill in "Incidentname" with "test"
-	And I fill in "Operationalperiod" with "today"
-	And I fill in "Teamnumber" with "2"
+	And I fill in "Incident name" with "test"
+	And I fill in "Operational period" with "today"
+	And I fill in "Team number" with "2"
 	And I upload the image "Water.jpg"
-  And I press "Create Photo"
-  And I fill in "photo[crop_x]" with "100"
+  	And I press "Create Photo"
+  	And I fill in "photo[crop_x]" with "100"
 	And I press "Crop"
 	And I follow "Back"
 	Then I should see 1 image
