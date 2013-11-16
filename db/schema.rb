@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131115192452) do
+ActiveRecord::Schema.define(version: 20131116040921) do
 
   create_table "photos", force: true do |t|
     t.string   "caption"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20131115192452) do
     t.string   "incident_name"
     t.string   "operational_period"
     t.string   "team_number"
-    t.string   "content_type"
-    t.string   "file_name"
+    t.string   "taken_by"
+    t.string   "time_taken"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
