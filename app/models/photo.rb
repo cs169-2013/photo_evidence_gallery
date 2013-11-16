@@ -1,3 +1,5 @@
+require 'date'
+
 class Photo < ActiveRecord::Base
 
     mount_uploader :image, ImageUploader
@@ -17,6 +19,9 @@ class Photo < ActiveRecord::Base
 	    
 	    lat_ref = exif_extractor('GPSLatitudeRef', false)
 	    lng_ref = exif_extractor('GPSLongitudeRef', false)
+	    if self.time_taken == ''
+	    	self.time_taken = exif_extractor('DateTime', false)
+	    end
 	    
 	    return unless img_lat && img_lng && lat_ref && lng_ref
 

@@ -6,8 +6,8 @@ Feature: edit or delete existing photos
     
 Background: I am on the homepage
     Given the following images exist:
-    |caption    |tags |incident_name  |operational_period|team_number |content_type   |file_name   |edited |
-    |Tree       |a    |Kevin          |January           |team 2      |what           |tree.jpg    |true   |
+    |caption    |tags |incident_name  |operational_period|team_number |taken_by     |time_taken  |edited |
+    |Tree       |a    |Kevin          |January           |team 2      |me           |today       |true   |
 		Given I am logged in as a valid user
     And I am on the PhotoApp homepage
 Scenario: Editing a photo

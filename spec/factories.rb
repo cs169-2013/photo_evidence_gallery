@@ -3,8 +3,8 @@ require 'factory_girl'
 FactoryGirl.define do
 
   factory :photo do
-    sequence(:file_name){ |n| "foo#{n}" }
-    content_type "image/jpg"
+    sequence(:taken_by){ |n| "foo#{n}" }
+    time_taken "not today"
     edited true
     image "Clearly faked"
     #image { fixture_file_upload("files/example.jpg", "image/jpeg") }

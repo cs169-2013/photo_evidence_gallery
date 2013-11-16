@@ -33,7 +33,7 @@ describe PhotosController do
       @counter = 0
       while @counter < assigns(:bin_size)
         @counter+=1
-        Photo.create!(:file_name => "name_#{@counter}", :edited => true)
+        Photo.create!(:taken_by => "name_#{@counter}", :edited => true)
       end
       get :index, { edited: 'true', :incident => 'All'}
       
@@ -107,7 +107,7 @@ describe PhotosController do
         expect{
           put :update, id: @photo1.id, photo: FactoryGirl.attributes_for(:photo)
         }.to_not change(Photo, :count)
-        @photo1.file_name.should_not == Photo.last.file_name
+        @photo1.taken_by.should_not == Photo.last.taken_by
         @photo1.image.should_not == Photo.last.image
       end
       

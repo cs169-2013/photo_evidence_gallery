@@ -32,6 +32,7 @@ Scenario: uploading a picture from a phone with geodata
 	And I press "Crop"
 	Then I should see "-122.2581666666667"
 	Then I should see "37.87116666666667"
+	Then I should see "2013:09:21 13:09:39"
 
 Scenario: uploading a photo with no information
 	When I follow "Upload"
