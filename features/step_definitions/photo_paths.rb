@@ -28,6 +28,32 @@ When /I use multiple upload to upload the image "(.*)"/ do |image|
   attach_file("photos[images][]", File.join(Rails.root, 'public', 'uploads', image))
 end
 
-Then /I should see (\d) images?/ do |count|
+Then /I should see (\d+) images?/ do |count|
   assert Photo.all.length == count.to_i
+end
+
+When /I crop the image to (\d+) by (\d+)$/ do |width, height|
+	fill_in "photo[crop_x]", :with => "0"
+	fill_in "photo[crop_y]", :with => "0"
+	fill_in "photo[crop_w]", :with => "#{width}"
+	fill_in "photo[crop_h]", :with => "#{height}"
+end
+
+Then /the picture's size should be (\d+) by (\d+)/ do |width, height|
+	#grabs the url for the image
+	page.body =~ /alt="(.+)".src="(.+)"/
+	#need to check width and height of last uploaded picture.
+	#debugger 
+	@img = Magick::Image.read($2)[0]
+	@img.inspect =~ /^.*\s(\d+)x(\d+).*$/
+	assert ($1.to_i == width.to_i and $2.to_i == height.to_i), "Found the dimensions to be #{$1} by #{$2}. Full data: #{@img.inspect}"
+end
+
+Then /the picture should have the aspect ratio of (\d+\.\d+)/ do |ratio|
+	#grabs the url for the image
+	page.body =~ /alt="(.+)".src="(.+)"/
+	#debugger
+	@img = Magick::Image.read($2)[0]
+	@img.inspect =~ /^.*\s(\d+)x(\d+).*$/
+	assert ((($1.to_f)/($2.to_f)).round(3) == ratio.to_f), "Got #{(($1.to_f)/($2.to_f)).round(3)}, should be #{ratio.to_f}. Full data: #{@img.inspect}"
 end

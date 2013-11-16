@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
     	return unless image_exists?
 
 	    @img = Magick::Image.read(image)[0] rescue nil
-	    
+
 	    return unless @img
 	    img_lat = exif_extractor('GPSLatitude', true)
 	    img_lng = exif_extractor('GPSLongitude', true)
@@ -59,7 +59,7 @@ class Photo < ActiveRecord::Base
     end
     
     def self.incidents
-    	Photo.uniq.pluck(:incident_name).compact.sort
+    	Photo.uniq.pluck(:incident_name).compact.sort.delete_if{|x| x == ""}
     end
 
 end
