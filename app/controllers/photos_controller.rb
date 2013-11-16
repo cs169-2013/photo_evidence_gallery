@@ -62,7 +62,7 @@ class PhotosController < ApplicationController
       @photo.edited = (params[:photo][:edited]=='1')? true : false
       if @photo.save
         if !@photo.edited
-          flash[:notice] = "photo queued"
+          flash[:notice] = "Photo queued"
           redirect_to new_photo_path
         else
           render :crop
@@ -111,7 +111,7 @@ class PhotosController < ApplicationController
           redirect_to photos_multiple_uploads_path
         end
 			end
-			flash[:notice] = "multiple images uploaded"
+			flash[:notice] = "Multiple images uploaded"
 			redirect_to photos_multiple_uploads_path
 		else
 		  flash[:error] = "No files chosen!"
