@@ -59,8 +59,14 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     if params[:photo] and params[:photo][:image]
       @photo = Photo.new(photo_params)
+      @photo.edited = (params[:photo][:edited]=='1')? true : false
       if @photo.save
-        render :crop
+        if !@photo.edited
+          flash[:notice] = "photo queued"
+          redirect_to new_photo_path
+        else
+          render :crop
+        end
       else
         redirect_to action: 'new', error: "Couldn't save to database!"
       end
