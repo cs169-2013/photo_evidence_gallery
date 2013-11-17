@@ -20,7 +20,7 @@
   <dd><%= @photo.time_taken %>&nbsp;</dd>
 
   <dt><strong><%= model_class.human_attribute_name(:edited) %>:</strong></dt>
-  <dd><%= @photo.edited %>&nbsp;</dd>
+  <dd><%= @photo.edited ? "Yes" : "No" %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:lat) %>:</strong></dt>
   <dd><%= link_to_if(@photo.lat && @photo.lng, @photo.lat, "http://maps.google.com/maps?q=#{@photo.lat},#{@photo.lng}") %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:lng) %>:</strong></dt>
