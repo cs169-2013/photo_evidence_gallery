@@ -60,7 +60,7 @@ class PhotosController < ApplicationController
           flash[:notice] = "Photo queued."
           redirect_to new_photo_path
         else
-          render :crop
+          render :rotate
         end
       else
         redirect_to action: 'new', error: "Couldn't save to database!"
@@ -85,7 +85,13 @@ class PhotosController < ApplicationController
   def update
     @photo.edited = true
     if @photo.update_attributes(photo_params)
-      redirect_to @photo, notice: "Successfully updated photo."
+      if photo_params.has_key?(:rotation)
+        @photo.rotation = photo_params[:rotation].to_i
+        @photo.save!
+        render :crop
+      else
+        redirect_to @photo, notice: "Successfully updated photo."
+      end
     else
       redirect_to action: 'new', error: "Couldn't update the photo."
     end

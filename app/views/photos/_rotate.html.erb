@@ -2,8 +2,12 @@
 
 <%= image_tag @photo.image_url(:large), id: "rotate0" %>
 <%= image_tag @photo.image_url(:large), id: "rotate90" %>
-<%= image_tag @photo.image_url(:large), id: "rotate190" %>
+<%= image_tag @photo.image_url(:large), id: "rotate180" %>
 <%= image_tag @photo.image_url(:large), id: "rotate270" %>
 
-
-
+<%= form_for @photo do |f| %>
+  <div class="actions">
+    <%= f.text_field "rotation" %>
+    <%= f.submit "Rotation", :id => "rotation" %>
+  </div>
+<% end %>
