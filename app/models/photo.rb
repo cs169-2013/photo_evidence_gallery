@@ -64,7 +64,7 @@ class Photo < ActiveRecord::Base
   end
 
   def rotate_image
-    image.recreate_versions!(:rotated) if rotation.present?
+    image.recreate_versions!(:rotated, :thumb) if rotation.present?
   end
 
   def self.incidents
