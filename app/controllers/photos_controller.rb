@@ -53,13 +53,8 @@ class PhotosController < ApplicationController
   end
 
   def create
-  	if params[:photo][:incident_name] == ""
-  	  params[:photo][:incident_name] = "no incident name"
-  	end
-    @photo = Photo.new(photo_params)
     if params[:photo] and params[:photo][:image]
-      @photo = Photo.new(photo_params)
-      @photo.edited = (params[:photo][:edited]=='1')? true : false
+      @photo = make_photo
       if @photo.save
         if !@photo.edited
           flash[:notice] = "Photo queued"
@@ -73,6 +68,16 @@ class PhotosController < ApplicationController
     else
       redirect_to action: 'new', error: "No files chosen!"
     end
+  end
+  
+  #helper used by create and make_multiple
+  def make_photo
+    if params[:photo][:incident_name] == ""
+  	  params[:photo][:incident_name] = "no incident name"
+  	end
+    photo = Photo.new(photo_params)
+    photo.edited = (params[:photo][:edited]=='1')? true : false
+    return photo
   end
 
   # PATCH/PUT /photos/1
@@ -104,8 +109,10 @@ class PhotosController < ApplicationController
 	def make_multiple
 		if params[:photos] and params[:photos][:images]
 			params[:photos][:images].each do |photo|
-				@photo = Photo.new({:incident_name => "no incident name", :image => photo})
-				@photo.edited = false
+				params[:photo] = params[:photos]
+		    params[:photo].delete("images")
+		    params[:photo][:image] = photo
+				@photo = make_photo
 				if !@photo.save
           flash[:error] = "Couldn't save photo!"
           redirect_to photos_multiple_uploads_path
