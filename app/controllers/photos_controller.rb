@@ -60,7 +60,7 @@ class PhotosController < ApplicationController
     if params[:photo] and params[:photo][:image]
       @photo = Photo.new(photo_params)
       if @photo.save
-        render :crop
+        render :rotate
       else
         redirect_to action: 'new', error: "Couldn't save to database!"
       end
@@ -74,7 +74,13 @@ class PhotosController < ApplicationController
   def update
     @photo.edited = true
     if @photo.update_attributes(photo_params)
-      redirect_to @photo, notice: "Successfully updated photo."
+      if photo_params.has_key?(:rotation)
+        @photo.rotation = photo_params[:rotation].to_i
+        @photo.save!
+        render :crop
+      else
+        redirect_to @photo, notice: "Successfully updated photo."
+      end
     else
       redirect_to action: 'new', error: "Couldn't update the photo."
     end
