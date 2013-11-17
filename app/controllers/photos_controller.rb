@@ -76,7 +76,7 @@ class PhotosController < ApplicationController
   	  params[:photo][:incident_name] = "no incident name"
   	end
     photo = Photo.new(photo_params)
-    photo.edited = (params[:photo][:edited]=='1')? true : false
+    photo.edited = (params[:photo][:edited]||params[:photo][:edited]=='1')? true : false
     return photo
   end
 
