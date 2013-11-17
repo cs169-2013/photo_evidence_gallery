@@ -76,14 +76,14 @@ class PhotosController < ApplicationController
   	  params[:photo][:incident_name] = "no incident name"
   	end
     photo = Photo.new(photo_params)
-    photo.edited = (params[:photo][:edited]||params[:photo][:edited]=='1')? true : false
+    photo.edited = params[:photo][:edited] && params[:photo][:edited]=='1'
     return photo
   end
 
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
-    @photo.edited = true
+    @photo.edited = params[:photo][:edited] && params[:photo][:edited]=='1'
     if @photo.update_attributes(photo_params)
       if photo_params.has_key?(:rotation)
         @photo.rotation = photo_params[:rotation].to_i

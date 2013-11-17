@@ -7,7 +7,8 @@ Background: I am on a page of a photo.
 	And I am on the New Photo page
 	And I upload the image "Water.jpg"
 	And I fill in "Caption" with "Photoname"
-  And I press "Create Photo"
+  	And I press "Create Photo"
+  	And I press "Rotation"
 	
 Scenario: use a custom crop
 	When I crop the image to 400 by 200
