@@ -57,7 +57,7 @@ class PhotosController < ApplicationController
       @photo = make_photo
       if @photo.save
         if !@photo.edited
-          flash[:notice] = "Photo queued"
+          flash[:notice] = "Photo queued."
           redirect_to new_photo_path
         else
           render :crop
