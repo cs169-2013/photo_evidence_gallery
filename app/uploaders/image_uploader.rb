@@ -14,6 +14,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb, :from_version => :cropped_rotated do
+    process :crop
     resize_to_fill(100, 100)
   end
 

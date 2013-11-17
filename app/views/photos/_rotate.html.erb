@@ -1,9 +1,9 @@
 <h1>Rotate Image</h1>
 
-<%= image_tag @photo.image_url(:large), id: "rotate0" %>
-<%= image_tag @photo.image_url(:large), id: "rotate90" %>
-<%= image_tag @photo.image_url(:large), id: "rotate180" %>
-<%= image_tag @photo.image_url(:large), id: "rotate270" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate0" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate90" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate180" %>
+<%= image_tag @photo.image_url(:thumb), id: "rotate270" %>
 
 <%= form_for @photo do |f| %>
   <div class="actions">
