@@ -1,10 +1,5 @@
-<%= form_for(:photos, :html => {:multipart => true}, :url=>{:action=>'make_multiple'}) do |f| %>
-  
-  <%= f.file_field :images, :multiple => 'true' %>
-   
-  <div class="actions">
-  	<%= f.submit %>
-  </div>
-	
-	<%= link_to 'Back', photos_path %>
-<% end %>
+<%- model_class = Photo -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => ['Multiple %{model}s'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form_multi' %>
