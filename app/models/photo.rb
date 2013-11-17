@@ -3,12 +3,12 @@ require 'date'
 class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
-  before_save :extract_geolocation
+  before_save :extract_metadata
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :crop_image, :rotate_image
 
 
-  def extract_geolocation
+  def extract_metadata
     return unless image_exists?
 
     @img = Magick::Image.read(image)[0] rescue nil

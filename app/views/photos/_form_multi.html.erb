@@ -1,5 +1,11 @@
 <%= form_for(:photos, :html => { :class => 'form-horizontal', :multipart => true }) do |f| %>
   <div class="control-group">
+    <%= f.label :caption, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :caption, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label :tags, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :tags, :class => 'text_field' %>
@@ -53,6 +59,12 @@
     <%= f.label :image, :class => 'control-label' %>
     <div class="controls">
       <%= f.file_field :images, :class => 'file_field', :multiple => 'true' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :edited, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :edited, :class => 'check_box', :checked => false %>
     </div>
   </div>
 
