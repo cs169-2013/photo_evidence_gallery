@@ -13,8 +13,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  version :thumb do
-    process :crop
+  version :thumb, :from_version => :cropped_rotated do
     resize_to_fill(100, 100)
   end
 
@@ -22,9 +21,23 @@ class ImageUploader < CarrierWave::Uploader::Base
     resize_to_limit(600, 600)
   end
 
-  version :cropped_large do
+  version :rotated do
+    process :rotate
+    resize_to_limit(600,600)
+  end
+
+  version :cropped_rotated, :from_version => :rotated  do
     process :crop
     resize_to_limit(600,600)
+  end
+
+  def rotate
+    if model.rotation.present?
+      resize_to_limit(600, 600)
+      manipulate! do |img|
+        img.rotate!(model.rotation.to_i)
+      end
+    end
   end
 
   def crop
