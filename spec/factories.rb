@@ -15,6 +15,7 @@ FactoryGirl.define do
     email "example@example.com"
     password "example12"
     password_confirmation "example12"
+    role "admin"
   end
 
 end

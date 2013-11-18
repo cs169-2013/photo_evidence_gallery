@@ -1,35 +1,35 @@
 class CsvController < ApplicationController
-	before_filter :authenticate_admin!
+    before_filter :authenticate_admin!
 
-	def index	
-	end
+    def index   
+    end
 
-	layout "photos"
+    layout "photos"
 
-	def import
-		hardcode = "admin169"
-	    myfile = params[:csv_file]
-	    csv_text = File.read(myfile.path)
-		csv = CSV.parse(csv_text, :headers => true)
-		csv.each do |row|
-			email = row['email']
-			name = row['name']
-			password = row['password']
-			role = row['row']
-            new_user = User.new(:email => email, :password => password, :password_confirmation => password, :role => role)			
+    def import
+        hardcode = "admin169"
+        myfile = params[:csv_file]
+        csv_text = File.read(myfile.path)
+        csv = CSV.parse(csv_text, :headers => true)
+        csv.each do |row|
+            email = row['email']
+            name = row['name']
+            password = hardcode #row['password']
+            role = row['row']
+            new_user = User.new(:email => email, :password => password, :password_confirmation => password, :role => role)
             if !new_user.save
-				if email
-					flash[email] = "Failed to create " + email
-				else
-					flash[:error] = "Failed to extract data from file"
-					break
-				end
-			else
-				flash[email] = "Successfully created " + email + ". The password is " + hardcode
-			end
-		end
-		redirect_to csv_index_path
-  	end
+                if email
+                    flash[email] = "Failed to create " + email
+                else
+                    flash[:error] = "Failed to extract data from file"
+                    break
+                end
+            else
+                flash[email] = "Successfully created " + email + ". The password is " + hardcode
+            end
+        end
+        redirect_to csv_index_path
+    end
 end
 
 # csv_text = File.read(myfile)
