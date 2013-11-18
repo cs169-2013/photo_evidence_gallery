@@ -84,14 +84,15 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1.json
   def update
     if @photo.update_attributes(photo_params)
-      @photo.edited = params[:photo][:edited] && params[:photo][:edited]=='1' ? true : false
-      @photo.save!
-      debugger
       if photo_params.has_key?(:rotation)
         @photo.rotation = photo_params[:rotation].to_i
         @photo.save!
         render :crop
       else
+        if params[:photo][:edited]
+          @photo.edited = params[:photo][:edited]=='1' ? true : false
+          @photo.save!
+        end
         redirect_to @photo, notice: "Successfully updated photo."
       end
     else
