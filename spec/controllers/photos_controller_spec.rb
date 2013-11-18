@@ -87,9 +87,9 @@ describe PhotosController do
         #response.should redirect_to photo_path(Photo.last)
       end
       
-      it "does not notify that photo has been created" do
+      it "notices for queueing a photo" do
         post :create, photo: FactoryGirl.attributes_for(:photo)
-        flash[:notice].should be_nil
+        flash[:notice].should_not be_nil
       end
     end
     
