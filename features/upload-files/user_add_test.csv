@@ -1,8 +1,8 @@
-email,name
-chiller@berkeley.edu,Craig Hiller
-whuang@berkeley.edu,William Huang
-elai@berkeley.edu,Edward Lai
-tquach@berkeley.edu,Timothy Quach
-chsu@berkeley.edu,Chris Hsu
-kcasey@berkeley.edu,Kevin Casey
-andyl@berkeley.edu,Andy Leak
+email,name,role
+chiller@berkeley.edu,Craig Hiller,member
+whuang@berkeley.edu,William Huang,member
+elai@berkeley.edu,Edward Lai,member
+tquach@berkeley.edu,Timothy Quach,member
+chsu@berkeley.edu,Chris Hsu,member
+kcasey@berkeley.edu,Kevin Casey,member
+andyl@berkeley.edu,Andy Leak,member
