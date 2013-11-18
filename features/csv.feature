@@ -18,7 +18,6 @@ Scenario: I upload a correctly formatted csv file
 	When I follow "CSV"
 	Then I should be on the CSV page
 	When I upload the file "user_add_test.csv"
-	Then I should see "3 users added"
 	When I follow "Logout"
 	And I log in as "new_user1" and password "password"
 	Then I should see "Welcome new_user1"  
