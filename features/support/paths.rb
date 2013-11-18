@@ -18,7 +18,8 @@ module NavigationHelpers
     when /^the New Photo page$/ then '/photos/new'
     when /the login page/ then user_session_path
     when /the Editing queue/ then '/photos/edit_queue'
-
+    when /the CSV page/ then '/csv'
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

@@ -4,16 +4,26 @@ class CsvController < ApplicationController
 	def index	
 	end
 
+	layout "photos"
+
 	def import
-	    myfile = params[:file]
+		hardcode = "admin169"
+	    myfile = params[:csv_file]
 	    csv_text = File.read(myfile.path)
 		csv = CSV.parse(csv_text, :headers => true)
 		csv.each do |row|
 			email = row['email']
 			name = row['name']
-			new_user = User.new(:email => email, :password => "admin169", :password_confirmation => "admin169")
+			new_user = User.new(:email => email, :password => hardcode, :password_confirmation => hardcode)
 			if !new_user.save
-				flash[email] = "Failed to create" + email
+				if email
+					flash[email] = "Failed to create " + email
+				else
+					flash[:error] = "Failed to extract data from file"
+					break
+				end
+			else
+				flash[email] = "Successfully created " + email + ". The password is " + hardcode
 			end
 		end
 		redirect_to csv_index_path

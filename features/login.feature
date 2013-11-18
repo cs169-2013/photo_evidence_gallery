@@ -18,8 +18,8 @@ Scenario: I login with the wrong credentials
   When I fill in "user_email" with "isthislegit@awesome.com"
   And I fill in "user_password" with "314159265"
   And I press "Sign in"
-	Then I should not see "Signed in successfully."
-	And I should be on the login page
+  Then I should not see "Signed in successfully."
+  And I should be on the login page
 
 Scenario: I try to access features while not logged-in
 	When I go to the PhotoApp homepage
