@@ -1,5 +1,5 @@
 class CsvController < ApplicationController
-	before_filter :authenticate_user!
+	before_filter :authenticate_admin!
 
 	def index	
 	end
@@ -14,8 +14,10 @@ class CsvController < ApplicationController
 		csv.each do |row|
 			email = row['email']
 			name = row['name']
-			new_user = User.new(:email => email, :password => hardcode, :password_confirmation => hardcode)
-			if !new_user.save
+			password = row['password']
+			role = row['row']
+            new_user = User.new(:email => email, :password => password, :password_confirmation => password, :role => role)			
+            if !new_user.save
 				if email
 					flash[email] = "Failed to create " + email
 				else

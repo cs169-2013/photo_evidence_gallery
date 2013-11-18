@@ -2,7 +2,8 @@ Given /^a valid user exists$/ do
   @user = User.create!({
              :email => "minikermit@hotmail.com",
              :password => "12345678",
-             :password_confirmation => "12345678"
+             :password_confirmation => "12345678",
+             :role => "admin"
            })
 end
 
