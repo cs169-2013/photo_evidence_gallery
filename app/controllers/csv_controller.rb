@@ -30,6 +30,15 @@ class CsvController < ApplicationController
         end
         redirect_to csv_index_path
     end
+
+    def export
+      @users = User.all.sort_by! {|u| u.id}
+      respond_to do |format|
+        format.html
+        format.csv { send_data @users.to_csv }
+        format.xls # { send_data @products.to_csv(col_sep: "\t") }
+      end
+    end
 end
 
 # csv_text = File.read(myfile)
