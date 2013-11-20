@@ -1,10 +1,9 @@
 class CsvController < ApplicationController
     before_filter :authenticate_admin!
+    layout "photos"
 
     def index   
     end
-
-    layout "photos"
 
     def import
         hardcode = "admin169"

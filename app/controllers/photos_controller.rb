@@ -1,11 +1,12 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :code_image]
+  before_action :save_user_info, only: [:create, :update, :make_multiple]
 	before_filter :authenticate_user!
   before_filter :authenticate_member!, :except => [:index]
 
   #GET
   def index
-    @sort = params[:edited] || params["edited"] || session[:edited]
+    @sort = params[:edited] || session[:edited]
     @incidents = params[:incident] || session[:incident] 
     if params[:edited] != session[:edited] || params[:incident] != session[:incident]
       session[:edited] = params[:edited]
@@ -52,16 +53,14 @@ class PhotosController < ApplicationController
   end
 
   def edit
+    @info = {:incident_name => @photo.incident_name,
+    :taken_by => @photo.taken_by,
+    :operational_period => @photo.operational_period,
+    :team_number => @photo.team_number}
   end
 
   def create
-    hash = params[:photo]
-    myInfo = {"incident_name" => hash[:incident_name],
-    "taken_by" => hash[:taken_by],
-    "operational_period" => hash[:operational_period],
-    "team_number" => hash[:team_number]}
-    current_user.info = myInfo
-    current_user.save
+    save_user_info
     if params[:photo] and params[:photo][:image]
       @photo = make_photo
       if @photo.save
@@ -92,6 +91,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    save_user_info
     if @photo.update_attributes(photo_params)
       if photo_params.has_key?(:rotation)
         @photo.rotation = photo_params[:rotation].to_i
@@ -126,6 +126,7 @@ class PhotosController < ApplicationController
 	
 	#POST
 	def make_multiple
+    save_user_info
 		if params[:photos] and params[:photos][:images]
 			params[:photos][:images].each do |photo|
 				params[:photo] = params[:photos]
@@ -149,6 +150,18 @@ class PhotosController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_photo
     @photo = Photo.find(params[:id])
+  end
+
+  def save_user_info
+    hash = params[:photo]
+    if hash
+      myInfo = {:incident_name => hash[:incident_name],
+      :taken_by => hash[:taken_by],
+      :operational_period => hash[:operational_period],
+      :team_number => hash[:team_number]}
+      current_user.info = myInfo
+      current_user.save
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
