@@ -48,24 +48,20 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
-    @info = User.find_by_id(current_user.id).info.to_hash
+    @info = current_user.info.to_hash
   end
 
   def edit
   end
 
   def create
-    p "here"
     hash = params[:photo]
     myInfo = {"incident_name" => hash[:incident_name],
     "taken_by" => hash[:taken_by],
     "operational_period" => hash[:operational_period],
     "team_number" => hash[:team_number]}
-    user = User.find_by_id(current_user.id)
-    user.info = myInfo
-    user.save
-    p "there"
-    # User.find_by_id(current_user.id).save
+    current_user.info = myInfo
+    current_user.save
     if params[:photo] and params[:photo][:image]
       @photo = make_photo
       if @photo.save
@@ -125,7 +121,7 @@ class PhotosController < ApplicationController
 	
 	# GET
 	def multiple_uploads
-    @info = User.find_by_id(current_user.id).info.to_hash
+    @info = current_user.info.to_hash
 	end
 	
 	#POST

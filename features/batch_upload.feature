@@ -1,4 +1,4 @@
-Feature: upload multiple movies
+Feature: upload multiple images
 
 Background: I am on the homepage
 

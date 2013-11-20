@@ -81,12 +81,6 @@ describe PhotosController do
         }.to change(Photo, :count).by(1)
       end
       
-      it "redirects to the new photo's page" do
-        post :create, photo: FactoryGirl.attributes_for(:photo)
-        #click_button("cropper")
-        #response.should redirect_to photo_path(Photo.last)
-      end
-      
       it "notices for queueing a photo" do
         post :create, photo: FactoryGirl.attributes_for(:photo)
         flash[:notice].should_not be_nil

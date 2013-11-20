@@ -16,6 +16,10 @@ FactoryGirl.define do
     password "example12"
     password_confirmation "example12"
     role "admin"
+    info = {"incident_name" => "clearly faked",
+    "taken_by" => "clearly faked",
+    "operational_period" => "clearly faked",
+    "team_number" => "clearly faked"}
   end
 
 end
