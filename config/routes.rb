@@ -6,8 +6,10 @@ PhotoApp::Application.routes.draw do
   get 'photos/index' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
   get '/' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
   resources :photos
-  resources :csv
+  # resources :csv
   post 'csv/import'
+  get 'csv/export'
+  get 'csv/index'
 
   get 'photos/code_image/:id' => 'photos#code_image'
 
