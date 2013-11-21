@@ -6,14 +6,14 @@ class ApplicationController < ActionController::Base
 
     def authenticate_admin!
         if !(authenticate_user! and current_user.role == "admin")
-            flash[:access] = "You do not have permission(admin) to access that"
+            flash[:error] = "You do not have permission(admin) to access that"
             redirect_to root_path
         end
     end
 
     def authenticate_member!
         if !(authenticate_user! and (current_user.role == "admin" || current_user.role == "member"))
-            flash[:access] = "You do not have permission(member) to access that"
+            flash[:error] = "You do not have permission(member) to access that"
             redirect_to root_path
         end
     end

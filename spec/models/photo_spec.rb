@@ -23,23 +23,6 @@ describe Photo do
   
   it { should be_valid }
 
-  it "has a to_frac method that works" do
-    @photo.to_frac("1/2").should be == 0.5
-    @photo.to_frac("6/2").should_not be == 2.9
-  end
-=begin
-  it "sets its own fields with information" do
-    mockphoto = mock_model(Photo)
-    mockphoto.stub(:original_filename).and_return("orig")
-    mockphoto.stub(:content_type).and_return(".png")
-    mockphoto.stub(:read).and_return("binaryData")
-    @photo.image_file = mockphoto
-    @photo.filename.should eq(mockphoto.original_filename)
-    @photo.contentType.should eq(mockphoto.content_type)
-    @photo.image.should eq(mockphoto.read)
-  end
-=end
-
 
 
 end
