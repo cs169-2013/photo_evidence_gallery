@@ -12,14 +12,14 @@ FactoryGirl.define do
 
   factory :user do
 
-    email "example@example.com"
-    password "example12"
-    password_confirmation "example12"
-    role "admin"
-    info = {:incident_name => "clearly faked",
-    :taken_by => "clearly faked",
-    :operational_period => "clearly faked",
-    :team_number => "clearly faked"}
+    email 'example@example.com'
+    password 'example12'
+    password_confirmation 'example12'
+    role 'admin'
+    info = {:incident_name => 'incident faked',
+    :taken_by => 'taken faked',
+    :operational_period => 'operation faked',
+    :team_number => 'team faked'}
   end
 
 end
