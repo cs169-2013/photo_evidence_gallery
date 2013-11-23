@@ -105,7 +105,7 @@ describe PhotosController do
         @photo1.image.should_not == Photo.last.image
       end
       
-      it "redirects to the updated photo's page" do
+      it "redirects to the edit photo's page" do
         put :update, id: @photo1.id, photo: FactoryGirl.attributes_for(:photo)
         response.should redirect_to photo_path(Photo.last)
       end
@@ -156,7 +156,7 @@ describe PhotosController do
       end
       
       it "notifies an error" do
-        flash[:error].should_not be_nil
+        flash[:alert].should_not be_nil
       end
     end
   end

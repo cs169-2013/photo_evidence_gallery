@@ -65,16 +65,15 @@ class PhotosController < ApplicationController
       @photo = make_photo
       if @photo.save
         if !@photo.edited
-          flash[:notice] = "Photo queued."
-          redirect_to new_photo_path
+          redirect_to new_photo_path, notice: "Photo queued."
         else
-          render :rotate
+          redirect_to photo_path(@photo), notice: "Successfully created photo."
         end
       else
-        redirect_to action: 'new', error: "Couldn't save to database!"
+        redirect_to new_photo_path(@photo), alert: "Couldn't save to database!"
       end
     else
-      redirect_to action: 'new', error: "No files chosen!"
+      redirect_to new_photo_path, alert: "No files chosen!"
     end
   end
   
@@ -93,19 +92,24 @@ class PhotosController < ApplicationController
   def update
     save_user_info
     if @photo.update_attributes(photo_params)
-      if photo_params.has_key?(:rotation)
-        @photo.rotation = photo_params[:rotation].to_i
-        @photo.save!
-        render :crop
-      else
-        if params[:photo][:edited]
-          @photo.edited = params[:photo][:edited]=='1' ? true : false
-          @photo.save!
-        end
-        redirect_to @photo, notice: "Successfully updated photo."
+      if params[:photo][:rotation]
+        @photo.rotate_image
+        @photo.rotation = nil
       end
+      if params[:photo][:crop_x]
+        @photo.crop_image
+        @photo.crop_x = nil
+        @photo.crop_y = nil
+        @photo.crop_w = nil
+        @photo.crop_h = nil
+      end
+      if params[:photo][:edited]
+        @photo.edited = params[:photo][:edited]=='1' ? true : false
+      end
+      @photo.save!
+      redirect_to photo_path(@photo), notice: "Successfully updated photo."
     else
-      redirect_to action: 'new', error: "Couldn't update the photo."
+      redirect_to photo_path(@photo), alert: "Couldn't update the photo."
     end
   end
 
@@ -134,15 +138,12 @@ class PhotosController < ApplicationController
 		    params[:photo][:image] = photo
 				@photo = make_photo
 				if !@photo.save
-          flash[:error] = "Couldn't save photo!"
-          redirect_to photos_multiple_uploads_path
+          redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!"
         end
 			end
-			flash[:notice] = "Multiple images uploaded"
-			redirect_to photos_multiple_uploads_path
+			redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
 		else
-		  flash[:error] = "No files chosen!"
-		  redirect_to photos_multiple_uploads_path
+		  redirect_to photos_multiple_uploads_path, alert: "No files chosen!"
 		end
 	end
 	
@@ -154,11 +155,14 @@ class PhotosController < ApplicationController
 
   def save_user_info
     hash = params[:photo]
+    def helper(a, b)
+      !a || a == "" ? b : a
+    end
     if hash
-      myInfo = {:incident_name => hash[:incident_name],
-      :taken_by => hash[:taken_by],
-      :operational_period => hash[:operational_period],
-      :team_number => hash[:team_number]}
+      myInfo = {:incident_name => helper(hash[:incident_name], current_user.info[:incident_name]),
+      :taken_by => helper(hash[:taken_by], current_user.info[:taken_by]),
+      :operational_period => helper(hash[:operational_period], current_user.info[:operational_period]),
+      :team_number => helper(hash[:team_number], current_user.info[:team_number])}
       current_user.info = myInfo
       current_user.save
     end

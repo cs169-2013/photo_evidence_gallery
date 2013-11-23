@@ -3,16 +3,15 @@ require 'date'
 class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
-  before_save :extract_metadata
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :crop_image, :rotate_image
+  after_save :extract_metadata
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation
 
 
   def extract_metadata
+    return if @img
     return unless image_exists?
 
     @img = Magick::Image.read(image)[0] rescue nil
-
     return unless @img
     img_lat = exif_extractor('GPSLatitude', true)
     img_lng = exif_extractor('GPSLongitude', true)
@@ -22,7 +21,6 @@ class Photo < ActiveRecord::Base
     if self.time_taken == ''
       self.time_taken = exif_extractor('DateTime', false)
     end
-
     return unless img_lat && img_lng && lat_ref && lng_ref
 
 
@@ -34,6 +32,7 @@ class Photo < ActiveRecord::Base
 
     self.lat = latitude
     self.lng = longitude
+    save!
 
   end
 
@@ -60,11 +59,11 @@ class Photo < ActiveRecord::Base
   end
 
   def crop_image
-    image.recreate_versions!(:cropped_rotated) if crop_x.present?
+    image.recreate_versions! if crop_x.present?
   end
 
   def rotate_image
-    image.recreate_versions!(:rotated, :thumb) if rotation.present?
+    image.recreate_versions! if rotation.present?
   end
 
   def self.incidents

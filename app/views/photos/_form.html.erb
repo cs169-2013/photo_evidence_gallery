@@ -1,4 +1,3 @@
-
 <%= form_for @photo, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :caption, :class => 'control-label' %>
@@ -75,6 +74,6 @@
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
       photos_path, :class => 'btn' %>
-    </div>
-  <% end %>
-
+  </div>
+<% end %>
+<script src="/assets/locator.js?body=1"></script>
