@@ -1,5 +1,12 @@
 <%- model_class = Photo -%>
 <%= flash[:access] %>
+<script>
+	make_map([
+		<% @map_points.each do |p| %>
+			["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "name: <%= p.caption %>"],
+		<% end %>
+	]);
+</script>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -18,4 +25,7 @@
 <% end %>
   </tbody>
 </table>
+<div class="span8">
+	<div id="map-canvas"/>
+</div>
 
