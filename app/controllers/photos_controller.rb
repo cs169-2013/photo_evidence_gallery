@@ -8,7 +8,8 @@ class PhotosController < ApplicationController
   def index
     @sort = params[:edited] || session[:edited]
     @incidents = params[:incident] || session[:incident] 
-    if params[:edited] != session[:edited] || params[:incident] != session[:incident]
+   
+		if params[:edited] != session[:edited] || params[:incident] != session[:incident]
       session[:edited] = params[:edited]
       session[:incident] = params[:incident]
       redirect_to photos_path(:edited => @sort, :incident => @incidents) and return
@@ -152,17 +153,16 @@ class PhotosController < ApplicationController
   def set_photo
     @photo = Photo.find(params[:id])
   end
-
+  def save_user_info_helper(a, b)
+      !a || a == "" ? b : a
+  end
   def save_user_info
     hash = params[:photo]
-    def helper(a, b)
-      !a || a == "" ? b : a
-    end
     if hash
-      myInfo = {:incident_name => helper(hash[:incident_name], current_user.info[:incident_name]),
-      :taken_by => helper(hash[:taken_by], current_user.info[:taken_by]),
-      :operational_period => helper(hash[:operational_period], current_user.info[:operational_period]),
-      :team_number => helper(hash[:team_number], current_user.info[:team_number])}
+      myInfo = {:incident_name => save_user_info_helper(hash[:incident_name], current_user.info[:incident_name]),
+      					:taken_by => save_user_info_helper(hash[:taken_by], current_user.info[:taken_by]),
+     						:operational_period => save_user_info_helper(hash[:operational_period], current_user.info[:operational_period]),
+     						:team_number => save_user_info_helper(hash[:team_number], current_user.info[:team_number])}
       current_user.info = myInfo
       current_user.save
     end
