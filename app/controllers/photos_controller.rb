@@ -19,6 +19,7 @@ class PhotosController < ApplicationController
   	else
   	  @photos = Photo.where("photos.edited = ? AND photos.incident_name = ?", @sort == 'true', @incidents)
   	end
+	  @map_points = @photos.find_all{|x| x.lat != nil && x.lng != nil}
 
 		index_logic
   end
