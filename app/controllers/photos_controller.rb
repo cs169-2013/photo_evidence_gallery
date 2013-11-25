@@ -134,17 +134,21 @@ class PhotosController < ApplicationController
   def set_photo
     @photo = Photo.find(params[:id])
   end
-  def save_user_info_helper(a, b)
-      !a || a.blank? ? b : a
-  end
+	def suih(h,c)
+  	 lambda do |symbol|
+  	    !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
+  	end
+
+	end
+
   def save_user_info
     hash = params[:photo]
     return unless hash
-    myInfo = {:incident_name => save_user_info_helper(hash[:incident_name], current_user.info[:incident_name]),
-              :taken_by => save_user_info_helper(hash[:taken_by], current_user.info[:taken_by]),
-              :operational_period => save_user_info_helper(hash[:operational_period], current_user.info[:operational_period]),
-              :team_number => save_user_info_helper(hash[:team_number], current_user.info[:team_number])}
-    current_user.info = myInfo
+		xx = suih(hash, current_user.info)
+     current_user.info = {:incident_name => xx.call(:incident_name),
+              :taken_by => xx.call(:taken_by),
+              :operational_period => xx.call(:operational_period),
+              :team_number => xx.call(:team_number)}
     current_user.save
   end
 
