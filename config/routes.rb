@@ -1,4 +1,5 @@
 PhotoApp::Application.routes.draw do
+  resources :users
   devise_for :users
   get 'photos/multiple_uploads' => 'photos#multiple_uploads'
   post 'photos/multiple_uploads' => 'photos#make_multiple'
