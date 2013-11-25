@@ -120,7 +120,6 @@ class PhotosController < ApplicationController
     save_user_info
     redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
     params[:photo] = params[:photos]
-		#params[:photo].delete("images")
 		params[:photos][:images].each do |photo|    
         params[:photo][:image] = photo
         redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
