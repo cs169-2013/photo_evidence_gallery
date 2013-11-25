@@ -120,10 +120,7 @@ class PhotosController < ApplicationController
     save_user_info
     redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
     params[:photo] = params[:photos]
-		params[:photos][:images].each do |photo|    
-        params[:photo][:image] = photo
-        redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
-    end
+		winning
     redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
   end
   
@@ -160,6 +157,12 @@ class PhotosController < ApplicationController
 
 	def choice_assignment(symbol)
 		params[symbol] || session[symbol]
+	end
+	def winning
+		params[:photos][:images].each do |photo|    
+        params[:photo][:image] = photo
+        redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
+    end
 	end
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
