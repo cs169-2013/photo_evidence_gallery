@@ -36,65 +36,6 @@
 
     <%= javascript_include_tag "application" %>
   </head>
-  <% if @map_points && @map_points.length > 0 %> <!-- dont load map script for pages that don't have maps -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbrFjS4VzxepRPAgwdO-Du_-JJKKglw40&sensor=false"></script>
-	<script>
-	var map;
-	var geocoder;
-
-	function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, name]
-	{
-		google.maps.event.addDomListener(window, 'load',
-			function ()
-			{
-				geocoder = new google.maps.Geocoder();
-				var mapOptions = {
-					//center: new google.maps.LatLng(37.521, -122.272),
-					zoom: 8,
-					disableDefaultUI: false,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-				if (pins != null)
-					for (var i = 0; i < pins.length; i++){
-					  marker = new google.maps.Marker({
-						  position: new google.maps.LatLng(pins[i][0], pins[i][1]),
-						  map: map
-						});
-
-						google.maps.event.addListener(marker, 'click', (function(marker, i) {
-						  return function() {
-						    infowindow.setContent(pins[i][2]);
-						    infowindow.open(map, marker);
-						  }
-						})(marker, i));
-					}
-			}
-		);
-	}
-
-	//see lots of icons at http://kml4earth.appspot.com/icons.html and http://mapicons.nicolasmollet.com
-	function draw_pin(lat, lng, text)
-	{
-		geocoder.geocode({'address': address},
-			function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK)
-				{
-					map.setCenter(results[0].geometry.location);
-					var marker = new google.maps.Marker({
-						map: map,
-						position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-						title: text
-						//draggable: true //would we ever use this?
-					});
-				}
-				else
-					alert('Could not show location for the following reason: ' + status);
-			}
-		);	
-	};
-</script>
-<% end %>
   <body>
 
     <div class="navbar navbar-fluid-top">

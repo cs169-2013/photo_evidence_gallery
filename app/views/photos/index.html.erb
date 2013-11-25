@@ -1,14 +1,61 @@
 <%- model_class = Photo -%>
 <%= flash[:access] %>
+<style>
+	#map-canvas{
+		height: 400px;
+		max-width: none;
+	}
+</style>
+<% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
 <script>
+	var map;
+	var geocoder;
+
+	function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, name]
+	{
+		google.maps.event.addDomListener(window, 'load',
+			function ()
+			{
+				geocoder = new google.maps.Geocoder();
+				var mapOptions = {
+					center: new google.maps.LatLng(37.521, -122.272),
+					zoom: 8,
+					disableDefaultUI: false,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+				var infowindow = new google.maps.InfoWindow();
+				if (pins != null)
+					for (var i = 0; i < pins.length; i++){
+					  marker = new google.maps.Marker({
+						  position: new google.maps.LatLng(pins[i][0], pins[i][1]),
+						  map: map
+						});
+
+						google.maps.event.addListener(marker, 'click', (function(marker, i) {
+						  return function() {
+						    infowindow.setContent(pins[i][2]);
+						    infowindow.open(map, marker);
+						  }
+						})(marker, i));
+					}
+			}
+		);
+	}
 	make_map([
 		<% @map_points.each do |p| %>
-			["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "name: <%= p.caption %>"],
+			["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
 		<% end %>
 	]);
+
 </script>
+<% end %>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<div class="span8">
+	<div id="map-canvas"/>
 </div>
 <table class="table table-striped">
 
@@ -25,7 +72,4 @@
 <% end %>
   </tbody>
 </table>
-<div class="span8">
-	<div id="map-canvas"/>
-</div>
 
