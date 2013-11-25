@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :save_user_info, only: [:create, :update, :make_multiple]
-	before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_filter :authenticate_member!, :except => [:index]
 
   #GET
@@ -9,19 +9,14 @@ class PhotosController < ApplicationController
     @sort = params[:edited] || session[:edited]
     @incidents = params[:incident] || session[:incident] 
    
-		if params[:edited] != session[:edited] || params[:incident] != session[:incident]
+    if changed(:edited) || changed(:incident)
       session[:edited] = params[:edited]
       session[:incident] = params[:incident]
       redirect_to photos_path(:edited => @sort, :incident => @incidents) and return
     end
 
-    if @incidents == 'All'
-    	@photos = Photo.where("photos.edited = ?", @sort == 'true')
-  	else
-  	  @photos = Photo.where("photos.edited = ? AND photos.incident_name = ?", @sort == 'true', @incidents)
-  	end
-
-		index_logic
+    photo_selector_logic
+    index_logic
   end
 
   #GET
@@ -81,8 +76,8 @@ class PhotosController < ApplicationController
   #helper used by create and make_multiple
   def make_photo
     if params[:photo][:incident_name] == ""
-  	  params[:photo][:incident_name] = "no incident name"
-  	end
+      params[:photo][:incident_name] = "no incident name"
+    end
     photo = Photo.new(photo_params)
     photo.edited = params[:photo][:edited] && params[:photo][:edited]=='1' ? true : false
     return photo
@@ -123,49 +118,57 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
-	
-	# GET
-	def multiple_uploads
+  
+  # GET
+  def multiple_uploads
     @info = current_user.info.to_hash
-	end
-	
-	#POST
-	def make_multiple
+  end
+  
+  #POST
+  def make_multiple
     save_user_info
-		if params[:photos] and params[:photos][:images]
-			params[:photos][:images].each do |photo|
-				params[:photo] = params[:photos]
-		    params[:photo].delete("images")
-		    params[:photo][:image] = photo
-				@photo = make_photo
-				if !@photo.save
+    if params[:photos] and params[:photos][:images]
+      params[:photos][:images].each do |photo|
+        params[:photo] = params[:photos]
+        params[:photo].delete("images")
+        params[:photo][:image] = photo
+        @photo = make_photo
+        if !@photo.save
           redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!"
         end
-			end
-			redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
-		else
-		  redirect_to photos_multiple_uploads_path, alert: "No files chosen!"
-		end
-	end
-	
+      end
+      redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
+    else
+      redirect_to photos_multiple_uploads_path, alert: "No files chosen!"
+    end
+  end
+  
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_photo
     @photo = Photo.find(params[:id])
   end
   def save_user_info_helper(a, b)
-      !a || a == "" ? b : a
+      !a || a.blank? ? b : a
   end
   def save_user_info
     hash = params[:photo]
-    if hash
-      myInfo = {:incident_name => save_user_info_helper(hash[:incident_name], current_user.info[:incident_name]),
-      					:taken_by => save_user_info_helper(hash[:taken_by], current_user.info[:taken_by]),
-     						:operational_period => save_user_info_helper(hash[:operational_period], current_user.info[:operational_period]),
-     						:team_number => save_user_info_helper(hash[:team_number], current_user.info[:team_number])}
-      current_user.info = myInfo
-      current_user.save
-    end
+    return unless hash
+    myInfo = {:incident_name => save_user_info_helper(hash[:incident_name], current_user.info[:incident_name]),
+              :taken_by => save_user_info_helper(hash[:taken_by], current_user.info[:taken_by]),
+              :operational_period => save_user_info_helper(hash[:operational_period], current_user.info[:operational_period]),
+              :team_number => save_user_info_helper(hash[:team_number], current_user.info[:team_number])}
+    current_user.info = myInfo
+    current_user.save
+  end
+
+  def changed(symbol)
+    params[symbol] != session[symbol] 
+  end
+
+  def photo_selector_logic
+    hash = {:edited => (@sort == 'true'), :incident_name => @incidents}
+    @photos = Photo.where(@incidents == 'All' ? {:edited => hash[:edited]} : hash)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
