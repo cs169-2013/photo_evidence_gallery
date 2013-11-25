@@ -88,17 +88,11 @@ class PhotosController < ApplicationController
   def update
     save_user_info
     redirect_to photo_path(@photo), alert: "Couldn't update the photo." and return unless @photo.update_attributes(photo_params)
-      if params[:photo][:rotation]
+
         @photo.rotate_image
-        @photo.rotation = nil
-      end
-      if params[:photo][:crop_x]
         @photo.crop_image
-        @photo.crop_x = nil
-        @photo.crop_y = nil
-        @photo.crop_w = nil
-        @photo.crop_h = nil
-      end
+
+			@photo.nullify_rotate_and_crop 
       if params[:photo][:edited]
         @photo.edited = params[:photo][:edited]=='1' ? true : false
       end
