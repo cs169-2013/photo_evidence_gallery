@@ -16,20 +16,21 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+    if should_clear_password_param
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
-    params_user = params[:user]
-    if !@user.valid_password?(params_user[:current_password])
-      redirect_to edit_user_path(@user), alert: "Current password incorrect."
-    elsif params_user[:password] != params_user[:password_confirmation]
-      redirect_to edit_user_path(@user), alert: "Passwords do not match."
-    elsif @user.update_attributes(params_user.permit([:email, :password, :password_confirmation]))
-      redirect_to edit_user_path(@user), notice: "User updated."
+    @params_user = params[:user]
+    if used_invalid_current_password
+      flash[:alert] = "Current password incorrect."
+    elsif passwords_do_not_match
+      flash[:alert] = "Passwords do not match."
+    elsif @user.update_attributes(@params_user.permit([:email, :password, :password_confirmation]))
+      flash[:notice] = "User updated."
     else
-      redirect_to edit_user_path(@user), alert: "Couldn't update user"
+      flash[:alert] = "Couldn't update user"
     end
+    redirect_to edit_user_path(@user)
   end
 
   private
@@ -37,8 +38,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def current_user?(user)
-    user == current_user
+  def used_invalid_current_password
+    !@user.valid_password?(@params_user[:current_password])
+  end
+
+  def passwords_do_not_match
+    @params_user[:password] != @params_user[:password_confirmation]
+  end
+
+  def should_clear_password_param
+    params[:user][:password].blank? && params[:user][:password_confirmation].blank?
   end
 
 end
