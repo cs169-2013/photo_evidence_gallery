@@ -87,7 +87,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1.json
   def update
     save_user_info
-    if @photo.update_attributes(photo_params)
+    redirect_to photo_path(@photo), alert: "Couldn't update the photo." and return unless @photo.update_attributes(photo_params)
       if params[:photo][:rotation]
         @photo.rotate_image
         @photo.rotation = nil
@@ -104,9 +104,6 @@ class PhotosController < ApplicationController
       end
       @photo.save!
       redirect_to photo_path(@photo), notice: "Successfully updated photo."
-    else
-      redirect_to photo_path(@photo), alert: "Couldn't update the photo."
-    end
   end
 
   # DELETE /photos/1
