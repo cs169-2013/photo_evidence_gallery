@@ -127,20 +127,16 @@ class PhotosController < ApplicationController
   #POST
   def make_multiple
     save_user_info
-    if params[:photos] and params[:photos][:images]
-      params[:photos][:images].each do |photo|
+    redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
+    
+		params[:photos][:images].each do |photo|
         params[:photo] = params[:photos]
         params[:photo].delete("images")
         params[:photo][:image] = photo
         @photo = make_photo
-        if !@photo.save
-          redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!"
-        end
+         redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" unless @photo.save
       end
       redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
-    else
-      redirect_to photos_multiple_uploads_path, alert: "No files chosen!"
-    end
   end
   
   private
