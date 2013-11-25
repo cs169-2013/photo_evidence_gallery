@@ -6,8 +6,8 @@ class PhotosController < ApplicationController
 
   #GET
   def index
-    @sort = params[:edited] || session[:edited]
-    @incidents = params[:incident] || session[:incident] 
+    @sort = choice_assignment(:edited)
+    @incidents = choice_assignment(:incident)
    
     if changed(:edited) || changed(:incident)
       session[:edited] = params[:edited]
@@ -138,7 +138,6 @@ class PhotosController < ApplicationController
   	 lambda do |symbol|
   	    !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
   	end
-
 	end
 
   def save_user_info
@@ -161,6 +160,9 @@ class PhotosController < ApplicationController
     @photos = Photo.where(@incidents == 'All' ? {:edited => hash[:edited]} : hash)
   end
 
+	def choice_assignment(symbol)
+		params[symbol] || session[symbol]
+	end
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
     params.require(:photo).permit(:caption, :tags, :incident_name, :operational_period, :team_number, :taken_by, :time_taken, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)
