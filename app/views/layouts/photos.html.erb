@@ -80,6 +80,7 @@
 				</br>
 				<% if user_signed_in? %>
   				Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to 'All Users', users_path %> |
   				<%= link_to 'Edit profile', edit_user_path(current_user) %> |
           <%= link_to "CSV", csv_index_path %> |
   				<%= link_to "Logout", destroy_user_session_path, method: :delete %>
