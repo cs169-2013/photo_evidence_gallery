@@ -76,18 +76,18 @@
           <%= yield %>
         </div>
       </div><!--/row-->
-			<footer>
-				</br>
-				<% if user_signed_in? %>
-  				Logged in as <strong><%= current_user.email %></strong>.
+      <footer>
+        </br>
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
           <%= link_to 'All Users', users_path %> |
-  				<%= link_to 'Edit profile', edit_user_path(current_user) %> |
+          <%= link_to 'Edit profile', edit_user_path(current_user) %> |
           <%= link_to "CSV", csv_index_path %> |
-  				<%= link_to "Logout", destroy_user_session_path, method: :delete %>
-				<% else %>
-  				<%= link_to "Sign up", new_user_registration_path %> |
- 					<%= link_to "Login", new_user_session_path %>
-				<% end %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path %> |
+          <%= link_to "Login", new_user_session_path %>
+        <% end %>
       <!-- <p>&copy; Company 2013</p> -->
       </footer>
     </div> <!-- /container -->
