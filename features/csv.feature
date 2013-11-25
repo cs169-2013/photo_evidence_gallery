@@ -1,4 +1,3 @@
-
 Feature: CSV_Import
 	As a Bamru Member
 	So I can add other users
@@ -8,12 +7,10 @@ Background: I am on the homepage
 	Given I am logged in as a valid user
 	And I am on the PhotoApp homepage
 
-@wip
 Scenario: I download a correctly formatted csv file
 	When I follow "CSV"
-	Then I should be on the CSV page
-	When I follow "Export User Data"
-	Then I should get download with the filename "users.csv"
+	When I follow "Excel"
+	Then I should get a download with the filetype "application/xls"
 	
 Scenario: I upload a correctly formatted csv file
 	When I follow "CSV"
