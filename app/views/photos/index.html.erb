@@ -1,46 +1,48 @@
 <%- model_class = Photo -%>
 <%= flash[:access] %>
 <style>
-	#map-canvas{
-		height: 400px;
-		max-width: none;
-	}
+  #map-canvas{
+    height: 400px;
+    max-width: none;
+  }
 </style>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
-<script src="/assets/maps.js?body=1"></script>
-<script>
-	make_map([
-		<% @map_points.each do |p| %>
-			["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
-		<% end %>
-	]);
-	$("#map_show").click(function() {
-		$("#map-canvas").toggle();
-	});
-</script>
-<div class="btn" id="map_show">Map of locations</div>
-<br>
-<div class="span9" id="show_map"">
-	<div id="map-canvas"/>
-</div>
-<% end %>
-<table class="table table-striped">
 
+<table class="table table-striped">
   <tbody>
-       <% @photo_pack.each do |photo_pack| %>
-                <tr>
-                        <% photo_pack.each do |photo| %>
-        <td  align="center" valign="center">
-                <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
-                <%= link_to 'Show', photo %> | <%= link_to 'Edit', edit_photo_path(photo) %> | <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-                        </td>
-    <% end %>
-</tr>
-<% end %>
+    <% @photo_pack.each do |photo_pack| %>
+      <tr> <% photo_pack.each do |photo| %>
+        <td align="center" valign="center">
+          <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
+          <%= link_to 'Show', photo %> | 
+          <%= link_to 'Edit', edit_photo_path(photo) %> | 
+          <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
+<% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
+  <script src="/assets/maps.js?body=1"></script>
+  <div class="btn" id="map_show">Map of locations</div>
+  <div id="map-canvas"/></div>
+  <script>
+    make_map([
+      <% @map_points.each do |p| %>
+        ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
+      <% end %>
+    ]);
+    $("#map_show").click(function() {
+      $("#map-canvas").toggle();
+      var center = map.getCenter()
+      google.maps.event.trigger(map, 'resize');
+      map.setCenter(center)
+    });
+    $("#map-canvas").toggle(); // hiding by default
+  </script>
+<% end %>
