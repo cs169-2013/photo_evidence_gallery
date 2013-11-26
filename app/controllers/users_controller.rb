@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    redirect_to edit_user_path(@user), alert: "Need to be an admin" and return unless authenticate_admin || current_user == @user
+    redirect_to edit_user_path(@user), alert: "Need to be an admin" and return unless authenticate_admin! || current_user == @user
     if should_clear_password_param
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
