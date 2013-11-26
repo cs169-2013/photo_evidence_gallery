@@ -39,6 +39,14 @@ When /I crop the image to (\d+) by (\d+)$/ do |width, height|
 	fill_in "photo[crop_h]", :with => "#{height}"
 end
 
+Then /^I should see "([^"]*)" button/ do |name|
+  page.body.should have_content name
+end
+
+Then /^I should not see "([^"]*)" button/ do |name|
+  page.body.should_not have_content name
+end
+
 Then /the picture's size should be (\d+) by (\d+)/ do |width, height|
 	#grabs the url for the image
 	page.body =~ /alt="(.+)".src="(.+)"/

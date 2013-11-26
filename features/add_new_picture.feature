@@ -25,15 +25,6 @@ Scenario: uploading a single photo
 	And I am on the PhotoApp homepage
 	Then I should see 1 image
 
-Scenario: uploading a picture from a phone with metadata
-	When I follow "Upload"
-	Then I should be on the New Photo page
-	And I upload the image "Berkeley.jpg"
-	And I press "Create Photo"
-	Then I should see "-122.2581666666667"
-	Then I should see "37.87116666666667"
-	Then I should see "2013:09:21 13:09:39"
-
 Scenario: uploading a photo with no information
 	When I follow "Upload"
 	Then I should be on the New Photo page
