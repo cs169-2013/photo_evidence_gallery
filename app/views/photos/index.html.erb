@@ -21,24 +21,25 @@
   </tbody>
 </table>
 <% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
   <script src="/assets/maps.js?body=1"></script>
   <div class="btn" id="map_show">Map of locations</div>
   <div id="map-canvas"/></div>
   <script>
-    make_map([
-      <% @map_points.each do |p| %>
-        ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
-      <% end %>
-    ]);
-    $("#map_show").click(function() {
-      $("#map-canvas").toggle();
-      var center = map.getCenter();
-      google.maps.event.trigger(map, 'resize');
-      map.setCenter(center); 
-    });
+    function initialize() {
+      make_map([
+        <% @map_points.each do |p| %>
+          ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
+        <% end %>
+      ]);
+      $("#map_show").click(function() {
+        $("#map-canvas").toggle();
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center); 
+      });
 
-    $("#map-canvas").toggle(); // hiding by default
-
+      $("#map-canvas").toggle(); // hiding by default
+    }
   </script>
 <% end %>
