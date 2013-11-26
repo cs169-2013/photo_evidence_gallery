@@ -1,11 +1,6 @@
 <%- model_class = Photo -%>
 <%= flash[:access] %>
-<style>
-  #map-canvas{
-    height: 400px;
-    max-width: none;
-  }
-</style>
+
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -25,9 +20,8 @@
   <% end %>
   </tbody>
 </table>
-
 <% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false"></script>
   <script src="/assets/maps.js?body=1"></script>
   <div class="btn" id="map_show">Map of locations</div>
   <div id="map-canvas"/></div>
@@ -39,10 +33,12 @@
     ]);
     $("#map_show").click(function() {
       $("#map-canvas").toggle();
-      var center = map.getCenter()
+      var center = map.getCenter();
       google.maps.event.trigger(map, 'resize');
-      map.setCenter(center)
+      map.setCenter(center); 
     });
+
     $("#map-canvas").toggle(); // hiding by default
+
   </script>
 <% end %>
