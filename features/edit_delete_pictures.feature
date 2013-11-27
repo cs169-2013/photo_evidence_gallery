@@ -15,10 +15,10 @@ Scenario: Editing a photo
     When I fill in "Incident name" with "Craig"
     And I press "Update Photo"
     Then I should see "Craig"
-    When I follow "Back"
+    When I follow "Home"
     Then I should be on the PhotoApp homepage
 
 Scenario: Deleting a photo
-    When I follow "Destroy"
+    When I follow "Delete"
     Then I should be on the PhotoApp homepage
     And I should see 0 images

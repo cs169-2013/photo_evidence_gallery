@@ -18,10 +18,11 @@ class Photo < ActiveRecord::Base
 
     lat_ref = exif_extractor('GPSLatitudeRef', false)
     lng_ref = exif_extractor('GPSLongitudeRef', false)
-    if self.time_taken == ''
+    return unless img_lat && img_lng && lat_ref && lng_ref
+
+    if self.time_taken.blank?
       self.time_taken = exif_extractor('DateTime', false)
     end
-    return unless img_lat && img_lng && lat_ref && lng_ref
 
 
     latitude = coordinate(img_lat)
