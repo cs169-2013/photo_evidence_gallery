@@ -1,9 +1,24 @@
+<div class="page-header">
+  <h1>CSV</h1>
+</div>
+
+<p>
+  Please use an CSV with the columns <br>
+  email,role <br>
+</p>
+
 <%= form_tag({:action => :import}, multipart: true) do %>
-  <%= file_field_tag :csv_file %>
-  <%= submit_tag( "Import" ) %>
+  <div class="form-actions">
+    <%= file_field_tag :csv_file %>
+    <%= submit_tag("Import", :class => 'btn btn-primary') %>
+  </div>
 <% end %>
-  Download:
-  <%= link_to "Excel", csv_export_path(format: "xls") %>
+  <div class="form-actions">
+    <%= link_to "Downlod as Excel", csv_export_path(format: "xls"), :class => 'btn btn-primary' %>
+    <p>
+      will contain columns id,email,role
+    </p>
+  </div>
 </p>
 <% if !flash.empty? %>
   <div id="flash"> 
