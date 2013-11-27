@@ -89,15 +89,15 @@ class PhotosController < ApplicationController
     save_user_info
     redirect_to photo_path(@photo), alert: "Couldn't update the photo." and return unless @photo.update_attributes(photo_params)
 
-        @photo.rotate_image
-        @photo.crop_image
+    @photo.rotate_image
+    @photo.crop_image
 
-			@photo.nullify_rotate_and_crop 
-      if params[:photo][:edited]
-        @photo.edited = params[:photo][:edited]=='1' ? true : false
-      end
-      @photo.save!
-      redirect_to photo_path(@photo), notice: "Successfully updated photo."
+    @photo.nullify_rotate_and_crop 
+    if params[:photo][:edited]
+      @photo.edited = params[:photo][:edited]=='1' ? true : false
+    end
+    @photo.save!
+    redirect_to photo_path(@photo), notice: "Successfully updated photo."
   end
 
   # DELETE /photos/1
@@ -120,7 +120,10 @@ class PhotosController < ApplicationController
     save_user_info
     redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
     params[:photo] = params[:photos]
-		winning
+    params[:photos][:images].each do |photo|    
+        params[:photo][:image] = photo
+        redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
+    end
     redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
   end
   
@@ -129,17 +132,17 @@ class PhotosController < ApplicationController
   def set_photo
     @photo = Photo.find(params[:id])
   end
-	def suih(h,c)
-  	 lambda do |symbol|
-  	    !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
-  	end
-	end
+  def suih(h,c)
+     lambda do |symbol|
+        !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
+    end
+  end
 
   def save_user_info
     hash = params[:photo]
     return unless hash
-		xx = suih(hash, current_user.info)
-     current_user.info = {:incident_name => xx.call(:incident_name),
+    xx = suih(hash, current_user.info)
+    current_user.info = {:incident_name => xx.call(:incident_name),
               :taken_by => xx.call(:taken_by),
               :operational_period => xx.call(:operational_period),
               :team_number => xx.call(:team_number)}
@@ -155,15 +158,9 @@ class PhotosController < ApplicationController
     @photos = Photo.where(@incidents == 'All' ? {:edited => hash[:edited]} : hash)
   end
 
-	def choice_assignment(symbol)
-		params[symbol] || session[symbol]
-	end
-	def winning
-		params[:photos][:images].each do |photo|    
-        params[:photo][:image] = photo
-        redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
-    end
-	end
+  def choice_assignment(symbol)
+    params[symbol] || session[symbol]
+  end
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
     params.require(:photo).permit(:caption, :tags, :incident_name, :operational_period, :team_number, :taken_by, :time_taken, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)

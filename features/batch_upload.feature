@@ -31,14 +31,10 @@ Scenario: I try to upload multiple images one by one
 	And I press "Save Photos"
 	And I use multiple upload to upload the image "Water.jpg"
 	And I press "Save Photos"
-	And I use multiple upload to upload the image "Water.jpg"
-	And I press "Save Photos"
-	And I use multiple upload to upload the image "Water.jpg"
-	And I press "Save Photos"
 	When I follow "Cancel"
 	Then I should be on the PhotoApp homepage
 	When I follow "Editing Queue"
-	Then I should see 4 images
+	Then I should see 2 images
 
 Scenario: I upload no images
   When I follow "Multiple Upload"

@@ -1,4 +1,4 @@
-<%= form_for @photo, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @photo? @photo : :photos, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :caption, :class => 'control-label' %>
     <div class="controls">
@@ -55,18 +55,18 @@
       <%= f.text_field :lng, :class => 'text_field' %>
     </div>
   </div>
-  <% if !@photo.id %>
+  <% if !@photo || !@photo.id %>
     <div class="control-group">
-      <%= f.label :image, :class => 'control-label' %>
+      <%= f.label @photo? :image : :images, :class => 'control-label' %>
       <div class="controls">
-        <%= f.file_field :image, :class => 'file_field' %>
+        <%= f.file_field @photo? :image : :images, :class => 'file_field', :multiple => @photo? false : true %>
       </div>
     </div>
   <% end %>
   <div class="control-group">
     <%= f.label :edited, :class => 'control-label' %>
     <div class="controls">
-      <%= f.check_box :edited, :class => 'check_box', :checked => true %>
+      <%= f.check_box :edited, :class => 'check_box', :checked => @photo? true : false %>
     </div>
   </div>
 
