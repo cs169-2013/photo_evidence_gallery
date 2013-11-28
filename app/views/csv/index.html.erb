@@ -3,8 +3,7 @@
 </div>
 
 <p>
-  Please use an CSV with the columns <br>
-  email,role <br>
+  Please use a CSV file with the columns: <strong> email, role </strong><br>
 </p>
 
 <%= form_tag({:action => :import}, multipart: true) do %>
@@ -16,7 +15,7 @@
   <div class="form-actions">
     <%= link_to "Downlod as Excel", csv_export_path(format: "xls"), :class => 'btn btn-primary' %>
     <p>
-      will contain columns id,email,role
+      File will contain columns: <strong> id, email, role </strong>
     </p>
   </div>
 </p>
