@@ -10,12 +10,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    redirect_to edit_user_path(@user), alert: "Need to be an admin" and return unless current_user.role == "admin" || current_user == @user
     @user.destroy
     redirect_to users_path, notice: "User destroyed."
   end
 
   def update
-    redirect_to edit_user_path(@user), alert: "Need to be an admin" and return unless authenticate_admin! || current_user == @user
+    redirect_to edit_user_path(@user), alert: "Need to be an admin" and return unless current_user.role == "admin" || current_user == @user
     if should_clear_password_param
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
     elsif @user.update_attributes(@params_user.permit([:email, :password, :password_confirmation]))
       flash[:notice] = "User updated."
     else
-      flash[:alert] = "Couldn't update user"
+      flash[:alert] = "Couldn't update user. Try a more complicated password."
     end
     redirect_to edit_user_path(@user)
   end
