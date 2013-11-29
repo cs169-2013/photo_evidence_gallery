@@ -2,17 +2,19 @@
 
 <%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <div><%= f.label :email %>
+  <%= f.email_field :email, :autofocus => true %></div><br />
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <div><%= f.label :password %> 
   <%= f.password_field :password, :autocomplete => "off" %></div>
+  <i>(leave blank if you don't want to change it)</i><br /><br />
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <div><%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %></div><br />
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <div><%= f.label :current_password %>
   <%= f.password_field :current_password %></div>
+  <i>(we need your current password to confirm your changes)</i><br /><br />
 
   <div><%= f.submit "Update" %></div>
 <% end %>

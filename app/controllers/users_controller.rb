@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     elsif @user.update_attributes(@params_user.permit([:email, :password, :password_confirmation]))
       flash[:notice] = "User updated."
     else
-      flash[:alert] = "Couldn't update user"
+      flash[:alert] = "Couldn't update user. Try a more complicated password."
     end
     redirect_to edit_user_path(@user)
   end
