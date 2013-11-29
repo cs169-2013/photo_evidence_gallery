@@ -9,17 +9,23 @@
   <tbody>
     <% @photo_pack.each do |photo_pack| %>
       <tr> <% photo_pack.each do |photo| %>
-        <td align="center" valign="center">
-          <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
-          <%= link_to 'Show', photo %> | 
-          <%= link_to 'Edit', edit_photo_path(photo) %> | 
-          <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
+          <td align="center" valign="center">
+            <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
+            <%= link_to 'Show', photo %> | 
+            <%= link_to 'Edit', edit_photo_path(photo) %> | 
+            <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
 </table>
+
+<%= direct_upload_form_for @uploader do |f| %>
+  <p><%= f.file_field :image %></p>
+  <p><%= f.submit "Upload Image" %></p>
+<% end %>
+
 <% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
   <script src="/assets/maps.js?body=1"></script>
@@ -28,9 +34,9 @@
   <script>
     function initialize() {
       make_map([
-        <% @map_points.each do |p| %>
-          ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
-        <% end %>
+      <% @map_points.each do |p| %>
+        ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
+      <% end %>
       ]);
       $("#map_show").click(function() {
         $("#map-canvas").toggle();

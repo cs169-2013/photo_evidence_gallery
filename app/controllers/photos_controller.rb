@@ -8,7 +8,7 @@ class PhotosController < ApplicationController
   def index
     @sort = choice_assignment(:edited)
     @incidents = choice_assignment(:incident)
-   
+
     if changed(:edited) || changed(:incident)
       session[:edited] = params[:edited]
       session[:incident] = params[:incident]
@@ -17,6 +17,9 @@ class PhotosController < ApplicationController
     photo_selector_logic
     @map_points = @photos.find_all{|x| x.lat != nil && x.lng != nil}
     index_logic
+
+    @uploader = Photo.new.image
+    @uploader.success_action_redirect = new_photo_url
   end
 
   #GET
@@ -44,20 +47,20 @@ class PhotosController < ApplicationController
   end
 
   def new
-    @photo = Photo.new
+    @photo = Photo.new(key: params[:key])
     @info = current_user.info.to_hash
   end
 
   def edit
     @info = {:incident_name => @photo.incident_name,
-    :taken_by => @photo.taken_by,
-    :operational_period => @photo.operational_period,
-    :team_number => @photo.team_number}
+      :taken_by => @photo.taken_by,
+      :operational_period => @photo.operational_period,
+      :team_number => @photo.team_number}
   end
 
   def create
     save_user_info
-    if params[:photo] and params[:photo][:image]
+    if params[:photo]
       @photo = make_photo
       if @photo.save
         if !@photo.edited
@@ -65,14 +68,10 @@ class PhotosController < ApplicationController
         else
           redirect_to photo_path(@photo), notice: "Successfully created photo."
         end
-      else
-        redirect_to new_photo_path(@photo), alert: "Couldn't save to database!"
       end
-    else
-      redirect_to new_photo_path, alert: "No files chosen!"
     end
   end
-  
+
   #helper used by create and make_multiple
   def make_photo
     if params[:photo][:incident_name] == ""
@@ -109,32 +108,32 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # GET
   def multiple_uploads
     @info = current_user.info.to_hash
   end
-  
+
   #POST
   def make_multiple
     save_user_info
     redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
     params[:photo] = params[:photos]
     params[:photos][:images].each do |photo|    
-        params[:photo][:image] = photo
-        redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
+      params[:photo][:image] = photo
+      redirect_to photos_multiple_uploads_path, alert: "Couldn't save photo!" and return unless make_photo.save
     end
     redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
   end
-  
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_photo
     @photo = Photo.find(params[:id])
   end
   def suih(h,c)
-     lambda do |symbol|
-        !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
+    lambda do |symbol|
+      !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
     end
   end
 
@@ -143,9 +142,9 @@ class PhotosController < ApplicationController
     return unless hash
     xx = suih(hash, current_user.info)
     current_user.info = {:incident_name => xx.call(:incident_name),
-              :taken_by => xx.call(:taken_by),
-              :operational_period => xx.call(:operational_period),
-              :team_number => xx.call(:team_number)}
+      :taken_by => xx.call(:taken_by),
+      :operational_period => xx.call(:operational_period),
+      :team_number => xx.call(:team_number)}
     current_user.save
   end
 
@@ -163,6 +162,6 @@ class PhotosController < ApplicationController
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
-    params.require(:photo).permit(:caption, :tags, :incident_name, :operational_period, :team_number, :taken_by, :time_taken, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat)
+    params.require(:photo).permit(:caption, :tags, :incident_name, :operational_period, :team_number, :taken_by, :time_taken, :image, :image_file, :crop_x, :crop_y, :crop_w, :crop_h, :rotation, :lng, :lat, :key)
   end
 end

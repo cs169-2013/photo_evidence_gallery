@@ -3,7 +3,7 @@ require 'date'
 class Photo < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
-  after_save :extract_metadata
+  after_save :extract_metadata, :enqueue_image
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation
 
 
@@ -78,4 +78,19 @@ class Photo < ActiveRecord::Base
         crop_w = nil
         crop_h = nil
 	end
+
+  def enqueue_image
+    ImageWorker.perform_async(id, key) if key.present?
+  end
+
+  class ImageWorker
+    include Sidekiq::Worker
+    
+    def perform(id, key)
+      photo = Photo.find(id)
+      photo.key = key
+      photo.remote_image_url = photo.image.direct_fog_url(with_path: true)
+      photo.save!
+    end
+  end
 end

@@ -55,20 +55,15 @@
       <%= f.text_field :lng, :class => 'text_field' %>
     </div>
   </div>
-  <% if !@photo || !@photo.id %>
-    <div class="control-group">
-      <%= f.label @photo? :image : :images, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.file_field @photo? :image : :images, :class => 'file_field', :multiple => @photo? false : true %>
-      </div>
-    </div>
-  <% end %>
+
   <div class="control-group">
     <%= f.label :edited, :class => 'control-label' %>
     <div class="controls">
       <%= f.check_box :edited, :class => 'check_box', :checked => @photo? true : false %>
     </div>
   </div>
+
+  <%= f.hidden_field :key %>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

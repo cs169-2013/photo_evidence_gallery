@@ -2,16 +2,11 @@
 
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
+  include CarrierWaveDirect::Uploader
 
   include Sprockets::Rails::Helper
-  storage :fog
   include CarrierWave::MimeTypes
   process :set_content_type
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}/#{model.created_at}"
-  end
 
   process :crop
   process :rotate 
