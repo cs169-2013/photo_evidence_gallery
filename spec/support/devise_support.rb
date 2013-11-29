@@ -3,8 +3,8 @@ module ValidUserRequestHelper
 	Warden.test_mode!
 
   # for use in request specs
-  def sign_in_as_a_valid_user
-    user ||= FactoryGirl.create :user
-    login_as(user, :scope => :user, :run_callbacks => false)
+  def sign_in_as_a_valid_admin
+    admin ||= FactoryGirl.create :admin
+    login_as(admin, :scope => :user, :run_callbacks => false)
   end
 end
