@@ -4,14 +4,12 @@ include ValidUserRequestHelper
 describe PhotosController do
 
   before do
-    sign_in_as_a_valid_user
+    sign_in_as_a_valid_admin
     get :index, { edited: 'true', :incident => 'All'} # this is the default params
-    get :index, { edited: 'true', :incident => 'All'} # session needs to get saved, forcing redirect
   end
 
   describe "GET #index" do
     before(:each) do
-      #sign_in_as_a_valid_user
       photo1 = Photo.create!(:edited => true, :incident_name => 'Kevin')
       get :index, { edited: 'true', :incident => 'All'} # this is the default params
       get :index, { edited: 'true', :incident => 'All'} # session needs to get saved, forcing redirect
