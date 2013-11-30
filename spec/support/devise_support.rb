@@ -7,4 +7,9 @@ module ValidUserRequestHelper
     admin ||= FactoryGirl.create :admin
     login_as(admin, :scope => :user, :run_callbacks => false)
   end
+  
+  def sign_in_as_a_member
+    member ||= FactoryGirl.create :member
+    login_as(member, :scope => :user, :run_callbacks => false)
+  end
 end
