@@ -6,25 +6,38 @@ class CsvController < ApplicationController
     end
 
     def import
-        hardcode = "admin169"
+        default_password = "bamru2013"
         myfile = params[:csv_file]
+        if !myfile
+          flash[:error] = "Please select a file to upload."
+          redirect_to csv_index_path and return
+        end
+        if myfile.content_type != "text/csv"
+          flash[:error] = "Invalid file, please upload a .csv file."
+          redirect_to csv_index_path and return
+        end
         csv_text = File.read(myfile.path)
         csv = CSV.parse(csv_text, :headers => true)
         csv.each do |row|
             email = row['email']
             name = row['name']
-            password = hardcode #row['password']
-            role = row['row']
+            password = default_password
+            role = row['role']
             new_user = User.new(:email => email, :password => password, :password_confirmation => password, :role => role)
-            if !new_user.save
-                if email
-                    flash[email] = "Failed to create " + email
-                else
-                    flash[:error] = "Failed to extract data from file"
-                    break
-                end
+            col = email || name || role
+            if (!email || !role )
+              flash[col] = "Failed to create " + col + ", did not have all information"
+            elsif !(email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+              flash[email] = "Failed to create " + email + ", did not have a valid role"
+            elsif !new_user.save
+              if col 
+                  flash[col] = "Failed to create " + col + ", information missing."
+              else
+                  flash[:error] = "Failed to extract data from file."
+                  break
+              end
             else
-                flash[email] = "Successfully created " + email + ". The password is " + hardcode
+                flash[email] = "Successfully created " + email + ". The password is " + default_password
             end
         end
         redirect_to csv_index_path
@@ -38,6 +51,7 @@ class CsvController < ApplicationController
         format.xls # { send_data @products.to_csv(col_sep: "\t") }
       end
     end
+    
 end
 
 # csv_text = File.read(myfile)
