@@ -8,7 +8,8 @@
 <table class="table table-striped">
   <tbody>
     <% @photo_pack.each do |photo_pack| %>
-      <tr> <% photo_pack.each do |photo| %>
+      <tr> 
+      <% photo_pack.each do |photo| %>
         <td align="center" valign="center">
           <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
           <%= link_to 'Show', photo %>
@@ -18,9 +19,12 @@
 		      <% end %>
         </td>
       <% end %>
-    </tr>
-  <% end %>
+      </tr>
+    <% end %>
   </tbody>
+  <% if @photo_pack == [[]] %>
+    This page is intentially blank.
+  <% end %>
 </table>
 <% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
