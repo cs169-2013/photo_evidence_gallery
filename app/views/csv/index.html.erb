@@ -1,3 +1,15 @@
+<% if !flash.empty? %>
+  <div id="flash"> 
+      <% flash.keys.each do |k| %> 
+        <% if k != :alert %>
+            <div class="<%= "alert fade in alert-" + "#{flash[k].include?("Success") ? 'success' : 'error'}" %>">
+                <%= flash[k] %>
+            </div>  
+        <% end %>
+      <% end %>   
+  </div>
+<% end %>
+
 <div class="page-header">
   <h1>CSV</h1>
 </div>
@@ -18,13 +30,4 @@
       File will contain columns: <strong> id, email, role </strong>
     </p>
   </div>
-</p>
-<% if !flash.empty? %>
-  <div id="flash"> 
-      <% flash.keys.each do |k| %> 
-          <div class="<%= k %>">
-              <%= flash[k] %>
-          </div>  
-      <% end %>   
-  </div>
-<% end %>  
+</p>  

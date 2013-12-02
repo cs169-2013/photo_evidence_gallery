@@ -17,7 +17,7 @@ Scenario: I upload a correctly formatted csv file
 	Then I should be on the CSV page
 	When I upload the file "user_add_test.csv"
 	And I press "Import"
-	Then I should see "Successfully created chiller@berkeley.edu. The password is bamru2013"
+	Then I should see "Successfully created chiller@berkeley.edu as a member. The password is bamru2013"
 	When I follow "Logout"
 	And I log in as "chiller@berkeley.edu" and password "bamru2013"
 	Then I should see "Signed in successfully."  
