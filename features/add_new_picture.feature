@@ -20,7 +20,7 @@ Scenario: uploading a single photo
 	And I upload the image "Water.jpg"
   	And I press "Create Photo"
   	And I follow "Edit"
-  	And I fill in "photo[crop_x]" with "100"
+  	And I fill in hidden field "photo_crop_x" with "100"
 	And I press "Crop"
 	And I am on the PhotoApp homepage
 	Then I should see 1 image

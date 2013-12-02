@@ -1,4 +1,4 @@
-<h1>Rotate Image</h1>
+<h3>Rotate Image</h3>
 
 <%= image_tag @photo.image_url(:thumb), id: "rotate0" %>
 <%= image_tag @photo.image_url(:thumb), id: "rotate90" %>
@@ -6,9 +6,9 @@
 <%= image_tag @photo.image_url(:thumb), id: "rotate270" %>
 
 <%= form_for @photo do |f| %>
-  <div class="actions">
+  <div class="form-actions">
     <%= f.text_field "rotation" %>
-    <%= f.submit "Rotation", :id => "rotation" %>
+    <%= f.submit "Rotate", :class => 'btn btn-primary', :id => "rotation" %>
   </div>
 <% end %>
 <script src="/assets/rotate.js?body=1"></script>

@@ -1,4 +1,4 @@
-<h1>Crop Image</h1>
+<h3>Crop Image</h3>
 
 <%= image_tag @photo.image_url(), id: "cropbox" %>
 
@@ -12,11 +12,11 @@
 </form>
 
 <%= form_for @photo do |f| %>
-  <div class="actions">
+  <div class="form-actions">
     <% %w[x y w h].each do |attribute| %>
-      <%= f.text_field "crop_#{attribute}"%>
+      <%= f.hidden_field "crop_#{attribute}"%>
     <% end %>
-    <%= f.submit "Crop", :id => "cropper" %>
+    <%= f.submit "Crop", :id => "cropper", :class => 'btn btn-primary' %>
   </div>
 <% end %>
 
