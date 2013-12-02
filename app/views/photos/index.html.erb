@@ -2,7 +2,7 @@
 <%= flash[:access] %>
 
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h2>
 </div>
 
 <table class="table table-striped">
@@ -11,9 +11,11 @@
       <tr> <% photo_pack.each do |photo| %>
         <td align="center" valign="center">
           <%= link_to image_tag(photo.image_url(:thumb)), photo %></br>
-          <%= link_to 'Show', photo %> | 
-          <%= link_to 'Edit', edit_photo_path(photo) %> | 
-          <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Show', photo %>
+          <% if current_user.role != "viewer" %>
+		        | <%= link_to 'Edit', edit_photo_path(photo) %> | 
+		        <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+		      <% end %>
         </td>
       <% end %>
     </tr>
@@ -29,7 +31,7 @@
     function initialize() {
       make_map([
         <% @map_points.each do |p| %>
-          ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>"],
+          ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>", "<%= p.id %>"],
         <% end %>
       ]);
       $("#map_show").click(function() {

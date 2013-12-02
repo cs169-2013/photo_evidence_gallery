@@ -14,12 +14,14 @@ function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, n
 		for (var i = 0; i < pins.length; i++){
 		  marker = new google.maps.Marker({
 			  position: new google.maps.LatLng(pins[i][0], pins[i][1]),
+			  url: '/photos/' + pins[i][3],
 			  map: map
 			});
 
 			google.maps.event.addListener(marker, 'click', (function(marker, i) {
 			  return function() {
-			    infowindow.setContent(pins[i][2]);
+			    infowindow.setContent('<a href="http://photoevidence.herokuapp.com'+marker.url+'">'+'Show image</a><br>' + pins[i][2]);
+			    //infowindow.setContent(pins[i][2] + '<br> <a href="localhost:3000'+marker.url+'">'+'Show image</a>');
 			    infowindow.open(map, marker);
 			  }
 			})(marker, i));
