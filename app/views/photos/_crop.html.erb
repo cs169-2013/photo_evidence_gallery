@@ -14,7 +14,7 @@
 <%= form_for @photo do |f| %>
   <div class="actions">
     <% %w[x y w h].each do |attribute| %>
-      <%= f.text_field "crop_#{attribute}"%>
+      <%= f.hidden_field "crop_#{attribute}"%>
     <% end %>
     <%= f.submit "Crop", :id => "cropper" %>
   </div>
