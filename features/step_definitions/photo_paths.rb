@@ -33,10 +33,14 @@ Then /I should see (\d+) images?/ do |count|
 end
 
 When /I crop the image to (\d+) by (\d+)$/ do |width, height|
-	fill_in "photo[crop_x]", :with => "0"
-	fill_in "photo[crop_y]", :with => "0"
-	fill_in "photo[crop_w]", :with => "#{width}"
-	fill_in "photo[crop_h]", :with => "#{height}"
+	find(:xpath, "//input[@id='photo_crop_x']").set "0"
+	find(:xpath, "//input[@id='photo_crop_y']").set "0"
+	find(:xpath, "//input[@id='photo_crop_w']").set "#{width}"
+	find(:xpath, "//input[@id='photo_crop_h']").set "#{height}"
+end
+
+When /^I fill in hidden field "(.*)" with "(.*)"$/ do |field, data|
+	find(:xpath, "//input[@id='#{field}']").set data
 end
 
 Then /^I should see "([^"]*)" button/ do |name|
