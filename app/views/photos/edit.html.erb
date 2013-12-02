@@ -2,6 +2,13 @@
 <div class="page-header">
   <h3><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h3>
 </div>
-<%= render :partial => 'form' %>
-<%= render :partial => 'rotate' %>
-<%= render :partial => 'crop' %>
+
+<div class="row-fluid">
+	<div class="span5">
+		<%= render :partial => 'form' %>
+	</div>
+	<div class="span7">
+		<%= render :partial => 'rotate' %>
+		<%= render :partial => 'crop' %>
+	</div>
+</div>
