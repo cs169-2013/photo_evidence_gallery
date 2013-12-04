@@ -2,7 +2,8 @@
 <%= flash[:access] %>
 
 <div class="page-header">
-  <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
+  <h2><%= session[:edited] == "true"? 'Home' : 'Editing' %></h2>
+  <h3><%= "Incident: " + session[:incident] %></h3>
 </div>
 
 <table class="table table-striped" id="photo_table">
