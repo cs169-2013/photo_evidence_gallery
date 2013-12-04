@@ -6,7 +6,7 @@ class CsvController < ApplicationController
   end
 
   def import
-    default_password = "bamru2013"
+    default_password = ENV["default_password"]
     myfile = params[:csv_file]
     redirect_to csv_index_path, alert: "Please select a file to upload." and return unless myfile
     redirect_to csv_index_path, alert: "Invalid file, please upload a .csv file." and return unless myfile.content_type == "text/csv"
