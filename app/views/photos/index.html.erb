@@ -30,12 +30,13 @@
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
   <script src="/assets/maps.js?body=1"></script>
   <div class="row">
-		<div class="span6 offset3">
+		<div class="span6 offset4">
 			<div class="btn" id="map_show">Map of locations</div>
 		</div>
-		<div class="span6 offset2" id="map-canvas"/></div>
+		<div class="span6 offset3" id="map-canvas"/></div>
 	</div>
   <script>
+    $("#map-canvas").toggle(); // hiding by default
     function initialize() {
       make_map([
         <% @map_points.each do |p| %>
@@ -48,8 +49,6 @@
         google.maps.event.trigger(map, 'resize');
         map.setCenter(center); 
       });
-
-      $("#map-canvas").toggle(); // hiding by default
     }
   </script>
 <% end %>
