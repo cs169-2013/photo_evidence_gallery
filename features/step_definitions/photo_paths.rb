@@ -1,4 +1,5 @@
 
+
 Given /the following images exist/ do |pictures_table|
   pictures_table.hashes.each do |pic|
     # each returned element will be a hash whose key is the table header.

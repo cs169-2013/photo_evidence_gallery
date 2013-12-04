@@ -1,21 +1,8 @@
 <%- model_class = Photo -%>
-<style>
-	.modal.hide.fade {
-		position: absolute;
-	}
-</style>
 <div class="page-header">
   <h3><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h3>
 </div>
-<div class="btn" id="editForm">Form Data</div>
-<div id="form"/>
-	<%= render partial: "form" %>
-</div>
+
+<%= render :partial => 'form' %>
 <%= render :partial => 'rotate' %>
 <%= render :partial => 'crop' %>
-<script>
-	$("#form").toggle();
-	$("#editForm").click(function() {
-    $("#form").slideToggle("slow");
-  });
-</script>

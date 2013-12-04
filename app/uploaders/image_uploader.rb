@@ -32,7 +32,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def shrink
     manipulate! do |img|
-      img.scale!(100, 100)
+      img.scale!(200, 200)
     end
   end
 
