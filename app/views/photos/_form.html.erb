@@ -7,7 +7,7 @@
     <h3><%= !@photo? 'Multiple' : nil %> <%= (@photo && @photo.id)? 'Edit Photo' : 'Upload' %></h3>
     <%= bootstrap_flash %>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" id="pickme">
     <% if !@photo || !@photo.id %>
       <div class="control-group">
         <%= f.label @photo? :image : :images, :class => 'control-label' %>
@@ -92,6 +92,21 @@
 </div>
 
 <script src="/assets/locator.js?body=1"></script>
+
+<script>
+  $(document).ready(function(){
+    resizeDiv();
+  });
+
+  window.onresize = function(event) {
+    resizeDiv();
+  }
+
+  function resizeDiv() {
+    vph = $(window).height() - 200;
+    $('#pickme').css({'height': vph + 'px'});
+  }
+</script>
 
 <% if !@photo || !@photo.id %>
   <script>
