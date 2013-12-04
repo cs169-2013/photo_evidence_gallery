@@ -58,10 +58,9 @@
         <%= f.text_field :time_taken, :class => 'text_field' %>
       </div>
     </div>
-
-    <p id="Locator">Set photo's location as your current location (if photo has no metadata)</p>
     <div style="text-align: center; margin-bottom: 20px;">
       <input type="button" value="Locate" id="coorbutton" style="height: 30px; width: 150px;">
+      <input type="button" value="Use current time" id="timebutton" style="height: 30px; width: 150px;">
     </div>
 
     <div class="control-group">
@@ -96,6 +95,37 @@
 <script>
   $(document).ready(function(){
     resizeDiv();
+    $("#timebutton").click(function(e) {
+      var d = new Date();
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth() + 1; //Months are zero based
+      var curr_year = d.getFullYear();
+      var curr_hour = d.getHours();
+      var curr_min = d.getMinutes();
+      var a_p = "";
+      var curr_hour = d.getHours();
+
+      if (curr_hour < 12)
+         {
+         a_p = "AM";
+         }
+      else
+         {
+         a_p = "PM";
+         }
+      if (curr_hour == 0)
+         {
+         curr_hour = 12;
+         }
+      if (curr_hour > 12)
+         {
+         curr_hour = curr_hour - 12;
+         }
+
+var curr_min = d.getMinutes();
+      $("#photo_time_taken").val(curr_month + "/" + curr_date + "/" + curr_year + " " + curr_hour + ":" + curr_min + " " + a_p);
+      $("#photos_time_taken").val(time);
+    });
   });
 
   window.onresize = function(event) {

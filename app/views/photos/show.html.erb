@@ -34,10 +34,10 @@
 
 <div class="form-actions">
   <%= link_to t('.home', :default => t("helpers.links.home")),
-              photos_path, :class => 'btn'  %>
+              photos_path, :class => 'btn btn-primary'  %>
   <% if current_user.role != "viewer" %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_photo_path(@photo), :class => 'btn' %>
+              edit_photo_path(@photo), :class => 'btn btn-primary' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               photo_path(@photo),
               :method => 'delete',
