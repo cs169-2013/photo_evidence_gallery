@@ -1,8 +1,9 @@
 <h4>Rotate Image</h4>
+<%= image_tag @photo.image_url(:thumb), id: "picture"%>
+<br>
 <div class="btn", id="left">
 <%= image_tag("/rLeft.png")%>
 </div>
-<%= image_tag @photo.image_url(:thumb), id: "picture"%>
 <div class="btn", id="right">
 <%= image_tag("/rRight.png")%>
 </div>

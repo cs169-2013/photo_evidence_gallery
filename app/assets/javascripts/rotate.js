@@ -3,16 +3,12 @@ $(document).ready(function () {
   
   $("#right").click(function(e) {
   	angle += 90;
-  	$('#picture').rotate(angle);
-    $('#photo_rotation').val(angle);
+  	$('#picture').rotate(angle % 360);
+    $('#photo_rotation').val(angle % 360);
   });
   $("#left").click(function(e) {
-  	if (angle >= 90){
-  		angle -= 90;
-  	}else{
-	  	angle += 270;
-	  }
-  	$('#picture').rotate(angle);
-    $('#photo_rotation').val(angle);
+  	angle -= 90;
+  	$('#picture').rotate(angle % 360);
+    $('#photo_rotation').val(angle % 360);
   });
 });

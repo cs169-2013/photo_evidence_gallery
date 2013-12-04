@@ -13,10 +13,10 @@
 
 <%= form_for @photo do |f| %>
   <div class="form-actions">
-    <% %w[x y w h].each do |attribute| %>
-      <%= f.hidden_field "crop_#{attribute}"%>
-    <% end %>
     <%= f.submit "Crop", :id => "cropper", :class => 'btn btn-primary' %>
+    <% %w[x y w h].each do |attribute| %>
+      <%= f.text_field "crop_#{attribute}", :readonly => true, :style => "width: 100px;" %>
+    <% end %>
   </div>
 <% end %>
 
