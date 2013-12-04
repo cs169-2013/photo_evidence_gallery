@@ -18,7 +18,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   resize_to_limit(600, 600)
 
   version :thumb do
-    resize_to_fill(100, 100)
+    process :shrink
   end
 
   def rotate
@@ -27,6 +27,12 @@ class ImageUploader < CarrierWave::Uploader::Base
       manipulate! do |img|
         img.rotate!(model.rotation.to_i)
       end
+    end
+  end
+
+  def shrink
+    manipulate! do |img|
+      img.scale!(100, 100)
     end
   end
 

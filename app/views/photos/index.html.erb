@@ -36,6 +36,7 @@
 		<div class="span6 offset2" id="map-canvas"/></div>
 	</div>
   <script>
+    $("#map-canvas").toggle(); // hiding by default
     function initialize() {
       make_map([
         <% @map_points.each do |p| %>
@@ -48,8 +49,6 @@
         google.maps.event.trigger(map, 'resize');
         map.setCenter(center); 
       });
-
-      $("#map-canvas").toggle(); // hiding by default
     }
   </script>
 <% end %>
