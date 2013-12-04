@@ -1,19 +1,18 @@
 $(document).ready(function () {
-  $("#rotate90").rotate(90);
-  $("#rotate180").rotate(180);
-  $("#rotate270").rotate(270);
+	var angle=0;
   
-  
-  $("#rotate0").click(function(e) {
-    $('#photo_rotation').val(0);
+  $("#right").click(function(e) {
+  	angle += 90;
+  	$('#picture').rotate(angle);
+    $('#photo_rotation').val(angle);
   });
-  $("#rotate90").click(function(e) {
-    $('#photo_rotation').val(90);
-  });
-  $("#rotate180").click(function(e) {
-    $('#photo_rotation').val(180);
-  });
-  $("#rotate270").click(function(e) {
-    $('#photo_rotation').val(270);
+  $("#left").click(function(e) {
+  	if (angle >= 90){
+  		angle -= 90;
+  	}else{
+	  	angle += 270;
+	  }
+  	$('#picture').rotate(angle);
+    $('#photo_rotation').val(angle);
   });
 });
