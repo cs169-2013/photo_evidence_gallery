@@ -60,16 +60,12 @@ class PhotosController < ApplicationController
     if params[:photo] and params[:photo][:image]
       @photo = make_photo
       if @photo.save
-        if !@photo.edited
-          redirect_to new_photo_path, notice: "Photo queued."
-        else
-          redirect_to photo_path(@photo), notice: "Successfully created photo."
-        end
+        redirect_to photo_path(@photo), notice: "Successfully created photo."
       else
         redirect_to new_photo_path(@photo), alert: "Couldn't save to database!"
       end
     else
-      redirect_to new_photo_path, alert: "No files chosen!"
+      redirect_to new_photo_path(@photo), alert: "No files chosen!"
     end
   end
   

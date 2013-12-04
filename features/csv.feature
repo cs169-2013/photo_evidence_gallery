@@ -19,5 +19,5 @@ Scenario: I upload a correctly formatted csv file
 	And I press "Import"
 	Then I should see "Successfully created chiller@berkeley.edu as a member. The password is bamru12345"
 	When I follow "Logout"
-	And I log in as "chiller@berkeley.edu" and password "bamru2013"
+	And I log in as "chiller@berkeley.edu" and password "bamru12345"
 	Then I should see "Signed in successfully."  
