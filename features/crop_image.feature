@@ -11,7 +11,7 @@ Background: I am on a page of a photo.
   	And I follow "Edit"
 	
 Scenario: use a custom crop
-	When I crop the image to 400 by 200
+	When I crop the image to 400 by 200 with original image size 600 by 375
 	Then I press "Crop"
 	Then I should see "Photoname"
 	And the picture's size should be 400 by 200

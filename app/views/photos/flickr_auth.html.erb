@@ -1,0 +1,16 @@
+Please allow popups.
+
+<%= form_tag do %>
+	Authentication Code: <%= text_field_tag(:code) %>
+	</br>
+	<%= submit_tag("Submit") %>
+<% end %>
+
+
+
+<script>
+window.open('<%= @auth_url %>','_blank','height=150');
+</script>
+
+
+

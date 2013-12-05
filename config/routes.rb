@@ -6,6 +6,8 @@ PhotoApp::Application.routes.draw do
   get 'photos/edit_queue' => 'photos#edit_queue', as: 'edit_queue'
   get 'photos/index' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
   get '/' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
+	get 'photos/flickr/:id' => 'photos#flickr_auth', as: 'flickr_auth'
+	post 'photos/flickr/:id' => 'photos#flickr_upload', as: 'flickr_upload'
   resources :photos
   # resources :csv
   post 'csv/import'

@@ -13,9 +13,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}/#{model.created_at}"
   end
 
+  resize_to_limit(600, 600)
+
   process :crop
   process :rotate 
-  resize_to_limit(600, 600)
 
   version :thumb do
     process :shrink
@@ -31,12 +32,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def rotate
-    if model.rotation.present?
-      resize_to_limit(600, 600)
-      manipulate! do |img|
-        img.rotate!(model.rotation.to_i)
-      end
+    manipulate! do |img|
+      img.rotate!(model.rotation.to_i)
     end
+    
   end
 
   def shrink
@@ -46,15 +45,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def crop
-    if model.crop_x.present?
-      resize_to_limit(600, 600)
-      manipulate! do |img|
-        x = model.crop_x.to_f*img.columns
-        y = model.crop_y.to_f*img.rows
-        w = model.crop_w.to_f*img.columns
-        h = model.crop_h.to_f*img.rows
-        img.crop!(x, y, w, h)
-      end
+    manipulate! do |img|
+      x = model.crop_x.to_f*img.columns
+      y = model.crop_y.to_f*img.rows
+      w = model.crop_w.to_f*img.columns
+      h = model.crop_h.to_f*img.rows
+      img.crop!(x, y, w, h)
     end
   end
 end

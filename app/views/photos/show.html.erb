@@ -2,12 +2,9 @@
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.titleize %></h3>
 </div>
-<div class="span-3">
+<div class="span-3" style="margin: 20px; padding-right: 40px;">
+<%= image_tag @photo.image_url() if @photo.image? %>
 <dl class="dl-horizontal">
-  <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
-  <dd><%= image_tag @photo.image_url() if @photo.image? %></dd>
-  </dl>
   <dt><strong><%= model_class.human_attribute_name(:caption) %>:</strong></dt>
   <dd><%= @photo.caption %>&nbsp;</dd>
   <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
@@ -34,7 +31,7 @@
 
 <div class="form-actions">
   <%= link_to t('.home', :default => t("helpers.links.home")),
-              photos_path, :class => 'btn btn-primary'  %>
+              photos_path, :class => 'btn'  %>
   <% if current_user.role != "viewer" %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_photo_path(@photo), :class => 'btn btn-primary' %>
@@ -43,5 +40,7 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+  <%= link_to t('.flickr', :default => "Flickr"),
+              flickr_upload_path(@photo), :class => 'btn btn-success'%>
   <% end %>
 </div>

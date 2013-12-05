@@ -18,11 +18,9 @@ class Photo < ActiveRecord::Base
 
     lat_ref = exif_extractor('GPSLatitudeRef', false)
     lng_ref = exif_extractor('GPSLongitudeRef', false)
+    self.time_taken = exif_extractor('DateTime', false) || self.time_taken
     return unless img_lat && img_lng && lat_ref && lng_ref
 
-    if self.time_taken.blank?
-      self.time_taken = exif_extractor('DateTime', false)
-    end
 
 
     latitude = coordinate(img_lat)
@@ -70,12 +68,12 @@ class Photo < ActiveRecord::Base
   def self.incidents
     Photo.uniq.pluck(:incident_name).compact.sort.delete_if{|x| x == ""}
   end
-	
-	def nullify_rotate_and_crop
-        rotation = nil
-		    crop_x = nil
-        crop_y = nil
-        crop_w = nil
-        crop_h = nil
-	end
+  
+  def nullify_rotate_and_crop
+    rotation = nil
+    crop_x = nil
+    crop_y = nil
+    crop_w = nil
+    crop_h = nil
+  end
 end
