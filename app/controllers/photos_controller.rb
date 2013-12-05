@@ -131,6 +131,7 @@ class PhotosController < ApplicationController
       session['flickr_authenticated']='false'
     end
     if session['flickr_authenticated'] == 'true'
+      set_photo
       flickr_upload
       return
     end
