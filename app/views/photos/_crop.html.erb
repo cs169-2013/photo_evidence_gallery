@@ -15,7 +15,7 @@
   <div class="form-actions">
     <%= f.submit "Crop", :id => "cropper", :class => 'btn btn-primary' %>
     <% %w[x y w h].each do |attribute| %>
-      <%= f.text_field "crop_#{attribute}", :style => "width: 100px;" %>
+      <%= f.hidden_field "crop_#{attribute}", :style => "width: 100px;" %>
     <% end %>
   </div>
 <% end %>
@@ -25,9 +25,8 @@
 
     var jcrop_api, boundx, boundy, bounds;
     var golden = 1.618
-    //boundx = this.getBounds()[0];
     $('#cropbox').Jcrop({
-      //onChange: update,
+      onChange: update,
       onSelect: update,
       aspectRatio: 0,
       setSelect: [0, 0, 600, 600],
@@ -56,8 +55,8 @@
     });
 
     function update(c){
-      boundx = boundx || c.w;
-      boundy = boundy || c.h; 
+      boundx = boundx || c.w; // cropbox fully covers image, can use
+      boundy = boundy || c.h; // c.x and c.y while bound is undefined
       $('#photo_crop_x').val(c.x / boundx);
       $('#photo_crop_y').val(c.y / boundy);
       $('#photo_crop_w').val(c.w / boundx);

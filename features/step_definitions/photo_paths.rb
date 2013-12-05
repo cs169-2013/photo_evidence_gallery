@@ -33,11 +33,13 @@ Then /I should see (\d+) images?/ do |count|
   assert Photo.all.length == count.to_i
 end
 
-When /I crop the image to (\d+) by (\d+)$/ do |width, height|
+When /I crop the image to (\d+) by (\d+) with original image size (\d+) by (\d+)$/ do |width, height, o_w, o_h|
+	new_width = "#{width}".to_f/"#{o_w}".to_f
+	new_height = "#{height}".to_f/"#{o_h}".to_f
 	find(:xpath, "//input[@id='photo_crop_x']").set "0"
 	find(:xpath, "//input[@id='photo_crop_y']").set "0"
-	find(:xpath, "//input[@id='photo_crop_w']").set "#{width}"
-	find(:xpath, "//input[@id='photo_crop_h']").set "#{height}"
+	find(:xpath, "//input[@id='photo_crop_w']").set "#{new_width}"
+	find(:xpath, "//input[@id='photo_crop_h']").set "#{new_height}"
 end
 
 When /^I fill in hidden field "(.*)" with "(.*)"$/ do |field, data|
