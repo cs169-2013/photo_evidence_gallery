@@ -25,7 +25,7 @@ class CsvController < ApplicationController
 
   def format_correct
     if !@email || !@role
-      flash[SecureRandom.UUID] = "Failed to create a row, did not have email and role"
+      flash[SecureRandom.uuid] = "Failed to create a row, did not have email and role"
     elsif !(@email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
       flash[@email] = "Failed to create " + @email + ", did not have a valid email"
     else
