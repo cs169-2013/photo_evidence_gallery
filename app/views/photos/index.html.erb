@@ -45,10 +45,11 @@
         <% end %>
       ]);
       $("#map_show").click(function() {
+        var bounds = map.getBounds();
         $("#map-canvas").toggle();
-        var center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
-        map.setCenter(center); 
+        map.fitBounds(bounds); 
+        map.setZoom(12);
       });
     }
   </script>

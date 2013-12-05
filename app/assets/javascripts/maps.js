@@ -3,13 +3,14 @@ var map;
 function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, name]
 {
   var mapOptions = {
-    center: new google.maps.LatLng(pins[0][0], pins[0][1]),
-    zoom: 8,
+    //center: new google.maps.LatLng(pins[0][0], pins[0][1]),
+    //zoom: 100,
     disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
   var infowindow = new google.maps.InfoWindow();
+  var bounds = new google.maps.LatLngBounds();
   if (pins != null) {
     for (var i = 0; i < pins.length; i++){
       marker = new google.maps.Marker({
@@ -25,6 +26,9 @@ function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, n
           infowindow.open(map, marker);
         }
       })(marker, i));
+      var hi = new google.maps.LatLng(pins[i][0], pins[i][1]);
+      bounds.extend(hi);
     }
+    map.fitBounds(bounds);
   }
 }
