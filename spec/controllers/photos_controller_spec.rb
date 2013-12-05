@@ -194,8 +194,26 @@ describe PhotosController do
   end
   
   describe "GET #flickr_auth" do
-    before(:each) do
-      #session['flickr_authenticated'].stub()
+    context "successful authentication" do
+      before(:each) do
+        session.stub(['flickr_authenticated']).and_return(true)
+        flickr.stub(get_request_token).and_return("token")
+        get :flickr_auth
+      end
+      
+      it "calls upload function" do
+        flickr_auth.should_receive(:flickr_upload)
+      end
+      
+      it "saves the token in the session" do
+        session['flickr_token'].should == "token"
+      end
+      
+    end
+    context "unsuccessful authentication" do
+      before(:each) do
+        session.stub(['flickr_authenticated']).and_return(false)
+      end
     end
   end
   
