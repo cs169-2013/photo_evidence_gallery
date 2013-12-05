@@ -194,6 +194,10 @@ describe PhotosController do
   end
   
   describe "GET #flickr_auth" do
+    before(:each) do
+      @image = FactoryGirl.create(:photo)
+    end
+    
     context "successful authentication" do
       it "calls upload" do
         flickr.test.stub(:login).and_return(true)
@@ -201,7 +205,7 @@ describe PhotosController do
         session['flickr_authenticated'] = 'true'
         
         controller.should_receive(:flickr_upload)
-        get :flickr_auth, id: '1'
+        get :flickr_auth, id: @image.id
       end
       
     end
@@ -209,7 +213,7 @@ describe PhotosController do
       before(:each) do
         flickr.test.stub(:login).and_raise("error")
         flickr.stub(:get_request_token).and_return("token")
-        get :flickr_auth, id: '1'
+        get :flickr_auth, id: @image.id
       end
       
       it "sets authenticated in the session" do
