@@ -16,22 +16,29 @@ class CsvController < ApplicationController
       @email = row['email']
       @password = default_password
       @role = row['role']
-      col = @email || @role
-      if !@email || !@role
-        flash[SecureRandom.UUID] = "Failed to create a row, did not have email and role"
-      else
+      if format_correct
         create_user
       end
     end
     redirect_to csv_index_path
   end
 
+  def format_correct
+    if !@email || !@role
+      flash[SecureRandom.UUID] = "Failed to create a row, did not have email and role"
+    elsif !(@email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+      flash[@email] = "Failed to create " + @email + ", did not have a valid email"
+    else
+      return true
+    end
+    return false
+  end
+      
+
   def create_user
     new_user = User.new(:email => @email, :password => @password, :password_confirmation => @password, :role => @role)
-    if !(@email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
-      flash[@email] = "Failed to create " + @email + ", did not have a valid email"
-    elsif !new_user.save
-      flash[@row] = "Failed to create " + col + " " + new_user.errors.messages.to_s
+    if !new_user.save
+      flash[@email] = "Failed to create " + @email + " " + new_user.errors.messages.to_s
     else
       flash[@email] = "Successfully created " + @email + " as a " + @role + ". The password is " + @password
     end
