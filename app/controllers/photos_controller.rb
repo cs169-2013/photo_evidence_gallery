@@ -148,8 +148,8 @@ class PhotosController < ApplicationController
         flickr.get_access_token(token['oauth_token'], token['oauth_token_secret'], verify)
         @login = flickr.test.login
         session['flickr_authenticated']='true'
-      rescue FlickRaw::FailedResponse => e
-        flash[:error] = "Authentication failed : #{e.msg}"
+      rescue FlickRaw::OAuthClient::FailedResponse => e
+        flash[:error] = "Authentication failed : #{e.message}"
       end
     end
     flickr.upload_photo @photo.image_url, :title => 'Title', :description => 'This is the description'
