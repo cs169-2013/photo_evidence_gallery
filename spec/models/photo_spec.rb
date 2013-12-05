@@ -23,6 +23,14 @@ describe Photo do
   
   it { should be_valid }
 
-
+  describe "#coordinate" do
+    it "calculates coordinates from an array" do
+      
+      arr = ["1","60","3600"]
+      @photo.coordinate(arr).should == 3
+      arr = ["1/2", "3600/60", "1800"]
+      @photo.coordinate(arr).should == 2
+    end
+  end
 
 end
