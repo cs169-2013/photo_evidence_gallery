@@ -4,10 +4,10 @@
 
 <form name="myform" method="POST">
   <div align="left"><br>
-    <input type="radio" name="cropselect" id="square" checked> Square		
+    <input type="radio" name="cropselect" id="freecrop" checked> Free Crop
+    <input type="radio" name="cropselect" id="square"> Square		
     <input type="radio" name="cropselect" id="portrait"> Portrait			
-    <input type="radio" name="cropselect" id="landscape"> Landscape			
-    <input type="radio" name="cropselect" id="freecrop"> Free Crop
+    <input type="radio" name="cropselect" id="landscape"> Landscape	
   </div>
 </form>
 
@@ -15,7 +15,7 @@
   <div class="form-actions">
     <%= f.submit "Crop", :id => "cropper", :class => 'btn btn-primary' %>
     <% %w[x y w h].each do |attribute| %>
-      <%= f.hidden_field "crop_#{attribute}", :style => "width: 100px;" %>
+      <%= f.text_field "crop_#{attribute}", :style => "width: 100px;" %>
     <% end %>
   </div>
 <% end %>
@@ -23,39 +23,49 @@
 <script>
   jQuery(function($){
 
-    var jcrop_api;
+    var jcrop_api, boundx, boundy, bounds;
     var golden = 1.618
+    //boundx = this.getBounds()[0];
     $('#cropbox').Jcrop({
-      aspectRatio: 1,
+      //onChange: update,
+      onSelect: update,
+      aspectRatio: 0,
       setSelect: [0, 0, 600, 600],
-      onChange: update,
-      onSelect: update
     },function(){
+      bounds = this.getBounds();
+      boundx = bounds[0];
+      boundy = bounds[1];
       jcrop_api = this;
     });
 
-  $('#square').change(function(e) {
-    jcrop_api.setOptions(this.checked? { aspectRatio: 1 }: { aspectRatio: 0 });
-    jcrop_api.focus();
-  });  
-  $('#portrait').change(function(e) {
-    jcrop_api.setOptions(this.checked? { aspectRatio: 1 / golden }: { aspectRatio: 0 });
-    jcrop_api.focus();
-  });  
-  $('#landscape').change(function(e) {
-    jcrop_api.setOptions(this.checked? { aspectRatio: golden }: { aspectRatio: 0 });
-    jcrop_api.focus();
-  });   
-  $('#freecrop').change(function(e) {
-    jcrop_api.setOptions(this.checked? { aspectRatio: 0 }: { aspectRatio: 0 });
-    jcrop_api.focus();
-  });
-  });
+    $('#square').change(function(e) {
+      jcrop_api.setOptions(this.checked? { aspectRatio: 1 }: { aspectRatio: 0 });
+      jcrop_api.focus();
+    });  
+    $('#portrait').change(function(e) {
+      jcrop_api.setOptions(this.checked? { aspectRatio: 1 / golden }: { aspectRatio: 0 });
+      jcrop_api.focus();
+    });  
+    $('#landscape').change(function(e) {
+      jcrop_api.setOptions(this.checked? { aspectRatio: golden }: { aspectRatio: 0 });
+      jcrop_api.focus();
+    });   
+    $('#freecrop').change(function(e) {
+      jcrop_api.setOptions(this.checked? { aspectRatio: 0 }: { aspectRatio: 0 });
+      jcrop_api.focus();
+    });
 
-  function update(c){
-    $('#photo_crop_x').val(c.x)
-    $('#photo_crop_y').val(c.y)
-    $('#photo_crop_w').val(c.w)
-    $('#photo_crop_h').val(c.h) 
-  }
+    function update(c){
+      boundx = boundx || c.w;
+      boundy = boundy || c.h; 
+      $('#photo_crop_x').val(c.x / boundx);
+      $('#photo_crop_y').val(c.y / boundy);
+      $('#photo_crop_w').val(c.w / boundx);
+      $('#photo_crop_h').val(c.h / boundy);
+    };
+
+    $(document).ready(function () {
+      jcrop_api.focus();
+    });
+  });
 </script>

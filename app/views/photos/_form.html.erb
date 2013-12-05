@@ -85,8 +85,7 @@
     </div>
   </div>
   <div class="modal-footer" display="none">
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-          photos_path, :class => 'btn' %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     <%= f.submit nil, :class => 'btn btn-primary' %>
   </div>
   <% end %>
