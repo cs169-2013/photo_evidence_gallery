@@ -59,8 +59,10 @@
       </div>
     </div>
     <div style="text-align: center; margin-bottom: 20px;">
-      <input type="button" value="Locate" id="coorbutton" style="height: 30px; width: 150px;">
       <input type="button" value="Use current time" id="timebutton" style="height: 30px; width: 150px;">
+    </div>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <input type="button" value="Use current location" id="coorbutton" style="height: 30px; width: 150px;">
     </div>
 
     <div class="control-group">
@@ -122,7 +124,7 @@
          curr_hour = curr_hour - 12;
          }
 
-var curr_min = d.getMinutes();
+      var curr_min = d.getMinutes();
       $("#photo_time_taken").val(curr_month + "/" + curr_date + "/" + curr_year + " " + curr_hour + ":" + curr_min + " " + a_p);
       $("#photos_time_taken").val(time);
     });
