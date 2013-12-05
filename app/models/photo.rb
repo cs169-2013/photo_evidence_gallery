@@ -68,12 +68,12 @@ class Photo < ActiveRecord::Base
   def self.incidents
     Photo.uniq.pluck(:incident_name).compact.sort.delete_if{|x| x == ""}
   end
-	
-	def nullify_rotate_and_crop
-        rotation = nil
-		    crop_x = nil
-        crop_y = nil
-        crop_w = nil
-        crop_h = nil
-	end
+  
+  def nullify_rotate_and_crop
+    rotation = nil
+    crop_x = nil
+    crop_y = nil
+    crop_w = nil
+    crop_h = nil
+  end
 end
