@@ -10,14 +10,14 @@ Background: A user exists
 Scenario: I login with the right credentials
   When I fill in "user_email" with "minikermit@hotmail.com"
   And I fill in "user_password" with "12345678"
-  And I press "Sign in"
+  And I press "Sign In"
   Then I should see "Signed in successfully."
 
 
 Scenario: I login with the wrong credentials
   When I fill in "user_email" with "isthislegit@awesome.com"
   And I fill in "user_password" with "314159265"
-  And I press "Sign in"
+  And I press "Sign In"
   Then I should not see "Signed in successfully."
   And I should be on the login page
 

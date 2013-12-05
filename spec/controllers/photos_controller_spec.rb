@@ -252,6 +252,7 @@ describe PhotosController do
       context "failed to login" do
         before(:each) do
           session['flickr_authenticated'] = 'false'
+          session['flickr_token'] = "this token is legit"
           session['flickr_token'].stub(:[]).and_return(true)
           flickr.stub(:upload_photo).and_return(true)
           post :flickr_upload, id: @image.id, code: "seemslegit"
@@ -263,6 +264,7 @@ describe PhotosController do
       end
       context "gets access token" do
         it "changes the session" do
+          session['flickr_token'] = "this token is legit"
           session['flickr_token'].stub(:[]).and_return(true)
           flickr.stub(:upload_photo).and_return(true)
           flickr.stub(:get_access_token).and_return(true)

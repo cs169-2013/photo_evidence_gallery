@@ -12,7 +12,7 @@ Given /^I am logged in as a valid user$/ do
   visit "/"
   fill_in "Email", :with => "minikermit@hotmail.com"
   fill_in "Password", :with => "12345678"
-  click_button "Sign in"
+  click_button "Sign In"
 end
 
 Given /^another valid admin exists$/ do
@@ -34,5 +34,5 @@ When /^I am logged in as a valid viewer$/ do
   visit "/"
   fill_in "Email", :with => "hihihihi@hotmail.com"
   fill_in "Password", :with => "12345678"
-  click_button "Sign in"
+  click_button "Sign In"
 end

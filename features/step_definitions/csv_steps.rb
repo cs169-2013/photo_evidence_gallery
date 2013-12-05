@@ -6,7 +6,7 @@ When(/^I log in as "(.*?)" and password "(.*?)"$/) do |email, password|
   visit '/'
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
-  click_button "Sign in"
+  click_button "Sign In"
 end
 
 Then /^I should get a download with the filetype "([^\"]*)"$/ do |filename|
