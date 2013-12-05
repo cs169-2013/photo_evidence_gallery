@@ -195,14 +195,25 @@ describe PhotosController do
   
   describe "GET #flickr_auth" do
     context "successful authentication" do
-      before(:each) do
-        session.stub(['flickr_authenticated']).and_return(true)
-        flickr.stub(get_request_token).and_return("token")
-        get :flickr_auth
+      it "calls upload" do
+        flickr.test.stub(:login).and_return(true)
+        @controller.stub(:flickr_upload).and_return(true)
+        session['flickr_authenticated'] = 'true'
+        
+        controller.should_receive(:flickr_upload)
+        get :flickr_auth, id: '1'
       end
       
-      it "calls upload function" do
-        flickr_auth.should_receive(:flickr_upload)
+    end
+    context "unsuccessful authentication" do
+      before(:each) do
+        flickr.test.stub(:login).and_raise("error")
+        flickr.stub(:get_request_token).and_return("token")
+        get :flickr_auth, id: '1'
+      end
+      
+      it "sets authenticated in the session" do
+        session['flickr_authenticated'].should == 'false'
       end
       
       it "saves the token in the session" do
@@ -210,15 +221,43 @@ describe PhotosController do
       end
       
     end
-    context "unsuccessful authentication" do
-      before(:each) do
-        session.stub(['flickr_authenticated']).and_return(false)
-      end
-    end
   end
   
   describe "POST #flickr_upload" do
-  
+    before(:each) do
+      @image = FactoryGirl.create(:photo)
+      @image.stub(:image_url).and_return("fakeurl.com")
+    end
+    
+    context "successfully authenticated" do
+      before(:each) do
+        flickr.stub(:upload_photo)
+        session['flickr_authenticated'] = 'true'
+        post :flickr_upload, id: @image.id
+      end
+      
+      it "updates the flash" do
+        flash[:success].should_not be_nil
+      end
+      
+      it "redirects to photo's page" do
+        response.should redirect_to photo_path(@image)
+      end
+    end
+    context "unsuccessfully authenticated" do
+      context "failed to login" do
+        before(:each) do
+          session['flickr_authenticated'] = 'false'
+          session['flickr_token'].stub(:[]).and_return(true)
+          #flickr.test.stub(:login).and_raise("error")
+          flickr.stub(:upload_photo).and_return(true)
+          post :flickr_upload, id: @image.id, code: "seemslegit"
+        end
+        
+        it "updates the flash with an error" do
+          flash[:error].should_not be_nil
+        end
+      end
+    end
   end
-  
 end
