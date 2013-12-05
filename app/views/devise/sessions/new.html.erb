@@ -5,9 +5,9 @@
 			background-color: #eee;
 		}
 		.form-signin {
-			max-width: 600px;
+			max-width: 550px;
 			padding: 19px 19px 2px;
-			margin: 0 auto 20px;
+			margin: auto auto 20px;
 			background-color: #fff;
 			border: 2px solid #e5e5e5;
 		}
@@ -25,6 +25,7 @@
 <div class="form-signin">
 	<div class="row">
 		<div class="span2">
+			<br>
 			<%= image_tag("/bamru_logo.jpg") %>
 		</div>
 		<div class="span3">
@@ -38,9 +39,9 @@
 			<%= f.submit "Sign In", class: "btn", :style => "margin-left: 80px;" %>
 			<% end %>
 		</div>
-		<div class="span12">
-			<h6> admin@test.com  	| admin169 member@test.com 	| member169 viewer@test.com | viewer169 </h6>
-		</div>
 	</div>
+</div>
+<div class="span10 offset2 pagination-centered">
+	<h6> admin@test.com	| admin169 || member@test.com | member169 || viewer@test.com | viewer169 </h6>
 </div>
 
