@@ -65,6 +65,13 @@ describe PhotosController do
     end
   end
   
+  describe "GET #edit_queue" do
+    it "renders the unedited index" do
+      get :edit_queue
+      response.should redirect_to(photos_path(:edited=>'false'))
+    end
+  end
+  
   describe "GET #new" do
     it "renders the :new view" do
       get :new 
@@ -86,7 +93,33 @@ describe PhotosController do
       end
     end
     
+    context "no photos passed in" do
+      before(:each) do
+        post :create, :photo => nil
+      end
+      
+      it "redirects to the uploads page" do
+        response.should redirect_to new_photo_path
+      end
+      
+      it "notifies an error" do
+        flash[:alert].should_not be_nil
+      end
+    end
+    
     context "save failed" do
+      before(:each) do
+        Photo.any_instance.stub(:save).and_return(false)
+        post :create, photo: FactoryGirl.attributes_for(:photo)
+      end
+      
+      it "redirects to the uploads page" do
+        response.should redirect_to new_photo_path
+      end
+      
+      it "notifies an error" do
+        flash[:alert].should_not be_nil
+      end
     end
   end
   
@@ -159,4 +192,15 @@ describe PhotosController do
       end
     end
   end
+  
+  describe "GET #flickr_auth" do
+    before(:each) do
+      #session['flickr_authenticated'].stub()
+    end
+  end
+  
+  describe "POST #flickr_upload" do
+  
+  end
+  
 end
