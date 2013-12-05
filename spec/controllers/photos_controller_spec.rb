@@ -249,13 +249,23 @@ describe PhotosController do
         before(:each) do
           session['flickr_authenticated'] = 'false'
           session['flickr_token'].stub(:[]).and_return(true)
-          #flickr.test.stub(:login).and_raise("error")
           flickr.stub(:upload_photo).and_return(true)
           post :flickr_upload, id: @image.id, code: "seemslegit"
         end
         
         it "updates the flash with an error" do
           flash[:error].should_not be_nil
+        end
+      end
+      context "gets access token" do
+        it "changes the session" do
+          session['flickr_token'].stub(:[]).and_return(true)
+          flickr.stub(:upload_photo).and_return(true)
+          flickr.stub(:get_access_token).and_return(true)
+          flickr.test.stub(:login).and_return(true)
+          post :flickr_upload, id: @image.id, code: "seemslegit"
+          
+          session['flickr_authenticated'].should == 'true'
         end
       end
     end
