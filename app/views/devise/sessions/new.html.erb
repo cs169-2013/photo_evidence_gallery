@@ -6,6 +6,7 @@
 		}
 		.form-signin {
 			max-width: 550px;
+			width: 100%;
 			padding: 1% 1% 2px;
 			margin: auto auto 20px;
 			background-color: #fff;
@@ -24,11 +25,11 @@
 </style>
 <div class="form-signin">
 	<div class="row">
-		<div class="span2">
+		<div class="span2" style="width: 30%; min-width: 200px; max-width: 300px;">
 			<br>
 			<%= image_tag("/bamru_logo.jpg") %>
 		</div>
-		<div class="span3">
+		<div class="span3" style="width: 40%; min-width: 300px; max-width: 400px;">
 			<h3>PhotoEvidence Gallery</h3>
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 				<%= f.email_field :email, autofocus: true, class: "input-block-level", placeholder: "Email" %>
