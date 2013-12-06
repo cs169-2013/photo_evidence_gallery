@@ -46,6 +46,17 @@ describe CsvController do
     end
   end
   
+	describe "tests that want to stub things" do
+		it "should be a blank test" do
+		end
+		it "should fail to create users if it can't save the user" do
+			User.any_instance.stub(:save).and_return(false)
+			post :import, :csv_file => Rack::Test::UploadedFile.new(filepath+ "user_add_test.csv", "text/csv")
+			flash.should_not be_empty
+			flash.to_hash.values.join.should match /Failed to create chiller@berkeley.edu/
+		end	
+	end
+
   describe "GET #export" do
     before(:each) do
       admin = FactoryGirl.create(:admin)
