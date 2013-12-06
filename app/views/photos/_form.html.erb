@@ -93,6 +93,14 @@
 
 <script src="/assets/locator.js?body=1"></script>
 
+<% if !@photo || !@photo.id %>
+  <script>
+    $(document).ready(function () {
+      $('#test_modal').modal();
+    });
+  </script>
+<% end %>
+
 <script>
   $(document).ready(function(){
     resizeDiv();
@@ -138,11 +146,3 @@
     $('#pickme').css({'height': vph + 'px'});
   }
 </script>
-
-<% if !@photo || !@photo.id %>
-  <script>
-    $(document).ready(function () {
-      $('#test_modal').modal();
-    });
-  </script>
-<% end %>
