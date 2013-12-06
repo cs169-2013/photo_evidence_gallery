@@ -6,6 +6,7 @@ class CsvController < ApplicationController
   end
 
   def import
+    @counter = 0
     default_password = ENV["DEFAULT_PASSWORD"]
     myfile = params[:csv_file]
     redirect_to csv_index_path, alert: "Please select a file to upload." and return unless myfile
@@ -19,15 +20,16 @@ class CsvController < ApplicationController
       if format_correct
         create_user
       end
+      @counter += 1
     end
     redirect_to csv_index_path
   end
 
   def format_correct
     if !@email || !@role
-      flash[SecureRandom.uuid] = "Failed to create a row, did not have email and role"
+      flash[@counter] = "Failed to create a row, did not have email and role"
     elsif !(@email =~ /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
-      flash[@email] = "Failed to create " + @email + ", did not have a valid email"
+      flash[@counter] = "Failed to create " + @email + ", did not have a valid email"
     else
       return true
     end
@@ -38,9 +40,9 @@ class CsvController < ApplicationController
   def create_user
     new_user = User.new(:email => @email, :password => @password, :password_confirmation => @password, :role => @role)
     if !new_user.save
-      flash[@email] = "Failed to create " + @email + " " + new_user.errors.messages.to_s
+      flash[@counter] = "Failed to create " + @email + " " + new_user.errors.messages.to_s
     else
-      flash[@email] = "Successfully created " + @email + " as a " + @role + ". The password is " + @password
+      flash[@counter] = "Successfully created " + @email + " as a " + @role + ". The password is " + @password
     end
   end
 

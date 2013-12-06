@@ -9,10 +9,10 @@
   </div>
   <div class="modal-body" id="pickme">
     <% if !@photo || !@photo.id %>
-      <div class="control-group">
+      <div class="control-group" style="margin-bottom: 15px;">
         <%= f.label @photo? :image : :images, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.file_field @photo? :image : :images, :class => 'file_field', :multiple => @photo? false : true %>
+        <div class="controls" style="line-height:30px;">
+          <%= f.file_field @photo? :image : :images, :class => 'file_field', :multiple => @photo? false : true, :style => 'height: 20px; line-height: 20px; margin-left: 2px' %>
         </div>
       </div>
     <% end %>
@@ -58,11 +58,11 @@
         <%= f.text_field :time_taken, :class => 'text_field' %>
       </div>
     </div>
-    <div style="text-align: center; margin-bottom: 20px;">
-      <input type="button" value="Use current time" id="timebutton" style="height: 30px; width: 150px;">
+    <div id="form_button">
+      <input id="current_button" type="button" value="Use current time" id="timebutton">
     </div>
-    <div style="text-align: center; margin-bottom: 20px;">
-      <input type="button" value="Use current location" id="coorbutton" style="height: 30px; width: 150px;">
+    <div id="form_button">
+      <input id="current_button" type="button" value="Use current location" id="coorbutton">
     </div>
 
     <div class="control-group">
@@ -85,13 +85,22 @@
     </div>
   </div>
   <div class="modal-footer" display="none">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal" style="vertical-align: 0%;">Close</button>
     <%= f.submit nil, :class => 'btn btn-primary' %>
   </div>
   <% end %>
 </div>
 
 <script src="/assets/locator.js?body=1"></script>
+
+<% if !@photo || !@photo.id %>
+  <script>
+    $(document).ready(function () {
+      $('#test_modal').modal();
+    });
+  </script>
+<% end %>
+
 
 <script>
   $(document).ready(function(){
@@ -104,7 +113,6 @@
       var curr_hour = d.getHours();
       var curr_min = d.getMinutes();
       var a_p = "";
-      var curr_hour = d.getHours();
 
       if (curr_hour < 12)
          {
@@ -138,11 +146,3 @@
     $('#pickme').css({'height': vph + 'px'});
   }
 </script>
-
-<% if !@photo || !@photo.id %>
-  <script>
-    $(document).ready(function () {
-      $('#test_modal').modal();
-    });
-  </script>
-<% end %>

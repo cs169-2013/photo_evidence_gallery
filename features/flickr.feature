@@ -11,6 +11,6 @@ Background: I am on the homepage
 	And I am on the PhotoApp homepage
 
 Scenario: I successfully see the Flickr button
-	And I follow "Show"
+	And I follow "pic"
 	And I follow "Flickr"
 	Then I should upload to Flickr

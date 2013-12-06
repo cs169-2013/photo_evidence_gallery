@@ -86,7 +86,7 @@
           <% if current_user.role == "admin" %>
             <%= link_to "CSV", csv_index_path %> |
           <% end %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :html => {:onclick => 'FB.Logout();'} %>
           <br>
         <% else %>
           <%= link_to "Sign up", new_user_registration_path %> |
