@@ -21,3 +21,11 @@ Scenario: I upload a correctly formatted csv file
 	When I follow "Logout"
 	And I log in as "chiller@berkeley.edu" and password "bamru12345"
 	Then I should see "Signed in successfully."  
+
+Scenario: I upload an incorrectly formatted csv file
+	When I follow "CSV"
+	Then I should be on the CSV page
+	When I upload the file "user_add_bad_test.csv"
+	And I press "Import"
+	Then I should see "Failed to create a row, did not have email and role"
+	Then I should see "Failed to create thisisnotanemailaddress, did not have a valid email"
