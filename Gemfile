@@ -57,6 +57,8 @@ gem "twitter-bootstrap-rails"
 
 gem 'flickraw'
 
+gem 'fb_graph'
+gem 'omniauth-facebook'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'fog'

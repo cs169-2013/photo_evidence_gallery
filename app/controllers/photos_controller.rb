@@ -139,6 +139,10 @@ class PhotosController < ApplicationController
     @auth_url = flickr.get_authorize_url(token['oauth_token'], :perms => 'delete')
     session['flickr_token']=token
   end
+  
+  def facebook_auth
+    
+  end
 
   #POST
   def flickr_upload
