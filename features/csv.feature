@@ -30,4 +30,6 @@ Scenario: I upload an incorrectly formatted csv file
 	Then I should see "Failed to create a row, did not have email and role"
 	Then I should see "Failed to create thisisnotanemailaddress, did not have a valid email"
 	When I upload the file "user_invalid_test.csv"
+	Then I should see "Failed to create a row, did not have email and role"
+	Then I should see "Successfully created andyl@berkeley.edu as a member. The password is bamru12345"
 	Then I should see "Failed to create andyl@berkeley.edu {:email=>["has already been taken"]}"
