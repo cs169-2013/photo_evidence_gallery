@@ -141,7 +141,21 @@ class PhotosController < ApplicationController
   end
   
   def facebook_auth
-    
+    session["facebook_token"] = request.env['omniauth.auth']
+    params[:id] = request.env["omniauth.params"]["state"]      
+    set_photo
+    facebook_upload
+    return    
+  end
+
+  def facebook_upload
+    token = session["facebook_token"]["credentials"]["token"]
+    me = FbGraph::User.me(token)
+    me.photo!(
+      :source => open(@photo.image_url())
+    )
+    flash[:success] = "Photo Uploaded to Facebook"
+    redirect_to photo_path(@photo) and return
   end
 
   #POST

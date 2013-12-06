@@ -43,6 +43,6 @@
   <%= link_to t('.flickr', :default => "Flickr"),
     flickr_upload_path(@photo), :class => 'btn btn-success'%>
     <%= link_to t('.facebook', :default => "Facebook"),
-              facebook_upload_path(@photo), :class => 'btn btn-success'%>
+      "/auth/facebook?state=#{@photo.id}", :class => 'btn btn-info' %>
   <% end %>
 </div>
