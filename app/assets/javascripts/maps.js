@@ -3,8 +3,6 @@ var map;
 function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, name]
 {
   var mapOptions = {
-    //center: new google.maps.LatLng(pins[0][0], pins[0][1]),
-    //zoom: 100,
     disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
