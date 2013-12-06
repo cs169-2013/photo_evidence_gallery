@@ -29,3 +29,5 @@ Scenario: I upload an incorrectly formatted csv file
 	And I press "Import"
 	Then I should see "Failed to create a row, did not have email and role"
 	Then I should see "Failed to create thisisnotanemailaddress, did not have a valid email"
+	When I upload the file "user_invalid_test.csv"
+	Then I should see "Failed to create andyl@berkeley.edu {:email=>["has already been taken"]}"
