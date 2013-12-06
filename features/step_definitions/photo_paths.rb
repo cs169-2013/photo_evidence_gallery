@@ -1,4 +1,6 @@
-
+Then /I should upload to Flickr/ do
+	page.body.should have_content "www.flickr.com"
+end
 
 Given /the following images exist/ do |pictures_table|
   pictures_table.hashes.each do |pic|

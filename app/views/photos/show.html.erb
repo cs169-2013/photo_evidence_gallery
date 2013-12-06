@@ -33,14 +33,14 @@
   <%= link_to t('.home', :default => t("helpers.links.home")),
               photos_path, :class => 'btn'  %>
   <% if current_user.role != "viewer" %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_photo_path(@photo), :class => 'btn btn-primary' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              photo_path(@photo),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
-  <%= link_to t('.flickr', :default => "Flickr"),
-              flickr_upload_path(@photo), :class => 'btn btn-success'%>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_photo_path(@photo), :class => 'btn btn-primary' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                photo_path(@photo),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+    <%= link_to t('.flickr', :default => "Flickr"),
+                flickr_upload_path(@photo), :class => 'btn btn-success'%>
   <% end %>
 </div>

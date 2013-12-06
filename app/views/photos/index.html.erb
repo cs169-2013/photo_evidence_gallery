@@ -11,11 +11,10 @@
     <% @photo_pack.each do |photo_pack| %>
       <tr> 
       <% photo_pack.each do |photo| %>
-        <td align="center" valign="center">
+        <td align="center" valign="center" style="text-align: center;">
           <%= link_to image_tag(photo.image_url(:thumb)), photo, :id => "pic" %></br>
-	        <%= link_to 'Show', photo %>
 	        <% if current_user.role != "viewer" %>
-			      | <%= link_to 'Edit', edit_photo_path(photo) %> | 
+			      <%= link_to 'Edit', edit_photo_path(photo) %> | 
 			      <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
 			    <% end %>
         </td>
@@ -45,10 +44,11 @@
         <% end %>
       ]);
       $("#map_show").click(function() {
+        var bounds = map.getBounds();
         $("#map-canvas").toggle();
-        var center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
-        map.setCenter(center); 
+        map.fitBounds(bounds); 
+        map.setZoom(zoom);
       });
     }
   </script>
