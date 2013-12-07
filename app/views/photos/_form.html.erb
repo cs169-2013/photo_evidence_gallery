@@ -87,6 +87,7 @@
   <div class="modal-footer" display="none">
     <button type="button" class="btn btn-default" data-dismiss="modal" style="vertical-align: 0%;">Close</button>
     <%= f.submit nil, :class => 'btn btn-primary' %>
+    <div class='uploadf'>Uploading...</div>
   </div>
   <% end %>
 </div>
@@ -97,6 +98,21 @@
   <script>
     $(document).ready(function () {
       $('#test_modal').modal();
+      var $uploadf = $(".uploadf");
+      $uploadf.hide();
+      $(".btn.btn-primary").click(function () {
+        function fadeThemOut()
+        {
+            $uploadf.fadeOut('slow', fadeThemIn);
+        }
+
+        function fadeThemIn()
+        {
+            $uploadf.fadeIn('slow', fadeThemOut);
+        }
+        $uploadf.show();
+        fadeThemOut();
+      });
     });
   </script>
 <% end %>
