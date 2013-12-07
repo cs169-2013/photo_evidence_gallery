@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
 
-  before_action :set_photo, only: [:show, :edit, :update, :destroy, :flickr_upload]
+  before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :save_user_info, only: [:create, :update, :make_multiple]
   before_filter :authenticate_user!
   before_filter :authenticate_member!, :except => [:index, :show]
@@ -122,23 +122,6 @@ class PhotosController < ApplicationController
     end
     redirect_to photos_multiple_uploads_path, notice: "Multiple images uploaded"
   end
-
-  #GET
-  def flickr_auth
-    begin
-      flickr.test.login
-    rescue
-      session['flickr_authenticated']='false'
-    end
-    if session['flickr_authenticated'] == 'true'
-      set_photo
-      flickr_upload
-      return
-    end
-    token = flickr.get_request_token
-    @auth_url = flickr.get_authorize_url(token['oauth_token'], :perms => 'delete')
-    session['flickr_token']=token
-  end
   
   def facebook_auth
     session["facebook_token"] = request.env['omniauth.auth']
@@ -158,8 +141,25 @@ class PhotosController < ApplicationController
     redirect_to photo_path(@photo) and return
   end
 
+  #GET
+  def flickr_auth
+    begin
+      flickr.test.login
+    rescue
+      session['flickr_authenticated']='false'
+    end
+    if session['flickr_authenticated'] == 'true'
+      flickr_upload
+      return
+    end
+    token = flickr.get_request_token
+    @auth_url = flickr.get_authorize_url(token['oauth_token'], :perms => 'delete')
+    session['flickr_token']=token
+  end
+
   #POST
   def flickr_upload
+    set_photo
     if session['flickr_authenticated'] != 'true' 
       verify = params['code'].strip
       token = session['flickr_token']
