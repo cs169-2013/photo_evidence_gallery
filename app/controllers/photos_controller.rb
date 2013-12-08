@@ -129,7 +129,7 @@ class PhotosController < ApplicationController
   end
 
   def facebook_upload
-    session["facebook_token"] = request.env['omniauth.auth']    
+    session["facebook_token"] = request.env['omniauth.auth']
     params[:id] = session["facebook_state"][0]
     set_photo
     token = session["facebook_token"]["credentials"]["token"]

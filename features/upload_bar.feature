@@ -8,7 +8,7 @@ Background: I am on the homepage
 	Given I am logged in as a valid user
 	And I am on the PhotoApp homepage
 
-Scenario: uploading a picture from a phone with metadata and seeing map
+Scenario: uploading a picture
 	When I follow "Upload"
 	Then I should be on the New Photo page
 	And I upload the image "Berkeley.jpg"

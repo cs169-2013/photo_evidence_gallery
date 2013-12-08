@@ -64,3 +64,21 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.ignore_hidden_elements = false
 
+Before('@omniauth_test_success') do
+  OmniAuth.config.test_mode = true
+
+  OmniAuth.config.mock_auth[:facebook] = {
+    "provider"  => "facebook",
+    "uid"       => '12345',
+    "user_info" => {
+      "email" => "email@email.com",
+      "first_name" => "John",
+      "last_name"  => "Doe",
+      "name"       => "John Doe"
+    },
+
+    "credentials" => {
+    	"token" => "CAAG4iPbB2OcBACABtyvEKeKRa4ZBV6H6GBtMLJnRI4GdTpJM1qyJduALFLCuDRuKZCEzu0kW2cxUnH5SiomNACbktOlAfLIr9XTROCZBKw4YBcld66Fe8LBUvPR2N5TglrIBZCavYUrNnZBLLDZAtWUjckegwzBZCvfNAx8zRw5aV2swPMZCmYqfQgBbPuhSmWLZAa3ooltDCVAZDZD"
+    }
+  }
+end
