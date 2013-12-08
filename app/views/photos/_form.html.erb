@@ -59,10 +59,10 @@
       </div>
     </div>
     <div id="form_button">
-      <input id="current_button" type="button" value="Use current time" id="timebutton">
+      <input class="current_button" type="button" value="Use current time" id="timebutton">
     </div>
     <div id="form_button">
-      <input id="current_button" type="button" value="Use current location" id="coorbutton">
+      <input class="current_button" type="button" value="Use current location" id="coorbutton">
     </div>
 
     <div class="control-group">
@@ -94,8 +94,6 @@
   <% end %>
 </div>
 
-<script src="/assets/locator.js?body=1"></script>
-
 <% if !@photo || !@photo.id %>
   <script>
     $(document).ready(function () {
@@ -108,6 +106,31 @@
 <script>
   $(document).ready(function(){
     resizeDiv();
+
+    $("#coorbutton").click(function(e) {
+      var x=$("#coorbutton");
+      function getLocation()
+        {
+        x.prop('value', "Locating....");
+        if (navigator.geolocation)
+          {
+          navigator.geolocation.getCurrentPosition(showPosition);
+          }
+        else{x.prop('value', "Geolocation is not supported by this browser.");}
+        }
+      function showPosition(position)
+      {
+        x.prop('value', "Success");
+        $("#photo_lat").val(position.coords.latitude);
+        $("#photo_lng").val(position.coords.longitude);
+        $("#photos_lat").val(position.coords.latitude);
+        $("#photos_lng").val(position.coords.longitude);
+      }
+      getLocation();
+        
+        
+    });
+
     var $uploadf = $(".uploadf");
     $uploadf.hide();
     $("#form-submit").click(function () {
