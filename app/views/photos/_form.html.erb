@@ -131,22 +131,6 @@
         
     });
 
-    var $uploadf = $(".uploadf");
-    $uploadf.hide();
-    $("#form-submit").click(function () {
-      function fadeThemOut()
-      {
-          $uploadf.fadeOut('slow', fadeThemIn);
-      }
-
-      function fadeThemIn()
-      {
-          $uploadf.fadeIn('slow', fadeThemOut);
-      }
-      $uploadf.show();
-      fadeThemOut();
-    });
-
     $("#timebutton").click(function(e) {
       var d = new Date();
       var curr_date = d.getDate();
@@ -174,8 +158,25 @@
          }
 
       var curr_min = d.getMinutes();
-      $("#photo_time_taken").val(curr_month + "/" + curr_date + "/" + curr_year + " " + curr_hour + ":" + curr_min + " " + a_p);
+      var time = curr_month + "/" + curr_date + "/" + curr_year + " " + curr_hour + ":" + curr_min + " " + a_p;
+      $("#photo_time_taken").val(time);
       $("#photos_time_taken").val(time);
+    });
+
+    var $uploadf = $(".uploadf");
+    $uploadf.hide();
+    $("#form-submit").click(function () {
+      function fadeThemOut()
+      {
+          $uploadf.fadeOut('slow', fadeThemIn);
+      }
+
+      function fadeThemIn()
+      {
+          $uploadf.fadeIn('slow', fadeThemOut);
+      }
+      $uploadf.show();
+      fadeThemOut();
     });
   });
 

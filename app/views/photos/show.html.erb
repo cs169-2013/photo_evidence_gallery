@@ -50,9 +50,12 @@
 <div class="modal fade" id="comment_modal" style="display: none;">
   <div class="modal-body" id="pickme">
     <%= form_tag("/facebook/#{@photo.id}", method: "post") do %>
+      <h1>
+        <div class='facebookf'>Uploading to Facebook....</div>
+      </h1>
       <%= label_tag(:comment, "Comments:") %>
       <%= text_field_tag(:comment) %>
-      <%= submit_tag("Upload to Facebook") %>
+      <%= submit_tag "Upload to Facebook", :id => "facebook_submit" %>
     <% end %>
   </div>
 </div>  
@@ -62,6 +65,22 @@
   $(document).ready(function () {
     $(".btn.btn-info").click(function () {
       $('#comment_modal').modal();
-    });    
+    });   
+
+    var $uploadf = $(".facebookf");
+    $uploadf.hide();
+    $("#facebook_submit").click(function () {
+      function fadeThemOut()
+      {
+          $uploadf.fadeOut('slow', fadeThemIn);
+      }
+
+      function fadeThemIn()
+      {
+          $uploadf.fadeIn('slow', fadeThemOut);
+      }
+      $uploadf.show();
+      fadeThemOut();
+    }); 
   });
 </script>
