@@ -17,6 +17,9 @@
     <% %w[x y w h].each do |attribute| %>
       <%= f.hidden_field "crop_#{attribute}", :style => "width: 100px;" %>
     <% end %>
+    <h1>
+      <div class='cropf'>Cropping....</div>
+    </h1>
   </div>
 <% end %>
 
@@ -62,5 +65,23 @@
       $('#photo_crop_w').val(c.w / boundx);
       $('#photo_crop_h').val(c.h / boundy);
     };
+  });
+
+  $(document).ready(function(){
+    var $uploadf = $(".cropf");
+    $uploadf.hide();
+    $("#cropper").click(function () {
+      function fadeThemOut()
+      {
+          $uploadf.fadeOut('slow', fadeThemIn);
+      }
+
+      function fadeThemIn()
+      {
+          $uploadf.fadeIn('slow', fadeThemOut);
+      }
+      $uploadf.show();
+      fadeThemOut();
+    });
   });
 </script>

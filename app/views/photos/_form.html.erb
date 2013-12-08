@@ -85,9 +85,11 @@
     </div>
   </div>
   <div class="modal-footer" display="none">
+    <h1>
+      <div class='uploadf'><%= (@photo && @photo.id)? "Updating...." : "Uploading..." %></div>
+    </h1>
     <button type="button" class="btn btn-default" data-dismiss="modal" style="vertical-align: 0%;">Close</button>
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <div class='uploadf'>Uploading...</div>
+    <%= f.submit nil, :class => 'btn btn-primary', :id => 'form-submit' %>
   </div>
   <% end %>
 </div>
@@ -98,21 +100,6 @@
   <script>
     $(document).ready(function () {
       $('#test_modal').modal();
-      var $uploadf = $(".uploadf");
-      $uploadf.hide();
-      $(".btn.btn-primary").click(function () {
-        function fadeThemOut()
-        {
-            $uploadf.fadeOut('slow', fadeThemIn);
-        }
-
-        function fadeThemIn()
-        {
-            $uploadf.fadeIn('slow', fadeThemOut);
-        }
-        $uploadf.show();
-        fadeThemOut();
-      });
     });
   </script>
 <% end %>
@@ -121,6 +108,22 @@
 <script>
   $(document).ready(function(){
     resizeDiv();
+    var $uploadf = $(".uploadf");
+    $uploadf.hide();
+    $("#form-submit").click(function () {
+      function fadeThemOut()
+      {
+          $uploadf.fadeOut('slow', fadeThemIn);
+      }
+
+      function fadeThemIn()
+      {
+          $uploadf.fadeIn('slow', fadeThemOut);
+      }
+      $uploadf.show();
+      fadeThemOut();
+    });
+
     $("#timebutton").click(function(e) {
       var d = new Date();
       var curr_date = d.getDate();

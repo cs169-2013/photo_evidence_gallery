@@ -12,6 +12,29 @@
   <div class="form-actions">
     <%= f.text_field "rotation", :readonly => true, :style => "width: 100px;" %>
     <%= f.submit "Rotate", :class => 'btn btn-primary', :id => "rotation" %>
+    <h1>
+      <div class='rotatef'>Rotating....</div>
+    </h1>
   </div>
 <% end %>
 <script src="/assets/rotate.js?body=1"></script>
+
+<script>
+  $(document).ready(function(){
+    var $uploadf = $(".rotatef");
+    $uploadf.hide();
+    $("#rotation").click(function () {
+      function fadeThemOut()
+      {
+          $uploadf.fadeOut('slow', fadeThemIn);
+      }
+
+      function fadeThemIn()
+      {
+          $uploadf.fadeIn('slow', fadeThemOut);
+      }
+      $uploadf.show();
+      fadeThemOut();
+    });
+  });
+</script>

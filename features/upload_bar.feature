@@ -13,4 +13,3 @@ Scenario: uploading a picture from a phone with metadata and seeing map
 	Then I should be on the New Photo page
 	And I upload the image "Berkeley.jpg"
 	Then I should see "Uploading..."
-	#doesn't actually test anything, but is the minimum test needed to pass; not sure how to test this feature.

@@ -15,12 +15,12 @@
 </div>
 
 <p>
-  Please use a CSV file with the columns: <strong> email, name, role </strong><br>
+  Please use a CSV file with the columns: <strong> email, role </strong><br>
 </p>
 
 <%= form_tag({:action => :import}, multipart: true) do %>
   <div class="form-actions">
-    <%= file_field_tag :csv_file %>
+    <%= file_field_tag :csv_file, :style => 'margin-top: 2px; line-height: 12px; margin-left: 2px;' %>
     <%= submit_tag("Import", :class => 'btn btn-primary') %>
   </div>
 <% end %>
