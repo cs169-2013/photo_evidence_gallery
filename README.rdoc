@@ -1,5 +1,6 @@
-== README
+== BAMRU Photo Evidence Gallery
 
+{<img src="https://codeclimate.com/github/cs169-2013/photo_evidence_gallery.png" />}[https://codeclimate.com/github/cs169-2013/photo_evidence_gallery]
 
 README
 
