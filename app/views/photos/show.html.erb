@@ -43,7 +43,27 @@
               :class => 'btn btn-danger' %>
   <%= link_to t('.flickr', :default => "Flickr"),
     flickr_upload_path(@photo), :class => 'btn btn-success'%>
+  <input type="button", value = "Facebook", class = 'btn btn-info', onclick="modal()"/>
   <%= link_to t('.facebook', :default => "Facebook"),
       "/auth/facebook?state=#{@photo.id}", :class => 'btn btn-info' %>
   <% end %>
 </div>
+
+<div class="modal fade" id="comment_modal" style="display: none;">
+  <div class="modal-body" id="pickme">
+    <%= form_tag("/facebook/#{@photo.id}", method: "post") do %>
+      <%= label_tag(:comment, "Comments:") %>
+      <%= text_field_tag(:comment) %>
+      <%= submit_tag("Upload to Facebook") %>
+    <% end %>
+  </div>
+</div>  
+
+
+<script>
+  $(document).ready(function () {
+    $(".btn.btn-info").click(function () {
+      $('#comment_modal').modal();
+    });    
+  });
+</script>

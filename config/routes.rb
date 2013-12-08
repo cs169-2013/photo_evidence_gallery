@@ -7,8 +7,9 @@ PhotoApp::Application.routes.draw do
   get 'photos/index' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
   get '/' => 'photos#index', :defaults => {:edited => 'true', :incident => 'All'}
 	get 'photos/flickr/:id' => 'photos#flickr_auth', as: 'flickr_auth'
-  get '/auth/facebook/callback/' => 'photos#facebook_auth', as: 'facebook_upload'
+  get '/auth/facebook/callback/' => 'photos#facebook_upload'
 	post 'photos/flickr/:id' => 'photos#flickr_upload', as: 'flickr_upload'
+  post '/facebook/:id' => 'photos#facebook_auth'
   resources :photos
   # resources :csv
   post 'csv/import'
