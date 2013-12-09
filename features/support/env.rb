@@ -1,4 +1,5 @@
 require 'simplecov'
+require 'net/http'
 SimpleCov.start 'rails'
 
 # support for factorygirl
@@ -66,19 +67,19 @@ Capybara.ignore_hidden_elements = false
 
 Before('@omniauth_test_success') do
   OmniAuth.config.test_mode = true
-
+  a = Net::HTTP.get(URI.parse(URI.encode("https://graph.facebook.com/374207002726153/accounts/test-users?installed=true&name=KEVINSTESTER&locale=en_US&permissions=read_stream&method=post&access_token=484373371672807|ISgczcGdYVPCyCz6FMMqDySJc_Y")))
   OmniAuth.config.mock_auth[:facebook] = {
     "provider"  => "facebook",
-    "uid"       => '12345',
+    "uid"       => a["id"],
     "user_info" => {
-      "email" => "email@email.com",
-      "first_name" => "John",
-      "last_name"  => "Doe",
-      "name"       => "John Doe"
+      "email" => a["email"],
+      "first_name" => "KEVINS",
+      "last_name"  => "TESTER",
+      "name"       => "KEVINS TESTER"
     },
 
     "credentials" => {
-    	"token" => "CAAG4iPbB2OcBACABtyvEKeKRa4ZBV6H6GBtMLJnRI4GdTpJM1qyJduALFLCuDRuKZCEzu0kW2cxUnH5SiomNACbktOlAfLIr9XTROCZBKw4YBcld66Fe8LBUvPR2N5TglrIBZCavYUrNnZBLLDZAtWUjckegwzBZCvfNAx8zRw5aV2swPMZCmYqfQgBbPuhSmWLZAa3ooltDCVAZDZD"
+      "token" => eval(a.split(",")[2].split(':')[1])
     }
   }
 end
