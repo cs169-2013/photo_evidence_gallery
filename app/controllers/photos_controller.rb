@@ -145,11 +145,6 @@ class PhotosController < ApplicationController
 
   #GET
   def flickr_auth
-    begin
-      flickr.test.login
-    rescue
-      session['flickr_authenticated']='false'
-    end
     if session['flickr_authenticated'] == 'true'
       flickr_upload
       return
@@ -164,15 +159,26 @@ class PhotosController < ApplicationController
     set_photo
     if session['flickr_authenticated'] != 'true' 
       verify = params['code'].strip
+      session['code'] = verify
       token = session['flickr_token']
       begin
+        flickr = FlickRaw::Flickr.new
+        
         flickr.get_access_token(token['oauth_token'], token['oauth_token_secret'], verify)
+        session["flickr_access"] = flickr.access_token
+        session["flickr_secret"] = flickr.access_secret
         @login = flickr.test.login
-        session['flickr_authenticated']='true'
+        session['flickr_authenticated'] = 'true'
       rescue FlickRaw::OAuthClient::FailedResponse => e
         flash[:error] = "Authentication failed : #{e.message}"
       end
+    else
+      flickr = FlickRaw::Flickr.new
+      flickr.access_token = session["flickr_access"]
+      flickr.access_secret = session["flickr_secret"]
+      
     end
+    debugger
     flickr.upload_photo @photo.image_url, :title => 'Title', :description => 'This is the description'
     flash[:success] = "Photo Uploaded to Flickr"
     redirect_to photo_path(@photo) and return
