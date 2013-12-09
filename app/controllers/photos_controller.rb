@@ -178,7 +178,6 @@ class PhotosController < ApplicationController
       flickr.access_secret = session["flickr_secret"]
       
     end
-    debugger
     flickr.upload_photo @photo.image_url, :title => 'Title', :description => 'This is the description'
     flash[:success] = "Photo Uploaded to Flickr"
     redirect_to photo_path(@photo) and return
