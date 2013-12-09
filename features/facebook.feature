@@ -1,9 +1,10 @@
-Feature: Flickr Upload
+Feature: Facebook Upload
 	As a Bamru member
 	So I can make certain pictures public
 	I want to upload pictures to Facebook from the app
 
 Background: I am on the homepage
+
 	Given I am logged in as a valid user
 	And I follow "Upload"
 	And I upload the image "Water.jpg"
