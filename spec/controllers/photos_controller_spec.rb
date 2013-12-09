@@ -193,6 +193,46 @@ describe PhotosController do
     end
   end
   
+  describe "GET #facebook_auth" do
+    before(:each) do
+      @image = FactoryGirl.create(:photo)
+      get :facebook_auth, id: @image.id
+    end
+    
+    it "saves photo id into session" do
+      session["facebook_state"][0].should == @image.id.to_s
+    end
+    
+    it "redirects to omniauth handler" do
+      response.should redirect_to "/auth/facebook"
+    end
+  end
+  
+  describe "POST #facebook_upload" do
+    before(:each) do 
+      @image = FactoryGirl.create(:photo)
+    end
+    
+    context "successful authentication" do
+      before(:each) do
+        session["facebook_state"]=[@image.id, "message"]
+        session["facebook_token"].stub_chain(:[],:[]).and_return("token")
+        Photo.any_instance.stub(:image_url).and_return("fakeurl.com")
+        FbGraph::User.any_instance.stub(:photo!)
+        @controller.stub(:open)
+        post :facebook_upload, id:@image.id
+      end
+      
+      it "updates the flash" do
+        flash[:success].should == "Photo Uploaded to Facebook"
+      end
+      
+      it "redirects to photo" do
+        response.should redirect_to photo_path(@image.id)
+      end
+    end
+  end
+  
   describe "GET #flickr_auth" do
     before(:each) do
       @image = FactoryGirl.create(:photo)
