@@ -154,10 +154,8 @@ class PhotosController < ApplicationController
     end
 
 
-    if session['flickr_authenticated'] == 'true'
-      flickr_upload
-      return
-    end
+    flickr_upload and return if session['flickr_authenticated'] == 'true'
+
     token = flickr.get_request_token
     @auth_url = flickr.get_authorize_url(token['oauth_token'], :perms => 'delete')
     session['flickr_token']=token
