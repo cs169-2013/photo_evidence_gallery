@@ -215,6 +215,7 @@ describe PhotosController do
     
     context "successful authentication" do
       before(:each) do
+        allow_message_expectations_on_nil
         session["facebook_state"]=[@image.id, "message"]
         session["facebook_token"].stub_chain(:[],:[]).and_return("token")
         Photo.any_instance.stub(:image_url).and_return("fakeurl.com")
