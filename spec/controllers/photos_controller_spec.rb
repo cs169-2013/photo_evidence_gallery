@@ -250,19 +250,6 @@ describe PhotosController do
       end
       
     end
-    context "successful authentication" do
-      before(:each) do
-        FlickRaw::Flickr.any_instance.stub(:get_request_token).and_return("token")
-				FlickRaw::Flickr.any_instance.stub_chain(:test, :login).and_return(true)
-        get :flickr_auth, id: @image.id
-				session['flickr_authenticated'] = 'true'
-      end
-      
-      it "should call flickr_upload" do
-				session['flickr_authenticated'].should == 'true'
-      end
-      
-    end
   end
   
   describe "POST #flickr_upload" do
