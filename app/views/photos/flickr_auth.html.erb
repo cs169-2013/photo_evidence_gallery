@@ -2,7 +2,8 @@
   <h3>Flickr Authentication</h3>
 </div>
 
-Please allow pop-ups.
+Please allow pop-ups or click
+<%= link_to 'this link', @auth_url %>
 <%= form_tag do %>
 	<div class="form-actions">
 		<%= text_field_tag :code, nil, :placeholder => "###-###-###" %>
