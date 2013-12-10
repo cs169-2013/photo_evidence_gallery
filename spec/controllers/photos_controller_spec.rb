@@ -225,7 +225,7 @@ describe PhotosController do
       end
       
       it "updates the flash" do
-        flash[:success].should == "Photo Uploaded to Facebook"
+        flash[:notice].should == "Photo Uploaded to Facebook"
       end
       
       it "redirects to photo" do
@@ -278,7 +278,7 @@ describe PhotosController do
       end
       
       it "updates the flash" do
-        flash[:success].should_not be_nil
+        flash[:notice].should_not be_nil
       end
       
       it "redirects to photo's page" do

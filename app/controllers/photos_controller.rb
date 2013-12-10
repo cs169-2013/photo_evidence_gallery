@@ -152,6 +152,8 @@ class PhotosController < ApplicationController
     rescue
       session['flickr_authenticated']='false'
     end
+
+
     if session['flickr_authenticated'] == 'true'
       flickr_upload
       return
@@ -194,8 +196,6 @@ class PhotosController < ApplicationController
     end
     return true
   end
-
-
 
   private
   # Use callbacks to share common setup or constraints between actions.
