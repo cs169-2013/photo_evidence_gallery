@@ -193,6 +193,46 @@ describe PhotosController do
     end
   end
   
+  describe "GET #facebook_auth" do
+    before(:each) do
+      @image = FactoryGirl.create(:photo)
+      get :facebook_auth, id: @image.id
+    end
+    
+    it "saves photo id into session" do
+      session["facebook_state"][0].should == @image.id.to_s
+    end
+    
+    it "redirects to omniauth handler" do
+      response.should redirect_to "/auth/facebook"
+    end
+  end
+  
+  describe "POST #facebook_upload" do
+    before(:each) do 
+      @image = FactoryGirl.create(:photo)
+    end
+    
+    context "successful authentication" do
+      before(:each) do
+        session["facebook_state"]=[@image.id, "message"]
+        session["facebook_token"].stub_chain(:[],:[]).and_return("token")
+        Photo.any_instance.stub(:image_url).and_return("fakeurl.com")
+        FbGraph::User.any_instance.stub(:photo!)
+        @controller.stub(:open)
+        post :facebook_upload, id:@image.id
+      end
+      
+      it "updates the flash" do
+        flash[:success].should == "Photo Uploaded to Facebook"
+      end
+      
+      it "redirects to photo" do
+        response.should redirect_to photo_path(@image.id)
+      end
+    end
+  end
+  
   describe "GET #flickr_auth" do
     before(:each) do
       @image = FactoryGirl.create(:photo)
@@ -216,10 +256,6 @@ describe PhotosController do
         get :flickr_auth, id: @image.id
       end
       
-      it "sets authenticated in the session" do
-        session['flickr_authenticated'].should == 'false'
-      end
-      
       it "saves the token in the session" do
         session['flickr_token'].should == "token"
       end
@@ -230,13 +266,13 @@ describe PhotosController do
   describe "POST #flickr_upload" do
     before(:each) do
       @image = FactoryGirl.create(:photo)
-      @image.stub(:image_url).and_return("fakeurl.com")
     end
     
     context "successfully authenticated" do
       before(:each) do
-        flickr.stub(:upload_photo)
         session['flickr_authenticated'] = 'true'
+        FlickRaw::Flickr.any_instance.stub(:upload_photo)
+        Photo.any_instance.stub(:image_url).and_return("fakeurl.com")
         post :flickr_upload, id: @image.id
       end
       
@@ -254,7 +290,7 @@ describe PhotosController do
           session['flickr_authenticated'] = 'false'
           session['flickr_token'] = "this token is legit"
           session['flickr_token'].stub(:[]).and_return(true)
-          flickr.stub(:upload_photo).and_return(true)
+          FlickRaw::Flickr.any_instance.stub(:upload_photo)
           post :flickr_upload, id: @image.id, code: "seemslegit"
         end
         
@@ -266,9 +302,11 @@ describe PhotosController do
         it "changes the session" do
           session['flickr_token'] = "this token is legit"
           session['flickr_token'].stub(:[]).and_return(true)
-          flickr.stub(:upload_photo).and_return(true)
-          flickr.stub(:get_access_token).and_return(true)
-          flickr.test.stub(:login).and_return(true)
+          FlickRaw::Flickr.any_instance.stub(:upload_photo)
+          FlickRaw::Flickr.any_instance.stub(:get_access_token)
+          #flickr.stub(:access_token).and_return('token')
+          #flickr.stub(:access_secret).and_return('secret')
+          FlickRaw::Flickr.any_instance.stub_chain("test.login").and_return(true)
           post :flickr_upload, id: @image.id, code: "seemslegit"
           
           session['flickr_authenticated'].should == 'true'
