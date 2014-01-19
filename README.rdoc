@@ -8,6 +8,8 @@ bundle install
 rake db:migrate 
 rake db:seed
 
+http://photoevidence.herokuapp.com/ - Heroku site
+
 default user accounts
 username: admin@test.com password: admin169 
 username: member@test.com password: member169 
